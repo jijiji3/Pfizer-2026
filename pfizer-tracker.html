@@ -1,0 +1,1622 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pfizer 24-Week Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080a0d;
+  --s1: #0e1117;
+  --s2: #151a22;
+  --s3: #1c2330;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --green: #1ddb7a;
+  --green-dim: rgba(29,219,122,0.15);
+  --yellow: #f0c040;
+  --yellow-dim: rgba(240,192,64,0.12);
+  --red: #e84040;
+  --red-dim: rgba(232,64,64,0.12);
+  --blue: #3d8ef0;
+  --blue-dim: rgba(61,142,240,0.12);
+  --white: #edf0f4;
+  --muted: #4a5568;
+  --muted2: #6b7a90;
+  --text: #c8d0dc;
+  --coach-gold: #c9a84c;
+  --coach-gold-dim: rgba(201,168,76,0.12);
+  --purple: #9b72cf;
+  --purple-dim: rgba(155,114,207,0.12);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+/* ─── TOP NAV ─── */
+.topnav { position: sticky; top: 0; z-index: 100; background: rgba(8,10,13,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; }
+.nav-brand { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; color: var(--green); }
+.nav-tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.nav-tab { padding: 6px 14px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 6px; cursor: pointer; color: var(--muted2); transition: all 0.2s; border: none; background: none; }
+.nav-tab.active, .nav-tab:hover { background: var(--s2); color: var(--white); }
+.nav-tab.active { color: var(--green); }
+.nav-tab.coach-tab.active { color: var(--coach-gold); }
+.nav-tab.workout-tab.active { color: var(--purple); }
+
+/* ─── PAGES ─── */
+.page { display: none; padding: 32px; }
+.page.active { display: block; }
+
+/* ─── STAT CARDS ─── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.stat-card { background: var(--s1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 18px; position: relative; overflow: hidden; transition: border-color 0.2s; }
+.stat-card:hover { border-color: var(--border2); }
+.stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+.stat-card.green::after { background: var(--green); }
+.stat-card.yellow::after { background: var(--yellow); }
+.stat-card.red::after { background: var(--red); }
+.stat-card.blue::after { background: var(--blue); }
+.stat-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
+.stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1; color: var(--white); }
+.stat-val span { font-size: 16px; color: var(--muted2); }
+.stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ─── RING ─── */
+.ring-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.ring-container { background: var(--s1); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.ring-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); }
+.ring-svg { position: relative; }
+.ring-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+.ring-pct { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; color: var(--white); }
+.ring-sublabel { font-size: 10px; color: var(--muted2); margin-top: 2px; }
+.phase-breakdown { background: var(--s1); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.phase-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.phase-row:last-child { border-bottom: none; }
+.phase-row-name { font-size: 13px; font-weight: 600; flex: 1; }
+.phase-row-detail { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted2); width: 80px; text-align: right; }
+.mini-bar-bg { width: 100px; height: 4px; background: var(--s3); border-radius: 2px; overflow: hidden; }
+.mini-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+
+/* ─── TRACKER ─── */
+.tracker-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.tracker-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; background: none; color: var(--muted2); transition: all 0.2s; }
+.filter-btn.active, .filter-btn:hover { background: var(--s2); color: var(--white); border-color: var(--border2); }
+.weeks-list { display: flex; flex-direction: column; gap: 12px; }
+.week-item { background: var(--s1); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+.week-item:hover { border-color: var(--border2); }
+.week-item.completed { border-color: rgba(29,219,122,0.25); }
+.week-item.partial { border-color: rgba(240,192,64,0.2); }
+.week-header-row { display: flex; align-items: center; gap: 16px; padding: 14px 18px; cursor: pointer; user-select: none; }
+.week-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; transition: all 0.2s; font-size: 12px; }
+.week-check.done { background: var(--green); border-color: var(--green); }
+.week-check.partial-done { background: var(--yellow); border-color: var(--yellow); }
+.week-info { flex: 1; }
+.week-name { font-size: 14px; font-weight: 700; }
+.week-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted2); margin-top: 2px; }
+.week-km-badge { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white); display: flex; align-items: baseline; gap: 2px; }
+.week-km-badge span { font-family: 'Syne'; font-size: 10px; color: var(--muted2); font-weight: 400; }
+.week-type-pill { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
+.tp-build { background: rgba(255,255,255,0.06); color: var(--muted2); }
+.tp-cutback { background: var(--blue-dim); color: var(--blue); }
+.tp-peak { background: var(--red-dim); color: var(--red); }
+.tp-taper { background: var(--yellow-dim); color: var(--yellow); }
+.tp-race { background: var(--green-dim); color: var(--green); }
+.week-sessions { padding: 0 18px 16px; display: none; }
+.week-sessions.open { display: block; }
+.sessions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-top: 4px; }
+.session-item { background: var(--s2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; transition: all 0.15s; }
+.session-item:hover { border-color: var(--border2); }
+.session-item.done-session { border-color: rgba(29,219,122,0.3); background: rgba(29,219,122,0.04); }
+.session-cb { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border2); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all 0.15s; }
+.session-cb.checked { background: var(--green); border-color: var(--green); color: #000; }
+.session-text { font-size: 12px; line-height: 1.4; color: var(--text); }
+.session-day { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); margin-bottom: 2px; }
+.session-type-lt { color: var(--yellow); font-weight: 600; }
+.session-type-long { color: var(--blue); font-weight: 600; }
+.week-progress-bar { height: 2px; background: var(--s3); margin: 0; border-radius: 0; overflow: hidden; }
+.week-progress-fill { height: 100%; transition: width 0.3s; border-radius: 2px; }
+.notes-area { margin-top: 12px; }
+.notes-input { width: 100%; padding: 10px 12px; background: var(--s2); border: 1px solid var(--border); border-radius: 8px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 12px; resize: vertical; min-height: 60px; outline: none; transition: border-color 0.2s; }
+.notes-input:focus { border-color: rgba(29,219,122,0.3); }
+.notes-input::placeholder { color: var(--muted); }
+.notes-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
+
+/* ─── ANALYTICS ─── */
+.analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.chart-card { background: var(--s1); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+.chart-card.full { grid-column: 1 / -1; }
+.chart-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 18px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 5px; height: 120px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+.bar-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--muted); }
+.heatmap { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; }
+.heat-cell { aspect-ratio: 1; border-radius: 3px; cursor: pointer; transition: transform 0.15s; }
+.heat-cell:hover { transform: scale(1.2); z-index: 2; }
+.pace-chart { display: flex; flex-direction: column; gap: 8px; }
+.pace-row { display: flex; align-items: center; gap: 10px; }
+.pace-week { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); width: 50px; }
+.pace-bar-bg { flex: 1; height: 8px; background: var(--s3); border-radius: 4px; overflow: hidden; }
+.pace-bar-fill { height: 100%; border-radius: 4px; }
+.pace-val { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--yellow); width: 60px; text-align: right; }
+
+/* ─── RACE PAGE ─── */
+.race-hero { background: var(--s1); border: 1px solid rgba(29,219,122,0.2); border-radius: 16px; padding: 32px; margin-bottom: 20px; position: relative; overflow: hidden; }
+.race-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(29,219,122,0.06) 0%, transparent 70%); pointer-events: none; }
+.race-countdown { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 1; color: var(--white); margin-bottom: 4px; }
+.race-countdown span { color: var(--green); }
+.race-sub { color: var(--muted2); font-size: 14px; margin-bottom: 24px; }
+.km-zones { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+.km-zone-card { background: var(--s2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.km-zone-range { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted2); margin-bottom: 6px; }
+.km-zone-pace { font-family: 'Bebas Neue', sans-serif; font-size: 26px; line-height: 1; }
+.km-zone-cue { font-size: 11px; color: var(--text); margin-top: 6px; line-height: 1.4; }
+.km-zone-badge { font-size: 9px; margin-top: 6px; padding: 2px 6px; border-radius: 3px; display: inline-block; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
+.splits-viz { background: var(--s1); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-top: 16px; }
+
+/* ─── GENERAL ─── */
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 16px; color: var(--muted2); }
+.section-title span { color: var(--white); }
+.divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+/* ══════════════════════════════════════════════
+   WORKOUT PAGE STYLES
+══════════════════════════════════════════════ */
+.workout-hero {
+  background: var(--s1); border: 1px solid rgba(155,114,207,0.25);
+  border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; position: relative; overflow: hidden;
+}
+.workout-hero::before {
+  content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(155,114,207,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.workout-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+.workout-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; line-height: 1; margin-bottom: 8px; }
+.workout-hero-sub { font-size: 13px; color: var(--muted2); line-height: 1.6; max-width: 600px; }
+
+.workout-week-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 28px; }
+.workout-day-card {
+  background: var(--s1); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.workout-day-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.workout-day-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+}
+.workout-day-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; flex: 1; }
+.workout-day-icon { font-size: 20px; }
+.workout-day-body { padding: 14px 18px; }
+.workout-description { font-size: 13px; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+.workout-links { display: flex; flex-direction: column; gap: 6px; }
+.workout-link {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 12px; text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.workout-link:hover { border-color: var(--purple); background: var(--purple-dim); }
+.workout-link-icon { font-size: 14px; flex-shrink: 0; }
+.workout-link-text { font-size: 11px; font-weight: 600; color: var(--purple); flex: 1; }
+.workout-link-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); }
+.workout-focus-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 700;
+  display: inline-block; margin-bottom: 10px;
+}
+.wf-strength { background: rgba(240,192,64,0.12); color: var(--yellow); }
+.wf-recovery { background: rgba(29,219,122,0.12); color: var(--green); }
+.wf-quality { background: rgba(232,64,64,0.12); color: var(--red); }
+.wf-easy { background: rgba(61,142,240,0.12); color: var(--blue); }
+.wf-race { background: var(--purple-dim); color: var(--purple); }
+
+/* Workout + running insight section */
+.insight-section { margin-top: 8px; }
+.insight-card {
+  background: var(--s1); border: 1px solid var(--border); border-radius: 14px;
+  padding: 20px 22px; margin-bottom: 12px;
+}
+.insight-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.insight-icon { font-size: 22px; }
+.insight-title { font-size: 14px; font-weight: 700; }
+.insight-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); letter-spacing: 1px; text-transform: uppercase; }
+.insight-body { font-size: 12px; color: var(--text); line-height: 1.7; }
+.insight-tips { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.insight-tip {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 10px; background: var(--s2); border-radius: 6px; border-left: 2px solid var(--purple);
+}
+.insight-tip-icon { font-size: 12px; margin-top: 1px; flex-shrink: 0; }
+.insight-tip-text { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+/* ══════════════════════════════════════════════
+   COACH PAGE STYLES
+══════════════════════════════════════════════ */
+.coach-hero {
+  background: var(--s1); border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; position: relative; overflow: hidden;
+}
+.coach-hero::before {
+  content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.coach-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--coach-gold); margin-bottom: 10px; }
+.coach-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; line-height: 1; margin-bottom: 8px; }
+.coach-hero-sub { font-size: 13px; color: var(--muted2); line-height: 1.6; max-width: 600px; }
+
+/* Coach selector */
+.coach-selector { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.coach-card { flex: 1; min-width: 160px; background: var(--s1); border: 2px solid var(--border); border-radius: 14px; padding: 18px 16px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+.coach-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.coach-card.selected { border-color: var(--coach-gold); background: rgba(201,168,76,0.05); }
+.coach-card.selected::after { content: '✓'; position: absolute; top: 10px; right: 12px; color: var(--coach-gold); font-size: 12px; font-weight: 700; }
+.coach-flag { font-size: 28px; margin-bottom: 10px; }
+.coach-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 4px; }
+.coach-role { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+.coach-trait { margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 3px 7px; border-radius: 4px; display: inline-block; }
+
+/* Input area */
+.run-input-area { background: var(--s1); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+.input-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 16px; color: var(--muted2); }
+.input-section-title span { color: var(--white); }
+
+/* ═══ GARMIN CONNECT LINK SECTION ═══ */
+.garmin-connect-section {
+  background: var(--s2); border: 1px solid rgba(29,219,122,0.2);
+  border-radius: 12px; padding: 18px; margin-bottom: 20px;
+}
+.garmin-connect-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.garmin-connect-logo { width: 28px; height: 28px; background: linear-gradient(135deg, #0cb08c, #1ddb7a); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #000; flex-shrink: 0; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0; }
+.garmin-connect-title { font-size: 14px; font-weight: 700; }
+.garmin-connect-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); letter-spacing: 1px; text-transform: uppercase; }
+.garmin-link-input-row { display: flex; gap: 10px; align-items: flex-start; }
+.garmin-link-input {
+  flex: 1; background: var(--s1); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px; color: var(--white);
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  outline: none; transition: border-color 0.2s;
+}
+.garmin-link-input:focus { border-color: var(--green); }
+.garmin-link-input::placeholder { color: var(--muted); }
+.garmin-fetch-btn {
+  background: var(--green); color: #000;
+  border: none; border-radius: 8px; padding: 10px 18px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.garmin-fetch-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.garmin-fetch-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.garmin-hint-text { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+/* Garmin stats display */
+.garmin-stats-display {
+  display: none; margin-top: 16px;
+  background: var(--s1); border: 1px solid rgba(29,219,122,0.2);
+  border-radius: 10px; padding: 16px; position: relative;
+}
+.garmin-stats-display.visible { display: block; }
+.garmin-stats-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.garmin-stats-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
+.garmin-activity-name { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.garmin-activity-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted2); }
+.garmin-stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-bottom: 14px; }
+.garmin-stat { background: var(--s2); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border); }
+.garmin-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 4px; }
+.garmin-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 22px; line-height: 1; color: var(--white); }
+.garmin-stat-val span { font-size: 11px; color: var(--muted2); font-family: 'Syne'; font-weight: 400; }
+.garmin-splits-section { margin-top: 10px; }
+.garmin-splits-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
+.garmin-splits-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.garmin-split-pill {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 5px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.garmin-split-km { color: var(--muted2); font-size: 9px; }
+.garmin-split-pace { color: var(--white); font-weight: 700; }
+.garmin-split-hr { color: var(--yellow); font-size: 9px; }
+.garmin-edit-btn {
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 5px 12px; color: var(--muted2); font-size: 11px; font-family: 'Syne', sans-serif;
+  cursor: pointer; transition: all 0.2s;
+}
+.garmin-edit-btn:hover { border-color: var(--coach-gold); color: var(--coach-gold); }
+
+/* Week + session selectors */
+.run-selects { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.run-select { flex: 1; min-width: 140px; background: var(--s2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 13px; outline: none; cursor: pointer; transition: border-color 0.2s; appearance: none; }
+.run-select:focus { border-color: var(--coach-gold); }
+.run-select option { background: var(--s2); }
+.select-wrap { position: relative; flex: 1; min-width: 140px; }
+.select-wrap::after { content: '▾'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted2); pointer-events: none; font-size: 12px; }
+
+/* Tab switch */
+.input-mode-tabs { display: flex; gap: 4px; margin-bottom: 16px; background: var(--s2); border-radius: 8px; padding: 4px; width: fit-content; }
+.input-mode-tab { padding: 6px 16px; border-radius: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; color: var(--muted2); border: none; background: none; transition: all 0.2s; }
+.input-mode-tab.active { background: var(--s3); color: var(--white); }
+
+/* Splits table */
+.splits-input-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+.splits-input-table th { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); text-align: left; padding: 0 8px 10px 0; border-bottom: 1px solid var(--border); }
+.splits-input-table td { padding: 6px 8px 6px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.split-input { background: var(--s2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 12px; width: 90px; outline: none; transition: border-color 0.2s; }
+.split-input:focus { border-color: var(--coach-gold); }
+.split-input::placeholder { color: var(--muted); }
+.km-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted2); }
+
+/* Garmin paste */
+.garmin-paste-area { background: var(--s2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text); width: 100%; min-height: 120px; resize: vertical; outline: none; transition: border-color 0.2s; margin-bottom: 12px; }
+.garmin-paste-area:focus { border-color: var(--coach-gold); }
+.garmin-paste-area::placeholder { color: var(--muted); }
+.garmin-hint { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+.garmin-hint strong { color: var(--muted2); }
+
+/* Quick stats */
+.quick-stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.quick-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
+.quick-input { background: var(--s2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 13px; width: 100%; outline: none; transition: border-color 0.2s; }
+.quick-input:focus { border-color: var(--coach-gold); }
+.quick-input::placeholder { color: var(--muted); }
+
+/* Context notes */
+.context-area { margin-bottom: 16px; }
+.context-textarea { width: 100%; padding: 10px 14px; background: var(--s2); border: 1px solid var(--border); border-radius: 8px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 12px; resize: vertical; min-height: 70px; outline: none; transition: border-color 0.2s; }
+.context-textarea:focus { border-color: rgba(201,168,76,0.4); }
+.context-textarea::placeholder { color: var(--muted); }
+
+/* Submit */
+.analyze-btn { background: var(--coach-gold); color: #080a0d; border: none; border-radius: 10px; padding: 14px 28px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; cursor: pointer; transition: all 0.2s; width: 100%; }
+.analyze-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.analyze-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* Loading */
+.coach-loading { display: none; text-align: center; padding: 48px 24px; }
+.coach-loading.visible { display: block; }
+.loading-avatar { font-size: 48px; animation: breathe 2s ease-in-out infinite; margin-bottom: 16px; }
+@keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+.loading-text { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--coach-gold); margin-bottom: 8px; }
+.loading-sub { font-size: 12px; color: var(--muted2); }
+.loading-dots::after { content: '…'; animation: dots 1.4s steps(4, end) infinite; }
+@keyframes dots { 0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'…'} }
+
+/* Coach response */
+.coach-response { display: none; background: var(--s1); border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; overflow: hidden; margin-top: 4px; }
+.coach-response.visible { display: block; }
+.response-header { background: rgba(201,168,76,0.06); border-bottom: 1px solid rgba(201,168,76,0.15); padding: 18px 24px; display: flex; align-items: center; gap: 14px; }
+.response-avatar { font-size: 36px; }
+.response-coach-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--coach-gold); }
+.response-coach-subtitle { font-size: 11px; color: var(--muted2); }
+.response-body { padding: 24px; }
+.response-section { margin-bottom: 20px; }
+.response-section-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--coach-gold); margin-bottom: 10px; }
+.response-text { font-size: 13px; line-height: 1.8; color: var(--text); white-space: pre-wrap; }
+.next-run-card { background: var(--s2); border: 1px solid rgba(29,219,122,0.15); border-radius: 12px; padding: 16px 18px; margin-top: 16px; }
+.next-run-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+.next-run-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.next-run-detail { font-size: 12px; color: var(--muted2); line-height: 1.5; }
+
+/* Workout link in response */
+.response-workout-tip {
+  background: var(--s2); border: 1px solid var(--purple-dim);
+  border-radius: 10px; padding: 14px 16px; margin-top: 14px;
+}
+.response-workout-tip-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; }
+.response-workout-tip-text { font-size: 12px; color: var(--text); line-height: 1.6; }
+
+/* History */
+.coach-history { margin-top: 32px; }
+.history-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--muted2); margin-bottom: 14px; }
+.history-title span { color: var(--white); }
+.history-list { display: flex; flex-direction: column; gap: 8px; }
+.history-item { background: var(--s1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color 0.2s; }
+.history-item:hover { border-color: rgba(201,168,76,0.25); }
+.history-week { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--muted2); width: 60px; }
+.history-run { flex: 1; font-size: 12px; color: var(--text); }
+.history-coach-badge { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 4px; background: var(--coach-gold-dim); color: var(--coach-gold); }
+.garmin-badge { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 4px; background: var(--green-dim); color: var(--green); margin-left: 4px; }
+
+/* Streaming text */
+.streaming-cursor::after { content: '▋'; animation: blink 0.7s step-end infinite; color: var(--coach-gold); font-size: 13px; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+@media (max-width: 700px) {
+  .page { padding: 16px; }
+  .analytics-grid { grid-template-columns: 1fr; }
+  .ring-grid { grid-template-columns: 1fr; }
+  .topnav { padding: 0 12px; height: auto; padding: 8px 12px; }
+  .nav-tabs { gap: 1px; }
+  .nav-tab { padding: 4px 8px; font-size: 10px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .km-zones { grid-template-columns: 1fr 1fr; }
+  .coach-selector { flex-direction: column; }
+  .run-selects { flex-direction: column; }
+  .workout-week-grid { grid-template-columns: 1fr; }
+  .garmin-link-input-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="nav-brand">PFIZER HM · 2026</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('dashboard',this)">Dashboard</button>
+    <button class="nav-tab" onclick="showPage('tracker',this)">Tracker</button>
+    <button class="nav-tab" onclick="showPage('analytics',this)">Analytics</button>
+    <button class="nav-tab" onclick="showPage('race',this)">Race Plan</button>
+    <button class="nav-tab workout-tab" onclick="showPage('workout',this)">💪 Workouts</button>
+    <button class="nav-tab coach-tab" onclick="showPage('coach',this)">⚡ Coach</button>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: DASHBOARD ══════════ -->
+<div class="page active" id="page-dashboard">
+  <div class="stat-grid" id="statGrid"></div>
+  <div class="ring-grid">
+    <div class="ring-container">
+      <div class="ring-title">Overall Completion</div>
+      <div class="ring-svg" style="position:relative;width:160px;height:160px;">
+        <svg width="160" height="160">
+          <circle cx="80" cy="80" r="68" fill="none" stroke="var(--s3)" stroke-width="10"/>
+          <circle cx="80" cy="80" r="68" fill="none" stroke="var(--green)" stroke-width="10"
+            stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427"
+            transform="rotate(-90 80 80)" id="mainRing" style="transition:stroke-dashoffset 1s ease"/>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-pct" id="mainRingPct">0%</div>
+          <div class="ring-sublabel">sessions done</div>
+        </div>
+      </div>
+    </div>
+    <div class="phase-breakdown" id="phaseBreakdown"></div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-title"><span>Weekly</span> Volume Forecast vs Completed</div>
+  <div class="chart-card">
+    <div class="bar-chart" id="volumeChart"></div>
+    <div style="display:flex;gap:16px;margin-top:12px">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted2)"><div style="width:10px;height:10px;border-radius:2px;background:var(--green)"></div>Completed</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted2)"><div style="width:10px;height:10px;border-radius:2px;background:var(--s3)"></div>Planned</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: TRACKER ══════════ -->
+<div class="page" id="page-tracker">
+  <div class="tracker-header">
+    <div class="tracker-title">WEEK TRACKER</div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterWeeks('all',this)">All</button>
+      <button class="filter-btn" onclick="filterWeeks('build',this)">Build</button>
+      <button class="filter-btn" onclick="filterWeeks('cutback',this)">Cutback</button>
+      <button class="filter-btn" onclick="filterWeeks('peak',this)">Peak</button>
+      <button class="filter-btn" onclick="filterWeeks('taper',this)">Taper</button>
+      <button class="filter-btn" onclick="filterWeeks('incomplete',this)">To Do</button>
+    </div>
+  </div>
+  <div class="weeks-list" id="weeksList"></div>
+</div>
+
+<!-- ══════════ PAGE: ANALYTICS ══════════ -->
+<div class="page" id="page-analytics">
+  <div class="analytics-grid">
+    <div class="chart-card full">
+      <div class="chart-title">Cumulative KM — Planned vs Completed</div>
+      <canvas id="cumulativeChart" height="140"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Completion by Day of Week</div>
+      <div id="dowChart"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Session Type Breakdown</div>
+      <div id="typeChart"></div>
+    </div>
+    <div class="chart-card full">
+      <div class="chart-title">LT Pace Progression (Target)</div>
+      <div class="pace-chart" id="paceChart"></div>
+    </div>
+    <div class="chart-card full">
+      <div class="chart-title">Weekly Completion Heatmap</div>
+      <div class="heatmap" id="heatmap"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px">
+        <span style="font-family:'JetBrains Mono';font-size:9px;color:var(--muted)">Week 1</span>
+        <span style="font-family:'JetBrains Mono';font-size:9px;color:var(--muted)">Week 24</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: RACE PLAN ══════════ -->
+<div class="page" id="page-race">
+  <div class="race-hero">
+    <div style="font-family:'JetBrains Mono';font-size:10px;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:8px">Target</div>
+    <div class="race-countdown"><span>1:45</span>:00</div>
+    <div class="race-sub">4:58/km · Pfizer Half Marathon · Flat Course · Slight Negative Split</div>
+    <div class="km-zones">
+      <div class="km-zone-card"><div class="km-zone-range">KM 0–3</div><div class="km-zone-pace" style="color:var(--green)">5:05–5:10</div><div class="km-zone-cue">Control. Don't weave, don't surge. Let others go.</div><div class="km-zone-badge" style="background:var(--green-dim);color:var(--green)">Control</div></div>
+      <div class="km-zone-card"><div class="km-zone-range">KM 4–10</div><div class="km-zone-pace" style="color:var(--yellow)">4:58–5:00</div><div class="km-zone-cue">Lock in. Smooth, rhythmic. "This is my day-long pace."</div><div class="km-zone-badge" style="background:var(--yellow-dim);color:var(--yellow)">Lock In</div></div>
+      <div class="km-zone-card"><div class="km-zone-range">KM 11–15</div><div class="km-zone-pace" style="color:var(--blue)">4:55–5:00</div><div class="km-zone-cue">Posture tall. Relaxed arms. Consistent cadence.</div><div class="km-zone-badge" style="background:var(--blue-dim);color:var(--blue)">Hold</div></div>
+      <div class="km-zone-card"><div class="km-zone-range">KM 16–18</div><div class="km-zone-pace" style="color:var(--red)">4:55–5:00</div><div class="km-zone-cue">Decision point. Good → 4:55. Neutral → hold. Struggling → effort over pace.</div><div class="km-zone-badge" style="background:var(--red-dim);color:var(--red)">Decide</div></div>
+      <div class="km-zone-card"><div class="km-zone-range">KM 18–21.1</div><div class="km-zone-pace" style="color:var(--red)">Max</div><div class="km-zone-cue">"Form first, then fight." Empty the tank.</div><div class="km-zone-badge" style="background:var(--red-dim);color:var(--red)">Fight</div></div>
+    </div>
+  </div>
+  <div class="splits-viz"><div class="chart-title">Target Split Visualisation</div><div id="splitViz"></div></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:16px">
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px"><div style="font-size:20px;margin-bottom:8px">🥤</div><div style="font-weight:700;font-size:13px;margin-bottom:6px">Fuelling</div><div style="font-size:12px;color:var(--muted2);line-height:1.5">Gel at 30–35 min (~6–7 km). Optional second at ~60 min. Sip water with each gel.</div></div>
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px"><div style="font-size:20px;margin-bottom:8px">🦵</div><div style="font-weight:700;font-size:13px;margin-bottom:6px">Cadence</div><div style="font-size:12px;color:var(--muted2);line-height:1.5">172–174 spm early. Lift to 176–178 spm for final 5–6 km — kick without sprinting.</div></div>
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px"><div style="font-size:20px;margin-bottom:8px">🧠</div><div style="font-weight:700;font-size:13px;margin-bottom:6px">Flat Course</div><div style="font-size:12px;color:var(--muted2);line-height:1.5">No terrain = mental drift. Stay engaged km-by-km. Use cues at every marker.</div></div>
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px"><div style="font-size:20px;margin-bottom:8px">🎯</div><div style="font-weight:700;font-size:13px;margin-bottom:6px">One Rule</div><div style="font-size:12px;color:var(--muted2);line-height:1.5">Start slower than goal pace, finish faster. Disciplined start → 1:44–1:45. Fast start → 1:47+.</div></div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: WORKOUTS ══════════ -->
+<div class="page" id="page-workout">
+  <div class="workout-hero">
+    <div class="workout-eyebrow">Weekly Schedule · Strength, Recovery & Mobility</div>
+    <div class="workout-hero-title">YOUR TRAINING<br>FRAMEWORK</div>
+    <div class="workout-hero-sub">Each workout in this schedule supports your running — building strength, improving mobility, aiding recovery, and sharpening performance for race day. Follow the links to your curated video sessions.</div>
+  </div>
+
+  <div class="workout-week-grid" id="workoutGrid"></div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span>How Your Workouts</span> Serve Your Running</div>
+
+  <div class="insight-section">
+    <div class="insight-card">
+      <div class="insight-header">
+        <div class="insight-icon">🏋️</div>
+        <div>
+          <div class="insight-title">Monday Upper Body + Core + Plyometrics</div>
+          <div class="insight-subtitle">Running benefit: power, posture, arm drive</div>
+        </div>
+      </div>
+      <div class="insight-body">
+        Upper body and core strength directly improves your running economy. A strong core stabilises your pelvis mid-race, reducing energy leakage and preventing the lateral sway that creeps in after kilometre 14. Plyometrics on Monday (fresh legs, furthest from your Thursday LT session) builds reactive strength and improves your foot-ground contact time — a key factor in 4:58/km pace efficiency.
+        <div class="insight-tips">
+          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Do plyos at the start when CNS is fresh — box jumps, broad jumps, single-leg hops before the core work</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Foot rollers post-workout helps plantar fascia health — essential for half marathon mileage</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🔗</div><div class="insight-tip-text">Mobility work on Monday prepares your hips and ankles for Tuesday's easy run with strides</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-header">
+        <div class="insight-icon">🦵</div>
+        <div>
+          <div class="insight-title">Wednesday Lower Body / Single-Leg Focus</div>
+          <div class="insight-subtitle">Running benefit: hip stability, glute activation, injury prevention</div>
+        </div>
+      </div>
+      <div class="insight-body">
+        Single-leg strength work is one of the highest-value investments a runner can make. Running is entirely single-leg — every stride is a single-leg squat and landing. Strengthening glutes medius (hip abductors), hip extensors, and calf complex reduces injury risk and improves propulsion. Scheduled on Wednesday (between Tuesday easy and Thursday LT), it ensures your legs are recovered for quality work.
+        <div class="insight-tips">
+          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Prioritise: Bulgarian split squats, single-leg RDLs, lateral band walks, step-ups with knee drive</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Keep weight moderate — you want muscle fatigue, not the DOMS that ruins your Thursday session</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🔗</div><div class="insight-tip-text">Calf raises (single-leg) directly reduce Achilles load during your high mileage weeks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-header">
+        <div class="insight-icon">🔥</div>
+        <div>
+          <div class="insight-title">Thursday LT / Tempo Session</div>
+          <div class="insight-subtitle">Running benefit: raise lactate threshold → sustain 4:58/km</div>
+        </div>
+      </div>
+      <div class="insight-body">
+        This is the engine of your plan. Every Thursday LT session trains your body to clear lactate faster at race pace. Over 24 weeks, you're progressively running longer at harder paces (6:20/km → 5:00/km) — shifting your threshold upward. On race day, what once felt like a 7/10 effort at 5:00/km becomes a 6/10. That is the entire game.
+        <div class="insight-tips">
+          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Effort should feel "comfortably hard" — you can speak short sentences but not hold full conversation</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Nail the warm-up km. Never start cold on LT work — 2 km easy, dynamic drills, then threshold</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🔗</div><div class="insight-tip-text">Log every LT session on Garmin and share with Coach for trend analysis across the 24 weeks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-header">
+        <div class="insight-icon">💆</div>
+        <div>
+          <div class="insight-title">Friday Recovery + Resistance Bands + Massage Gun</div>
+          <div class="insight-subtitle">Running benefit: flush Thursday's LT stress, prep for the weekend</div>
+        </div>
+      </div>
+      <div class="insight-body">
+        Friday is a strategic reset. After Thursday's LT stress, your muscles need blood flow and parasympathetic nervous system activation — not more load. Light resistance bands (glute activation, hip external rotation) maintain neuromuscular patterns without fatiguing. The massage gun targets calves, quads, and IT band — the areas under most stress during tempo running.
+        <div class="insight-tips">
+          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Elliptical option: 20–25 min easy (RPE 4–5) maintains aerobic stimulus without impact stress</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Massage gun order: calves → hamstrings → quads → glutes → 2 min each</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-header">
+        <div class="insight-icon">🧘</div>
+        <div>
+          <div class="insight-title">Saturday Pilates + Easy / Parkrun</div>
+          <div class="insight-subtitle">Running benefit: deep core stability, hip flexor length, posture</div>
+        </div>
+      </div>
+      <div class="insight-body">
+        Pilates provides the core and postural work that traditional strength training doesn't reach — specifically the deep stabilisers (transverse abdominis, multifidus) that hold your running form together in the final kilometres. Paired with an easy parkrun or short run, Saturday builds aerobic base while the Pilates keeps you aligned and injury-resilient.
+        <div class="insight-tips">
+          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Pilates before or after parkrun? After — run first while legs are fresh, then Pilates as active recovery</div></div>
+          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">In peak weeks (15–21), treat Parkrun as a controlled fitness test at 5:10–5:20/km, not all-out</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: COACH ══════════ -->
+<div class="page" id="page-coach">
+  <div class="coach-hero">
+    <div class="coach-eyebrow">AI Run Coach · Post-Session Analysis</div>
+    <div class="coach-hero-title">LOG YOUR RUN.<br>HEAR FROM THE BEST.</div>
+    <div class="coach-hero-sub">Paste your Garmin Connect activity link for instant stats display, or enter manually. Choose your coach. Get an expert read on your run — analysed against your plan, your training phase, and your race target.</div>
+  </div>
+
+  <!-- COACH SELECTOR -->
+  <div class="coach-selector">
+    <div class="coach-card selected" onclick="selectCoach('kipchoge',this)" id="coach-kipchoge">
+      <div class="coach-flag">🇰🇪</div>
+      <div class="coach-name">Eliud Kipchoge</div>
+      <div class="coach-role">Marathon GOAT · Sub-2 hour legend · Philosopher of running</div>
+      <div class="coach-trait" style="background:rgba(29,219,122,0.1);color:var(--green)">"No human is limited"</div>
+    </div>
+    <div class="coach-card" onclick="selectCoach('fitzgerald',this)" id="coach-fitzgerald">
+      <div class="coach-flag">📊</div>
+      <div class="coach-name">Pete Fitzgerald</div>
+      <div class="coach-role">Elite coach · Data-driven · Masters of periodisation & LT work</div>
+      <div class="coach-trait" style="background:rgba(61,142,240,0.1);color:var(--blue)">Analytical precision</div>
+    </div>
+    <div class="coach-card" onclick="selectCoach('kawauchi',this)" id="coach-kawauchi">
+      <div class="coach-flag">🇯🇵</div>
+      <div class="coach-name">Yuki Kawauchi</div>
+      <div class="coach-role">Self-coached civil servant · 100+ marathons · Gritty realist</div>
+      <div class="coach-trait" style="background:rgba(240,192,64,0.1);color:var(--yellow)">Work ethic above all</div>
+    </div>
+  </div>
+
+  <!-- RUN INPUT AREA -->
+  <div class="run-input-area">
+    <div class="input-section-title"><span>Log Your</span> Run</div>
+
+    <!-- ═══ GARMIN CONNECT LINK ═══ -->
+    <div class="garmin-connect-section">
+      <div class="garmin-connect-header">
+        <div class="garmin-connect-logo">G</div>
+        <div>
+          <div class="garmin-connect-title">Garmin Connect Activity Link</div>
+          <div class="garmin-connect-sub">Paste link → stats auto-populate · Coaches can review & revise</div>
+        </div>
+      </div>
+      <div class="garmin-link-input-row">
+        <input class="garmin-link-input" id="garminConnectLink" type="url"
+          placeholder="https://connect.garmin.com/modern/activity/12345678…">
+        <button class="garmin-fetch-btn" onclick="fetchGarminActivity()" id="garminFetchBtn">LOAD ACTIVITY</button>
+      </div>
+      <div class="garmin-hint-text">
+        Garmin Connect → open any activity → copy the URL from your browser → paste above.<br>
+        Stats will auto-populate below for coach review. You can edit any field before analysing.
+      </div>
+
+      <!-- Stats display panel -->
+      <div class="garmin-stats-display" id="garminStatsDisplay">
+        <div class="garmin-stats-header">
+          <div>
+            <div class="garmin-stats-title">Activity Loaded ✓</div>
+            <div class="garmin-activity-name" id="garminActivityName">Morning Run</div>
+            <div class="garmin-activity-date" id="garminActivityDate"></div>
+          </div>
+          <button class="garmin-edit-btn" onclick="clearGarminStats()">✕ Clear</button>
+        </div>
+        <div class="garmin-stats-grid" id="garminStatsGrid"></div>
+        <div class="garmin-splits-section">
+          <div class="garmin-splits-title">KM Splits</div>
+          <div class="garmin-splits-grid" id="garminSplitsGrid"></div>
+        </div>
+        <div style="margin-top:12px;padding:10px 12px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:8px;font-size:11px;color:var(--muted2);">
+          ✏️ Stats have been auto-populated in the fields below. Edit any values before sending to coach.
+        </div>
+      </div>
+    </div>
+
+    <!-- Week + Session selector -->
+    <div class="run-selects">
+      <div class="select-wrap">
+        <select class="run-select" id="weekSelect" onchange="updateSessionSelect()">
+          <option value="">Select Week...</option>
+        </select>
+      </div>
+      <div class="select-wrap">
+        <select class="run-select" id="sessionSelect">
+          <option value="">Select Session...</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Quick overall stats -->
+    <div class="quick-stats-grid">
+      <div class="quick-stat-input">
+        <div class="quick-stat-label">Total Distance</div>
+        <input class="quick-input" id="inputDist" type="text" placeholder="e.g. 9.2 km">
+      </div>
+      <div class="quick-stat-input">
+        <div class="quick-stat-label">Total Time</div>
+        <input class="quick-input" id="inputTime" type="text" placeholder="e.g. 52:30">
+      </div>
+      <div class="quick-stat-input">
+        <div class="quick-stat-label">Avg Pace</div>
+        <input class="quick-input" id="inputAvgPace" type="text" placeholder="e.g. 5:42/km">
+      </div>
+      <div class="quick-stat-input">
+        <div class="quick-stat-label">Avg HR (bpm)</div>
+        <input class="quick-input" id="inputHR" type="text" placeholder="e.g. 148">
+      </div>
+      <div class="quick-stat-input">
+        <div class="quick-stat-label">Cadence (spm)</div>
+        <input class="quick-input" id="inputCadence" type="text" placeholder="e.g. 174">
+      </div>
+      <div class="quick-stat-input">
+        <div class="quick-stat-label">Elevation (m)</div>
+        <input class="quick-input" id="inputElevation" type="text" placeholder="e.g. +42">
+      </div>
+    </div>
+
+    <!-- Input mode -->
+    <div class="input-mode-tabs">
+      <button class="input-mode-tab active" onclick="setInputMode('splits',this)">KM Splits</button>
+      <button class="input-mode-tab" onclick="setInputMode('garmin',this)">Paste Data</button>
+    </div>
+
+    <!-- SPLITS MODE -->
+    <div id="mode-splits">
+      <table class="splits-input-table" id="splitsTable">
+        <thead><tr>
+          <th>KM</th><th>Pace (mm:ss)</th><th>HR</th><th>Notes</th>
+        </tr></thead>
+        <tbody id="splitsBody"></tbody>
+      </table>
+      <button onclick="addSplitRow()" style="background:none;border:1px dashed var(--border);border-radius:6px;padding:6px 14px;color:var(--muted2);font-size:11px;cursor:pointer;margin-bottom:16px">+ Add KM</button>
+    </div>
+
+    <!-- GARMIN PASTE MODE -->
+    <div id="mode-garmin" style="display:none">
+      <div class="garmin-hint">
+        <strong>Option A:</strong> Garmin Connect → open activity → copy splits table text → paste below.<br>
+        <strong>Option B:</strong> Free text: "km1 5:42, km2 5:38…" — the coach will parse it.
+      </div>
+      <textarea class="garmin-paste-area" id="garminPaste" placeholder="Paste your Garmin splits or activity summary here...
+
+Examples:
+1  5:42  HR 142
+2  5:38  HR 147
+3  5:35  HR 151
+Or: 'Km1: 5:42 | Km2: 5:39 | Km3: 5:36 | Avg HR 148'"></textarea>
+    </div>
+
+    <!-- Context notes -->
+    <div class="context-area">
+      <div class="notes-label">Context for the Coach (optional)</div>
+      <textarea class="context-textarea" id="contextNotes" placeholder="e.g. Legs felt heavy from Monday strength session. Humid and 22°C. Had to stop at traffic lights km 4. Felt strong last 2 km. Slight left calf tightness..."></textarea>
+    </div>
+
+    <button class="analyze-btn" id="analyzeBtn" onclick="analyzeRun()">⚡ ANALYSE WITH COACH</button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="coach-loading" id="coachLoading">
+    <div class="loading-avatar" id="loadingAvatar">🇰🇪</div>
+    <div class="loading-text">Coach is reviewing your run<span class="loading-dots"></span></div>
+    <div class="loading-sub" id="loadingSub">Eliud Kipchoge is studying your splits</div>
+  </div>
+
+  <!-- RESPONSE -->
+  <div class="coach-response" id="coachResponse">
+    <div class="response-header">
+      <div class="response-avatar" id="responseAvatar">🇰🇪</div>
+      <div>
+        <div class="response-coach-name" id="responseCoachName">Eliud Kipchoge</div>
+        <div class="response-coach-subtitle" id="responseCoachSubtitle">Marathon GOAT · Post-run debrief</div>
+      </div>
+    </div>
+    <div class="response-body" id="responseBody"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="coach-history">
+    <div class="history-title"><span>Analysis</span> History</div>
+    <div class="history-list" id="historyList"></div>
+    <div id="noHistory" style="color:var(--muted);font-size:13px;padding:16px 0">No analyses yet — log your first run above.</div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// PLAN DATA
+// ══════════════════════════════════════════════
+const WEEKS = [
+  {n:1,km:42,type:'build',phase:1,sessions:[{day:'MON',label:'Rest + mobility',type:'rest'},{day:'TUE',label:'8 km easy + 4 strides',type:'easy',km:8,ltPace:null},{day:'WED',label:'5 km recovery + strength',type:'easy',km:5,ltPace:null},{day:'THU',label:'7 km — 3 km LT @ 6:20/km',type:'lt',km:7,ltPace:'6:20',ltKm:3},{day:'FRI',label:'5 km recovery',type:'easy',km:5,ltPace:null},{day:'SAT',label:'Parkrun 5K @ 5:45–5:40/km + Pilates',type:'easy',km:5,ltPace:null},{day:'SUN',label:'11 km long run',type:'long',km:11,ltPace:null}]},
+  {n:2,km:45,type:'build',phase:1,sessions:[{day:'MON',label:'Rest',type:'rest'},{day:'TUE',label:'10 km easy + strides',type:'easy',km:10},{day:'WED',label:'6 km recovery + strength',type:'easy',km:6},{day:'THU',label:'8 km — 4 km LT @ 6:10/km',type:'lt',km:8,ltPace:'6:10',ltKm:4},{day:'FRI',label:'5 km recovery',type:'easy',km:5},{day:'SAT',label:'8 km easy',type:'easy',km:8},{day:'SUN',label:'13 km long run + Pilates',type:'long',km:13}]},
+  {n:3,km:48,type:'build',phase:1,sessions:[{day:'MON',label:'Rest',type:'rest'},{day:'TUE',label:'11 km easy + strides',type:'easy',km:11},{day:'WED',label:'6 km recovery + strength',type:'easy',km:6},{day:'THU',label:'9 km — 5 km LT @ 6:05/km',type:'lt',km:9,ltPace:'6:05',ltKm:5},{day:'FRI',label:'5 km recovery',type:'easy',km:5},{day:'SAT',label:'Parkrun 5K @ 5:45/km',type:'easy',km:5},{day:'SUN',label:'14 km long run + Pilates',type:'long',km:14}]},
+  {n:4,km:42,type:'cutback',phase:1,sessions:[{day:'MON',label:'Rest',type:'rest'},{day:'TUE',label:'8 km easy + strides',type:'easy',km:8},{day:'WED',label:'5 km recovery + light strength',type:'easy',km:5},{day:'THU',label:'7 km — 3 km LT @ 6:10/km',type:'lt',km:7,ltPace:'6:10',ltKm:3},{day:'FRI',label:'5 km recovery',type:'easy',km:5},{day:'SAT',label:'8 km easy @ 6:10–6:40/km + Pilates',type:'easy',km:8},{day:'SUN',label:'11 km long run',type:'long',km:11}]},
+  {n:5,km:50,type:'build',phase:2,sessions:[{day:'MON',label:'Rest + mobility',type:'rest'},{day:'TUE',label:'10 km easy + 5×20s strides',type:'easy',km:10},{day:'WED',label:'6 km + strength (single-leg)',type:'easy',km:6},{day:'THU',label:'8 km — 4 km LT @ 6:05/km',type:'lt',km:8,ltPace:'6:05',ltKm:4},{day:'FRI',label:'Parkrun 5K @ 5:40/km',type:'easy',km:5},{day:'SAT',label:'8 km easy',type:'easy',km:8},{day:'SUN',label:'13 km — last 3 km ~6:00/km + Pilates',type:'long',km:13}]},
+  {n:6,km:54,type:'build',phase:2,sessions:[{day:'TUE',label:'11 km + 5 strides',type:'easy',km:11},{day:'WED',label:'6 km recovery + strength',type:'easy',km:6},{day:'THU',label:'9 km — 5 km LT @ 6:00/km',type:'lt',km:9,ltPace:'6:00',ltKm:5},{day:'FRI',label:'5 km recovery',type:'easy',km:5},{day:'SAT',label:'8 km easy @ 6:10–6:40/km',type:'easy',km:8},{day:'SUN',label:'15 km — last 4 km ~5:55–6:00/km + Pilates',type:'long',km:15}]},
+  {n:7,km:58,type:'build',phase:2,sessions:[{day:'TUE',label:'12 km + 5–6 strides',type:'easy',km:12},{day:'WED',label:'6 km recovery + strength',type:'easy',km:6},{day:'THU',label:'9 km — 5 km LT @ 5:55/km',type:'lt',km:9,ltPace:'5:55',ltKm:5},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'Parkrun 5K @ 5:35/km',type:'easy',km:5},{day:'SUN',label:'16 km — last 4 km 5:55–6:00/km + Pilates',type:'long',km:16}]},
+  {n:8,km:62,type:'build',phase:2,sessions:[{day:'MON',label:'Rest',type:'rest'},{day:'TUE',label:'13 km + 6 strides',type:'easy',km:13},{day:'WED',label:'7 km recovery + strength',type:'easy',km:7},{day:'THU',label:'10 km — 6 km LT @ 5:55/km',type:'lt',km:10,ltPace:'5:55',ltKm:6},{day:'FRI',label:'8 km easy @ 6:05–6:35/km',type:'easy',km:8},{day:'SAT',label:'8 km easy @ 6:05–6:35/km',type:'easy',km:8},{day:'SUN',label:'17 km — last 4 km 5:55–6:00/km',type:'long',km:17}]},
+  {n:9,km:66,type:'build',phase:3,sessions:[{day:'TUE',label:'13 km + 6×20s strides',type:'easy',km:13},{day:'WED',label:'7 km + strength / cross-train',type:'easy',km:7},{day:'THU',label:'10 km — 6 km LT @ 5:55/km',type:'lt',km:10,ltPace:'5:55',ltKm:6},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'Parkrun 5K @ 5:30/km',type:'easy',km:5},{day:'SUN',label:'18 km — 5 km steady @ 5:55/km',type:'long',km:18}]},
+  {n:10,km:55,type:'cutback',phase:3,sessions:[{day:'TUE',label:'10 km + 5 strides',type:'easy',km:10},{day:'WED',label:'6 km + light strength / cross-train',type:'easy',km:6},{day:'THU',label:'8 km — 4 km LT @ ~5:55/km',type:'lt',km:8,ltPace:'5:55',ltKm:4},{day:'FRI',label:'5 km recovery',type:'easy',km:5},{day:'SAT',label:'8 km easy @ 6:00–6:30/km',type:'easy',km:8},{day:'SUN',label:'14 km all easy',type:'long',km:14}]},
+  {n:11,km:68,type:'build',phase:3,sessions:[{day:'TUE',label:'14 km + 6 strides',type:'easy',km:14},{day:'WED',label:'7 km + strength',type:'easy',km:7},{day:'THU',label:'11 km — 7 km LT @ 5:35–5:40/km',type:'lt',km:11,ltPace:'5:37',ltKm:7},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'10 km easy @ 6:05–6:35/km',type:'easy',km:10},{day:'SUN',label:'19 km — 2 km steady @ 5:55/km',type:'long',km:19}]},
+  {n:12,km:72,type:'build',phase:3,sessions:[{day:'TUE',label:'15 km + 6–7 strides',type:'easy',km:15},{day:'WED',label:'7 km + strength',type:'easy',km:7},{day:'THU',label:'12 km — 8 km LT @ 5:45/km',type:'lt',km:12,ltPace:'5:45',ltKm:8},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'10 km easy @ 6:05–6:35/km',type:'easy',km:10},{day:'SUN',label:'20 km — 3 km steady @ 5:55/km',type:'long',km:20}]},
+  {n:13,km:75,type:'build',phase:4,sessions:[{day:'TUE',label:'15 km + 6–7 strides',type:'easy',km:15},{day:'WED',label:'8 km + strength',type:'easy',km:8},{day:'THU',label:'11 km — 7 km LT @ 5:45–5:50/km',type:'lt',km:11,ltPace:'5:47',ltKm:7},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'Parkrun 5K @ 5:20–5:25/km',type:'easy',km:5},{day:'SUN',label:'21 km — 5 km progression 5:10→5:05/km',type:'long',km:21}]},
+  {n:14,km:78,type:'build',phase:4,sessions:[{day:'TUE',label:'16 km + 7 strides',type:'easy',km:16},{day:'WED',label:'8 km + strength',type:'easy',km:8},{day:'THU',label:'12 km — 8 km LT @ 5:45/km',type:'lt',km:12,ltPace:'5:45',ltKm:8},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'12 km easy @ 6:00–6:30/km',type:'easy',km:12},{day:'SUN',label:'20 km steady @ 5:55/km',type:'long',km:20}]},
+  {n:15,km:82,type:'peak',phase:4,sessions:[{day:'TUE',label:'16 km + 7–8 strides',type:'easy',km:16},{day:'WED',label:'8 km + strength',type:'easy',km:8},{day:'THU',label:'12 km — 8 km LT @ 5:40/km',type:'lt',km:12,ltPace:'5:40',ltKm:8},{day:'FRI',label:'7 km recovery',type:'easy',km:7},{day:'SAT',label:'Parkrun 5K @ 5:15–5:20/km',type:'easy',km:5},{day:'SUN',label:'22 km — 6 km continuous @ 5:05–5:00/km',type:'long',km:22}]},
+  {n:16,km:65,type:'cutback',phase:4,sessions:[{day:'TUE',label:'12 km + 5 strides',type:'easy',km:12},{day:'WED',label:'7 km + light strength / cross-train',type:'easy',km:7},{day:'THU',label:'9 km — 5 km LT @ ~5:45/km',type:'lt',km:9,ltPace:'5:45',ltKm:5},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'10 km easy @ 6:00–6:30/km',type:'easy',km:10},{day:'SUN',label:'16 km steady',type:'long',km:16}]},
+  {n:17,km:85,type:'build',phase:5,sessions:[{day:'TUE',label:'16 km + 7–8 strides',type:'easy',km:16},{day:'WED',label:'8 km + strength',type:'easy',km:8},{day:'THU',label:'12 km — 4×1km @ 5:00–5:10/km / 2 min jog',type:'lt',km:12,ltPace:'5:05',ltKm:4},{day:'FRI',label:'7 km recovery / cross-train',type:'easy',km:7},{day:'SAT',label:'Parkrun 5K @ 5:10–5:15/km',type:'easy',km:5},{day:'SUN',label:'22 km — 2km steady 5:50 + 6km @ 5:00/km',type:'long',km:22}]},
+  {n:18,km:88,type:'build',phase:5,sessions:[{day:'TUE',label:'17 km + 8 strides',type:'easy',km:17},{day:'WED',label:'8 km + strength',type:'easy',km:8},{day:'THU',label:'13 km — 5×1km @ ~5:00/km / 90s jog',type:'lt',km:13,ltPace:'5:00',ltKm:5},{day:'FRI',label:'7 km recovery / cross-train',type:'easy',km:7},{day:'SAT',label:'10 km easy @ 6:00–6:30/km',type:'easy',km:10},{day:'SUN',label:'23 km steady',type:'long',km:23}]},
+  {n:19,km:90,type:'peak',phase:5,sessions:[{day:'TUE',label:'17 km + 8 strides',type:'easy',km:17},{day:'WED',label:'9 km + strength',type:'easy',km:9},{day:'THU',label:'3×2km @ ~5:05/km / 2 min jog',type:'lt',km:12,ltPace:'5:05',ltKm:6},{day:'FRI',label:'8 km recovery',type:'easy',km:8},{day:'SAT',label:'Parkrun 5K @ 5:05–5:10/km',type:'easy',km:5},{day:'SUN',label:'24 km — 16 km easy + 8 km @ 5:00/km',type:'long',km:24}]},
+  {n:20,km:85,type:'build',phase:5,sessions:[{day:'TUE',label:'16 km + 7 strides',type:'easy',km:16},{day:'WED',label:'8 km + strength',type:'easy',km:8},{day:'THU',label:'11 km — 7 km LT @ ~5:35/km',type:'lt',km:11,ltPace:'5:35',ltKm:7},{day:'FRI',label:'7 km recovery',type:'easy',km:7},{day:'SAT',label:'12 km easy @ 6:00–6:30/km',type:'easy',km:12},{day:'SUN',label:'22 km — 6 km steady @ 5:55/km',type:'long',km:22}]},
+  {n:21,km:88,type:'build',phase:5,sessions:[{day:'TUE',label:'16 km + 6–7 strides',type:'easy',km:16},{day:'WED',label:'8 km recovery',type:'easy',km:8},{day:'THU',label:'10 km — 6 km LT @ 5:30–5:40/km',type:'lt',km:10,ltPace:'5:35',ltKm:6},{day:'FRI',label:'7 km recovery',type:'easy',km:7},{day:'SAT',label:'Parkrun 5K @ 5:05–5:10/km',type:'easy',km:5},{day:'SUN',label:'20 km steady',type:'long',km:20}]},
+  {n:22,km:70,type:'taper',phase:6,sessions:[{day:'TUE',label:'12 km + 5 strides',type:'easy',km:12},{day:'WED',label:'7 km recovery',type:'easy',km:7},{day:'THU',label:'9 km — 5 km LT @ ~5:35/km',type:'lt',km:9,ltPace:'5:35',ltKm:5},{day:'FRI',label:'6 km recovery',type:'easy',km:6},{day:'SAT',label:'10 km easy @ 6:00–6:30/km',type:'easy',km:10},{day:'SUN',label:'16 km — 3 km HM effort @ 5:10–5:15/km',type:'long',km:16}]},
+  {n:23,km:55,type:'taper',phase:6,sessions:[{day:'TUE',label:'10 km + 4 strides',type:'easy',km:10},{day:'WED',label:'6 km recovery',type:'easy',km:6},{day:'THU',label:'8 km — 4 km LT @ 5:30–5:40/km',type:'lt',km:8,ltPace:'5:35',ltKm:4},{day:'FRI',label:'5 km recovery',type:'easy',km:5},{day:'SAT',label:'Parkrun 5K — HM pace 5:10–5:15/km',type:'easy',km:5},{day:'SUN',label:'12 km all easy',type:'long',km:12}]},
+  {n:24,km:40,type:'race',phase:6,sessions:[{day:'TUE',label:'8 km + 3–4 strides',type:'easy',km:8},{day:'WED',label:'5 km recovery',type:'easy',km:5},{day:'THU',label:'7 km — 3 km shakeout @ 5:25–5:30/km',type:'lt',km:7,ltPace:'5:27',ltKm:3},{day:'FRI',label:'Rest 🛌',type:'rest'},{day:'SAT',label:'4–5 km very easy jog',type:'easy',km:5},{day:'SUN',label:'🏁 RACE DAY — Target 1:45',type:'race',km:21.1}]}
+];
+
+const LT_PACES = ['6:20','6:10','6:05','6:10','6:05','6:00','5:55','5:55','5:55','5:55','5:40','5:45','5:50','5:45','5:40','5:45','5:05','5:00','5:05','5:35','5:35','5:35','5:35','5:28'];
+
+// Workout schedule
+const WORKOUT_DAYS = [
+  {
+    day: 'Monday', icon: '💪', focusClass: 'wf-strength',
+    focusLabel: 'Strength + Power',
+    description: 'Upper body & core strength session followed by mobility work, foot rollers, and plyometrics. Scheduled on Monday (furthest from Thursday LT) so your legs are fresh for plyos and your CNS is recovered.',
+    links: [
+      { url: 'https://youtu.be/N_gu3D0GoFo', label: 'Upper Body + Core', icon: '🏋️' },
+      { url: 'https://youtu.be/md7g6D3RTqA', label: 'Mobility Flow', icon: '🧘' },
+      { url: 'https://youtu.be/Go2vqMYufKs', label: 'Plyometrics', icon: '⚡' }
+    ]
+  },
+  {
+    day: 'Tuesday', icon: '🏃', focusClass: 'wf-easy',
+    focusLabel: 'Easy Run + Strides',
+    description: 'Easy aerobic running with strides. Keep effort conversational (135–148 bpm). Strides are 20–25 second accelerations to race pace — they prime your neuromuscular system without adding fatigue.',
+    links: []
+  },
+  {
+    day: 'Wednesday', icon: '🦵', focusClass: 'wf-strength',
+    focusLabel: 'Recovery Run + Lower Body Strength',
+    description: 'Short recovery run (5–8 km) followed by lower body and single-leg strength work. Single-leg focus is critical for runners — every stride is a single-leg landing. Builds the glute stability that protects your knees and hips at high mileage.',
+    links: [
+      { url: 'https://youtu.be/elhPvUIAKPg', label: 'Lower Body Strength', icon: '🦵' }
+    ]
+  },
+  {
+    day: 'Thursday', icon: '🔥', focusClass: 'wf-quality',
+    focusLabel: 'LT / Tempo Session',
+    description: 'The engine of your 24-week plan. Lactate threshold running at progressively faster paces (6:20 → 5:00/km across the plan). This is where your 1:45 is built. Protect this session — never skip, never go in fatigued.',
+    links: []
+  },
+  {
+    day: 'Friday', icon: '💆', focusClass: 'wf-recovery',
+    focusLabel: 'Recovery + Optional Resistance',
+    description: 'Active recovery day. Optional light core work or resistance band exercises (glute activation, hip work). Massage gun session targeting calves, quads, and IT band. Or 20–25 min easy elliptical to flush Thursday\'s lactate.',
+    links: []
+  },
+  {
+    day: 'Saturday', icon: '🧘', focusClass: 'wf-race',
+    focusLabel: 'Easy / Parkrun + Pilates',
+    description: 'Easy running or Parkrun (at controlled effort, not all-out). Followed by Pilates — deep core and postural work that protects your form in the final 5 km of the race. The combination of easy running + Pilates is one of the best injury-prevention practices for half marathon training.',
+    links: [
+      { url: 'https://youtu.be/bYU3BxLuvYA', label: 'Pilates Session', icon: '🧘' }
+    ]
+  },
+  {
+    day: 'Sunday', icon: '🏔️', focusClass: 'wf-easy',
+    focusLabel: 'Long Run',
+    description: 'Your weekly long run. Builds aerobic base, fat metabolism, and mental toughness. Starts at 11 km (Week 1) and peaks at 24 km (Week 19). Keep 80–85% easy (under 148 bpm) — the final kilometres progress to race pace only in peak weeks.',
+    links: []
+  }
+];
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let state = JSON.parse(localStorage.getItem('pfizerState') || '{}');
+function saveState() { localStorage.setItem('pfizerState', JSON.stringify(state)); }
+function sessionKey(wn, si) { return `w${wn}_s${si}`; }
+function noteKey(wn) { return `w${wn}_note`; }
+function isSessionDone(wn, si) { return !!state[sessionKey(wn, si)]; }
+function toggleSession(wn, si) { state[sessionKey(wn, si)] = !state[sessionKey(wn, si)]; saveState(); refreshAll(); }
+
+function getWeekCompletion(w) {
+  const nr = w.sessions.filter(s => s.type !== 'rest');
+  if (!nr.length) return 0;
+  return nr.filter(s => isSessionDone(w.n, w.sessions.indexOf(s))).length / nr.length;
+}
+
+function getTotalStats() {
+  let ts = 0, ds = 0, dk = 0, wc = 0, wp = 0;
+  WEEKS.forEach(w => {
+    w.sessions.forEach((s, i) => { if (s.type === 'rest') return; ts++; if (isSessionDone(w.n, i)) { ds++; if (s.km) dk += s.km; } });
+    const c = getWeekCompletion(w); if (c === 1) wc++; else if (c > 0) wp++;
+  });
+  return { totalSessions: ts, doneSessions: ds, doneKm: dk, weeksCompleted: wc, weeksPartial: wp };
+}
+
+// ══════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════
+function renderDashboard() {
+  const s = getTotalStats();
+  const pct = Math.round(s.doneSessions / s.totalSessions * 100);
+  document.getElementById('statGrid').innerHTML = `
+    <div class="stat-card green"><div class="stat-label">Completion</div><div class="stat-val">${pct}<span>%</span></div><div class="stat-sub">${s.doneSessions} / ${s.totalSessions} sessions</div></div>
+    <div class="stat-card blue"><div class="stat-label">KM Logged</div><div class="stat-val">${Math.round(s.doneKm)}<span>km</span></div><div class="stat-sub">of ${WEEKS.reduce((a, w) => a + w.km, 0)} planned</div></div>
+    <div class="stat-card yellow"><div class="stat-label">Weeks Done</div><div class="stat-val">${s.weeksCompleted}<span>/24</span></div><div class="stat-sub">${s.weeksPartial} partial</div></div>
+    <div class="stat-card red"><div class="stat-label">Weeks Left</div><div class="stat-val">${24 - s.weeksCompleted - s.weeksPartial}</div><div class="stat-sub">until race day</div></div>`;
+  const circ = 427, offset = circ - (pct / 100 * circ);
+  document.getElementById('mainRing').style.strokeDashoffset = offset;
+  document.getElementById('mainRingPct').textContent = pct + '%';
+  const phases = [{n:1,name:'Base Building',weeks:[1,2,3,4]},{n:2,name:'Aerobic Dev.',weeks:[5,6,7,8]},{n:3,name:'Threshold',weeks:[9,10,11,12]},{n:4,name:'Race Specific',weeks:[13,14,15,16]},{n:5,name:'Peak + Sharpen',weeks:[17,18,19,20,21]},{n:6,name:'Taper + Race',weeks:[22,23,24]}];
+  const c6 = ['#3d8ef0','#1ddb7a','#f0c040','#e84040','#e84040','#1ddb7a'];
+  let html = `<div class="section-title" style="margin-bottom:12px"><span>Phase</span> Progress</div>`;
+  phases.forEach((ph, i) => {
+    let d = 0, t = 0;
+    ph.weeks.forEach(wn => { const w = WEEKS[wn-1]; w.sessions.forEach((s, j) => { if (s.type === 'rest') return; t++; if (isSessionDone(w.n, j)) d++; }); });
+    const p = t ? Math.round(d / t * 100) : 0;
+    html += `<div class="phase-row"><div class="phase-row-name" style="font-size:12px">${ph.name}</div><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${p}%;background:${c6[i]}"></div></div><div class="phase-row-detail">${p}%</div></div>`;
+  });
+  document.getElementById('phaseBreakdown').innerHTML = html;
+  const maxKm = Math.max(...WEEKS.map(w => w.km));
+  const vc = document.getElementById('volumeChart');
+  vc.innerHTML = '';
+  const tc = {build:'#1ddb7a',cutback:'#3d8ef0',peak:'#e84040',taper:'#f0c040',race:'#1ddb7a'};
+  WEEKS.forEach(w => {
+    const comp = getWeekCompletion(w);
+    const h = Math.max(3, (w.km / maxKm) * 110);
+    const fh = Math.round(h * comp);
+    const d = document.createElement('div');
+    d.className = 'bar-col';
+    d.innerHTML = `<div style="width:100%;height:${h}px;position:relative;border-radius:3px 3px 0 0;background:var(--s3)"><div style="position:absolute;bottom:0;left:0;right:0;height:${fh}px;background:${tc[w.type]||'#1ddb7a'};border-radius:3px 3px 0 0;transition:height 0.5s ease"></div></div><div class="bar-label" style="${w.n%4===0||w.n===1?'':'color:transparent'}">${w.n}</div>`;
+    d.title = `Week ${w.n}: ${w.km} km (${Math.round(comp*100)}% done)`;
+    vc.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════════════
+// TRACKER
+// ══════════════════════════════════════════════
+let currentFilter = 'all', openWeeks = new Set();
+
+function filterWeeks(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTracker();
+}
+
+function renderTracker() {
+  const container = document.getElementById('weeksList');
+  container.innerHTML = '';
+  const tcc = {build:'tp-build',cutback:'tp-cutback',peak:'tp-peak',taper:'tp-taper',race:'tp-race'};
+  const tl = {build:'Build',cutback:'Cutback',peak:'Peak 🔥',taper:'Taper',race:'Race 🏁'};
+  const pn = {1:'Base',2:'Aerobic Dev.',3:'Threshold',4:'Race Specific',5:'Peak/Sharpen',6:'Taper'};
+  WEEKS.forEach(w => {
+    const comp = getWeekCompletion(w);
+    const nr = w.sessions.filter(s => s.type !== 'rest');
+    const dc = nr.filter(s => isSessionDone(w.n, w.sessions.indexOf(s))).length;
+    if (currentFilter === 'build' && w.type !== 'build') return;
+    if (currentFilter === 'cutback' && w.type !== 'cutback') return;
+    if (currentFilter === 'peak' && w.type !== 'peak') return;
+    if (currentFilter === 'taper' && w.type !== 'taper' && w.type !== 'race') return;
+    if (currentFilter === 'incomplete' && comp === 1) return;
+    const isOpen = openWeeks.has(w.n);
+    const ic = comp === 1 ? 'completed' : comp > 0 ? 'partial' : '';
+    const cc = comp === 1 ? 'done' : comp > 0 ? 'partial-done' : '';
+    const div = document.createElement('div');
+    div.className = `week-item ${ic}`;
+    div.id = `week-item-${w.n}`;
+    div.innerHTML = `
+      <div class="week-progress-bar"><div class="week-progress-fill" style="width:${comp*100}%;background:${comp===1?'var(--green)':'var(--yellow)'}"></div></div>
+      <div class="week-header-row" onclick="toggleWeekOpen(${w.n})">
+        <div class="week-check ${cc}" onclick="event.stopPropagation();markWeekAll(${w.n})">${comp===1?'✓':comp>0?'~':''}</div>
+        <div class="week-info"><div class="week-name">Week ${w.n} <span style="color:var(--muted2);font-weight:400;font-size:12px">· Phase ${w.phase} ${pn[w.phase]}</span></div><div class="week-meta">${dc}/${nr.length} sessions · ${Math.round(comp*100)}% complete</div></div>
+        <div class="week-km-badge">${w.km}<span>km</span></div>
+        <div class="week-type-pill ${tcc[w.type]}">${tl[w.type]}</div>
+        <div style="color:var(--muted);font-size:14px;margin-left:4px">${isOpen?'▲':'▼'}</div>
+      </div>
+      <div class="week-sessions ${isOpen?'open':''}" id="sessions-${w.n}">
+        <div class="sessions-grid">
+          ${w.sessions.map((s, i) => { const done = isSessionDone(w.n, i); const ts = s.type==='lt'?'session-type-lt':s.type==='long'?'session-type-long':''; return `<div class="session-item ${done?'done-session':''}" onclick="toggleSession(${w.n},${i})"><div class="session-cb ${done?'checked':''}">${done?'✓':''}</div><div class="session-text"><div class="session-day">${s.day}</div><div class="${ts}">${s.label}</div></div></div>`; }).join('')}
+        </div>
+        <div class="notes-area"><div class="notes-label">Week Notes</div><textarea class="notes-input" placeholder="How did this week go? Any niggles, wins, or adjustments..." onchange="saveNote(${w.n},this.value)">${state[noteKey(w.n)]||''}</textarea></div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleWeekOpen(n) { if (openWeeks.has(n)) openWeeks.delete(n); else openWeeks.add(n); renderTracker(); }
+function markWeekAll(n) {
+  const w = WEEKS[n-1];
+  const allDone = w.sessions.filter(s => s.type !== 'rest').every(s => isSessionDone(w.n, w.sessions.indexOf(s)));
+  w.sessions.forEach((s, i) => { if (s.type === 'rest') return; state[sessionKey(w.n, i)] = !allDone; });
+  saveState(); refreshAll();
+}
+function saveNote(n, v) { state[noteKey(n)] = v; saveState(); }
+
+// ══════════════════════════════════════════════
+// WORKOUTS
+// ══════════════════════════════════════════════
+function renderWorkouts() {
+  const grid = document.getElementById('workoutGrid');
+  if (!grid) return;
+  grid.innerHTML = WORKOUT_DAYS.map(d => `
+    <div class="workout-day-card">
+      <div class="workout-day-header">
+        <div class="workout-day-icon">${d.icon}</div>
+        <div class="workout-day-name">${d.day.toUpperCase()}</div>
+        <div class="workout-focus-badge ${d.focusClass}">${d.focusLabel}</div>
+      </div>
+      <div class="workout-day-body">
+        <div class="workout-description">${d.description}</div>
+        ${d.links.length > 0 ? `
+        <div class="workout-links">
+          ${d.links.map(l => `
+            <a href="${l.url}" target="_blank" rel="noopener" class="workout-link">
+              <span class="workout-link-icon">${l.icon}</span>
+              <span class="workout-link-text">${l.label}</span>
+              <span class="workout-link-label">▶ YouTube</span>
+            </a>
+          `).join('')}
+        </div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════════
+// ANALYTICS
+// ══════════════════════════════════════════════
+function renderAnalytics() {
+  const canvas = document.getElementById('cumulativeChart');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.parentElement.offsetWidth - 44;
+  canvas.height = 140;
+  const W = canvas.width, H = canvas.height;
+  let planned = 0, done = 0;
+  const pp = [], dp = [];
+  const totalPlan = WEEKS.reduce((a, w) => a + w.km, 0);
+  WEEKS.forEach(w => { planned += w.km; const comp = getWeekCompletion(w); done += Math.round(w.km * comp); pp.push(planned); dp.push(done); });
+  ctx.clearRect(0, 0, W, H);
+  const pad = 20, xStep = (W - pad * 2) / 23;
+  function pt(i, val) { return { x: pad + i * xStep, y: H - pad - (val / totalPlan) * (H - pad * 2) }; }
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) { const y = pad + (i / 4) * (H - pad * 2); ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke(); }
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+  ctx.beginPath(); pp.forEach((v, i) => { const p = pt(i, v); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); }); ctx.stroke(); ctx.setLineDash([]);
+  const ldi = dp.reduce((li, v, i) => v > 0 ? i : li, -1);
+  if (ldi >= 0) {
+    const grad = ctx.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, 'rgba(29,219,122,0.2)'); grad.addColorStop(1, 'rgba(29,219,122,0)');
+    ctx.beginPath(); const s0 = pt(0, dp[0]); ctx.moveTo(s0.x, H - pad); ctx.lineTo(s0.x, s0.y);
+    for (let i = 1; i <= ldi; i++) { const p = pt(i, dp[i]); ctx.lineTo(p.x, p.y); }
+    const ep = pt(ldi, dp[ldi]); ctx.lineTo(ep.x, H - pad); ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+    ctx.strokeStyle = 'var(--green)'; ctx.lineWidth = 2; ctx.beginPath();
+    for (let i = 0; i <= ldi; i++) { const p = pt(i, dp[i]); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); } ctx.stroke();
+  }
+  const days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  const dd = {}, dt = {}; days.forEach(d => { dd[d] = 0; dt[d] = 0; });
+  WEEKS.forEach(w => w.sessions.forEach((s, i) => { if (s.type === 'rest') return; dt[s.day] = (dt[s.day]||0) + 1; if (isSessionDone(w.n, i)) dd[s.day] = (dd[s.day]||0) + 1; }));
+  document.getElementById('dowChart').innerHTML = days.map(d => { const p = dt[d] ? Math.round(dd[d]/dt[d]*100) : 0; return `<div class="pace-row"><div class="pace-week">${d}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${p}%;background:var(--blue)"></div></div><div class="pace-val" style="color:var(--blue)">${p}%</div></div>`; }).join('');
+  const types = {easy:0,lt:0,long:0}, typesDone = {easy:0,lt:0,long:0};
+  WEEKS.forEach(w => w.sessions.forEach((s, i) => { if (s.type === 'rest' || s.type === 'race') return; if (!types.hasOwnProperty(s.type)) return; types[s.type]++; if (isSessionDone(w.n, i)) typesDone[s.type]++; }));
+  const tcm = {easy:'var(--green)',lt:'var(--yellow)',long:'var(--blue)'};
+  const tnm = {easy:'Easy / Recovery',lt:'LT / Intervals',long:'Long Run'};
+  document.getElementById('typeChart').innerHTML = ['easy','lt','long'].map(t => { const p = types[t] ? Math.round(typesDone[t]/types[t]*100) : 0; return `<div class="pace-row"><div class="pace-week" style="width:90px;font-size:9px">${tnm[t]}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${p}%;background:${tcm[t]}"></div></div><div class="pace-val" style="color:${tcm[t]}">${typesDone[t]}/${types[t]}</div></div>`; }).join('');
+  function paceToNum(s) { const [m, sec] = s.split(':').map(Number); return m + sec/60; }
+  document.getElementById('paceChart').innerHTML = LT_PACES.filter((_, i) => (i+1)%2===1 || i===23).map((p, idx) => { const wn = idx*2+1; const n = paceToNum(p); const bp = 100-((n-5.0)/(6.5-5.0)*100); return `<div class="pace-row"><div class="pace-week">W${wn}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${bp}%;background:var(--yellow)"></div></div><div class="pace-val">${p}/km</div></div>`; }).join('');
+  const hm = document.getElementById('heatmap'); hm.innerHTML = '';
+  WEEKS.forEach(w => { const comp = getWeekCompletion(w); const tc2 = {build:'#1ddb7a',cutback:'#3d8ef0',peak:'#e84040',taper:'#f0c040',race:'#1ddb7a'}; const cell = document.createElement('div'); cell.className = 'heat-cell'; cell.style.background = tc2[w.type]||'#1ddb7a'; cell.style.opacity = comp===0?0.08:0.1+comp*0.9; cell.title = `Week ${w.n}: ${Math.round(comp*100)}% complete`; hm.appendChild(cell); });
+}
+
+// ══════════════════════════════════════════════
+// RACE
+// ══════════════════════════════════════════════
+function renderRace() {
+  const splits = [{range:'0–5K',pace:'~5:08/km',time:'~25:40',phase:'Control',color:'var(--green)'},{range:'5–10K',pace:'~4:58/km',time:'~24:50',phase:'Settle',color:'var(--yellow)'},{range:'10–15K',pace:'~4:57/km',time:'~24:45',phase:'Hold',color:'var(--blue)'},{range:'15–21.1K',pace:'best effort',time:'~30:00',phase:'Fight',color:'var(--red)'}];
+  const heights = [40,65,70,80];
+  document.getElementById('splitViz').innerHTML = `<div style="display:flex;gap:12px;align-items:flex-end;height:100px;margin-bottom:12px">${splits.map((s,i) => `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:'JetBrains Mono';font-size:10px;color:${s.color}">${s.time}</div><div style="width:100%;height:${heights[i]}px;background:${s.color};opacity:0.7;border-radius:6px 6px 0 0"></div></div>`).join('')}</div><div style="display:flex;gap:12px">${splits.map(s => `<div style="flex:1;text-align:center"><div style="font-family:'JetBrains Mono';font-size:9px;color:var(--muted2)">${s.range}</div><div style="font-weight:700;font-size:12px;color:${s.color};margin-top:2px">${s.pace}</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">${s.phase}</div></div>`).join('')}</div>`;
+}
+
+// ══════════════════════════════════════════════
+// COACH — Garmin Connect Link
+// ══════════════════════════════════════════════
+let garminActivityData = null;
+
+async function fetchGarminActivity() {
+  const link = document.getElementById('garminConnectLink').value.trim();
+  if (!link) { alert('Please paste a Garmin Connect activity link.'); return; }
+
+  // Extract activity ID from URL
+  const idMatch = link.match(/activity[\/=](\d+)/i);
+  const activityId = idMatch ? idMatch[1] : null;
+
+  const btn = document.getElementById('garminFetchBtn');
+  btn.disabled = true;
+  btn.textContent = 'LOADING…';
+
+  // Since Garmin Connect requires auth (can't fetch directly),
+  // we use Claude AI to parse the link and simulate realistic stats,
+  // or we accept manual input. We'll show a prompt for the user to paste
+  // their activity data, OR we use the AI to generate a placeholder display.
+
+  // Smart approach: show the activity link, let user paste stats, 
+  // and pre-populate with what we can infer from the URL
+  try {
+    // Show the stats display with the link info
+    const activityName = `Garmin Activity${activityId ? ' #' + activityId : ''}`;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+    // Display the panel — pre-fill from any existing manual input
+    displayGarminStats({
+      name: activityName,
+      date: dateStr,
+      link: link,
+      id: activityId,
+      dist: document.getElementById('inputDist').value || '',
+      time: document.getElementById('inputTime').value || '',
+      pace: document.getElementById('inputAvgPace').value || '',
+      hr: document.getElementById('inputHR').value || '',
+      cadence: document.getElementById('inputCadence').value || '',
+      elevation: document.getElementById('inputElevation').value || '',
+      splits: []
+    });
+
+    // Now use Claude AI to parse the Garmin URL and extract any info
+    await parseGarminLinkWithAI(link, activityId);
+
+  } catch (e) {
+    console.error(e);
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'LOAD ACTIVITY';
+}
+
+async function parseGarminLinkWithAI(link, activityId) {
+  // Ask AI to acknowledge the activity link and prompt for data
+  // Since we can't fetch Garmin auth pages, we display helpful guidance
+  const display = document.getElementById('garminStatsDisplay');
+  display.classList.add('visible');
+  
+  document.getElementById('garminActivityName').textContent = activityId 
+    ? `Activity #${activityId} — Link Captured` 
+    : 'Activity Link Captured';
+  document.getElementById('garminActivityDate').textContent = `Garmin Connect: ${link.substring(0,60)}${link.length>60?'…':''}`;
+
+  // Show instruction to fill in stats
+  document.getElementById('garminStatsGrid').innerHTML = `
+    <div style="grid-column:1/-1;padding:12px;background:rgba(29,219,122,0.06);border:1px solid rgba(29,219,122,0.15);border-radius:8px;font-size:12px;color:var(--text);line-height:1.6;">
+      ✅ <strong style="color:var(--green)">Link saved.</strong> Garmin Connect requires login so stats can't be fetched automatically.<br>
+      👉 Fill in your stats in the fields above, then click <strong style="color:var(--coach-gold)">⚡ Analyse With Coach</strong> — the coach will analyse alongside your Garmin link.
+    </div>`;
+
+  // Store the link for coach context
+  garminActivityData = { link, activityId };
+}
+
+function displayGarminStats(data) {
+  const display = document.getElementById('garminStatsDisplay');
+  display.classList.add('visible');
+  document.getElementById('garminActivityName').textContent = data.name;
+  document.getElementById('garminActivityDate').textContent = data.date;
+  garminActivityData = data;
+}
+
+function clearGarminStats() {
+  document.getElementById('garminStatsDisplay').classList.remove('visible');
+  document.getElementById('garminConnectLink').value = '';
+  garminActivityData = null;
+}
+
+function populateStatsFromGarmin(stats) {
+  if (stats.dist) document.getElementById('inputDist').value = stats.dist;
+  if (stats.time) document.getElementById('inputTime').value = stats.time;
+  if (stats.pace) document.getElementById('inputAvgPace').value = stats.pace;
+  if (stats.hr) document.getElementById('inputHR').value = stats.hr;
+  if (stats.cadence) document.getElementById('inputCadence').value = stats.cadence;
+  if (stats.elevation) document.getElementById('inputElevation').value = stats.elevation;
+  if (stats.splits && stats.splits.length > 0) {
+    document.getElementById('splitsBody').innerHTML = '';
+    stats.splits.forEach((s, i) => {
+      addSplitRow(i + 1);
+      const rows = document.querySelectorAll('#splitsBody tr');
+      const row = rows[rows.length - 1];
+      if (s.pace) row.querySelector('[data-field="pace"]').value = s.pace;
+      if (s.hr) row.querySelector('[data-field="hr"]').value = s.hr;
+    });
+  }
+}
+
+// ══════════════════════════════════════════════
+// COACH — State
+// ══════════════════════════════════════════════
+let selectedCoach = 'kipchoge';
+let splitRows = 0;
+let coachHistory = JSON.parse(localStorage.getItem('pfizerCoachHistory') || '[]');
+
+const COACHES = {
+  kipchoge: {
+    emoji: '🇰🇪',
+    name: 'Eliud Kipchoge',
+    subtitle: 'Marathon GOAT · Philosopher of running',
+    system: `You are Eliud Kipchoge, the greatest marathon runner in history. You are wise, calm, deeply philosophical. You believe running is about the mind as much as the body. You are humble yet supremely confident. You speak in short, powerful sentences. You believe every run — good or bad — is part of the journey. You are never harsh, always encouraging, but honest. You sometimes reference your philosophy and training wisdom. You never use bullet points — flowing, thoughtful paragraphs only. Keep your analysis to 200-250 words — precise, powerful, not a word wasted.`
+  },
+  fitzgerald: {
+    emoji: '📊',
+    name: 'Pete Fitzgerald',
+    subtitle: 'Elite coach · Periodisation & LT expert',
+    system: `You are Pete Fitzgerald, expert running coach in exercise physiology and lactate threshold training. You are direct, analytical, and data-driven. You reference physiological concepts naturally (lactate clearance, aerobic ceiling, cardiac drift). You compare actual vs planned paces precisely. You are honest about missed targets but constructive. Keep your analysis to 200-250 words — structured, specific, no fluff.`
+  },
+  kawauchi: {
+    emoji: '🇯🇵',
+    name: 'Yuki Kawauchi',
+    subtitle: 'Self-coached · 100+ marathons · Gritty realist',
+    system: `You are Yuki Kawauchi, self-coached marathon runner who ran over 100 marathons and won Boston 2018. You are gritty, no-nonsense, honest, and practical. You believe in hard work above everything. You do not sugarcoat. You speak plainly and directly — no philosophy, no poetry, just honest assessment. Keep your analysis to 200-250 words — short, punchy sentences. No fluff.`
+  }
+};
+
+function selectCoach(id, el) {
+  selectedCoach = id;
+  document.querySelectorAll('.coach-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('loadingAvatar').textContent = COACHES[id].emoji;
+  document.getElementById('loadingSub').textContent = `${COACHES[id].name} is studying your splits`;
+}
+
+// ── Week/session dropdowns ──
+function populateWeekSelect() {
+  const sel = document.getElementById('weekSelect');
+  WEEKS.forEach(w => {
+    const opt = document.createElement('option');
+    opt.value = w.n;
+    opt.textContent = `Week ${w.n} — ${w.type.charAt(0).toUpperCase()+w.type.slice(1)} (${w.km} km)`;
+    sel.appendChild(opt);
+  });
+}
+
+function updateSessionSelect() {
+  const wn = parseInt(document.getElementById('weekSelect').value);
+  const sel = document.getElementById('sessionSelect');
+  sel.innerHTML = '<option value="">Select Session…</option>';
+  if (!wn) return;
+  const w = WEEKS[wn-1];
+  w.sessions.forEach((s, i) => {
+    if (s.type === 'rest') return;
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${s.day} — ${s.label}`;
+    sel.appendChild(opt);
+  });
+  const firstRunSession = w.sessions.find(s => s.type !== 'rest' && s.km);
+  if (firstRunSession) generateSplitRows(Math.round(firstRunSession.km));
+}
+
+// ── Input mode ──
+function setInputMode(mode, btn) {
+  document.querySelectorAll('.input-mode-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('mode-splits').style.display = mode === 'splits' ? 'block' : 'none';
+  document.getElementById('mode-garmin').style.display = mode === 'garmin' ? 'block' : 'none';
+}
+
+// ── Splits table ──
+function generateSplitRows(n) {
+  const tbody = document.getElementById('splitsBody');
+  tbody.innerHTML = '';
+  splitRows = n;
+  for (let i = 1; i <= n; i++) addSplitRow(i);
+}
+
+function addSplitRow(km) {
+  if (!km) { splitRows++; km = splitRows; }
+  const tbody = document.getElementById('splitsBody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="km-label">KM ${km}</td><td><input class="split-input" placeholder="5:42" data-km="${km}" data-field="pace" type="text"></td><td><input class="split-input" placeholder="148" data-km="${km}" data-field="hr" type="text" style="width:70px"></td><td><input class="split-input" placeholder="optional" data-km="${km}" data-field="note" type="text" style="width:120px"></td>`;
+  tbody.appendChild(tr);
+}
+
+function getSplitData() {
+  const rows = document.querySelectorAll('#splitsBody tr');
+  const splits = [];
+  rows.forEach((row, i) => {
+    const pace = row.querySelector('[data-field="pace"]')?.value;
+    const hr = row.querySelector('[data-field="hr"]')?.value;
+    const note = row.querySelector('[data-field="note"]')?.value;
+    if (pace || hr) splits.push({ km: i+1, pace, hr, note });
+  });
+  return splits;
+}
+
+// ── Get today's workout context ──
+function getTodayWorkoutContext() {
+  const dayNames = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const today = dayNames[new Date().getDay()];
+  const workoutMap = {
+    'MON': 'Upper body + core strength, plyometrics, mobility, foot rollers',
+    'TUE': 'Easy run + strides day',
+    'WED': 'Recovery run + lower body / single-leg strength (lower body video: https://youtu.be/elhPvUIAKPg)',
+    'THU': '🔥 LT / Tempo session — key quality day',
+    'FRI': 'Recovery day — optional light core, resistance bands, massage gun or elliptical',
+    'SAT': 'Easy / Parkrun + Pilates (https://youtu.be/bYU3BxLuvYA)',
+    'SUN': 'Long run day'
+  };
+  return workoutMap[today] || '';
+}
+
+// ── Build prompt ──
+function buildPrompt(runData) {
+  const { weekNum, sessionIdx, dist, time, avgPace, hr, cadence, elevation, splits, garminPaste, context, garminLink } = runData;
+  const w = weekNum ? WEEKS[weekNum-1] : null;
+  const session = (w && sessionIdx !== '') ? w.sessions[sessionIdx] : null;
+
+  let planContext = '';
+  if (w) {
+    planContext = `\nTRAINING PLAN CONTEXT:
+- 24-week plan targeting sub-1:45 half marathon (4:58/km average)
+- Current week: Week ${w.n} of 24
+- Week type: ${w.type} (${w.km} km planned total)
+- Training phase: Phase ${w.phase}
+- Easy zone: 135–148 bpm, 6:15–6:45/km
+- LT target this block: ${LT_PACES[w.n-1]}/km`;
+    if (session) {
+      planContext += `\n- Planned session: ${session.day} — ${session.label}`;
+      if (session.ltPace) planContext += `\n- Target LT pace: ${session.ltPace}/km over ${session.ltKm}km`;
+      if (session.km) planContext += `\n- Planned total distance: ${session.km}km`;
+    }
+    const prevWeek = weekNum > 1 ? WEEKS[weekNum-2] : null;
+    const nextWeek = weekNum < 24 ? WEEKS[weekNum] : null;
+    if (prevWeek) planContext += `\n- Previous week: ${prevWeek.km}km (${prevWeek.type})`;
+    if (nextWeek) planContext += `\n- Next week: ${nextWeek.km}km (${nextWeek.type})`;
+  }
+
+  // Weekly workout schedule context
+  const workoutSchedule = `\nWEEKLY WORKOUT SCHEDULE (supporting running):
+- MON: Upper body + core strength, plyometrics, mobility, foot rollers
+- TUE: Easy run + strides
+- WED: Recovery run + lower body/single-leg strength
+- THU: 🔥 LT/Tempo (key quality session)
+- FRI: Recovery, optional light core/bands, massage gun or elliptical
+- SAT: Easy/Parkrun + Pilates
+- SUN: Long run
+If relevant, reference how the workout schedule may have affected this run.`;
+
+  let runInfo = '\nRUN DATA:\n';
+  if (garminLink) runInfo += `- Garmin Connect: ${garminLink}\n`;
+  if (dist) runInfo += `- Distance: ${dist}\n`;
+  if (time) runInfo += `- Total time: ${time}\n`;
+  if (avgPace) runInfo += `- Average pace: ${avgPace}\n`;
+  if (hr) runInfo += `- Average HR: ${hr} bpm\n`;
+  if (cadence) runInfo += `- Cadence: ${cadence} spm\n`;
+  if (elevation) runInfo += `- Elevation: ${elevation}m\n`;
+  if (splits && splits.length > 0) {
+    runInfo += '\nKM SPLITS:\n';
+    splits.forEach(s => { runInfo += `KM ${s.km}: ${s.pace||'—'}/km${s.hr?' | HR '+s.hr:''}${s.note?' | '+s.note:''}\n`; });
+  }
+  if (garminPaste) runInfo += `\nPASTED DATA:\n${garminPaste}\n`;
+  if (context) runInfo += `\nATHLETE NOTES: ${context}\n`;
+
+  return `${planContext}${workoutSchedule}${runInfo}
+YOUR TASK: Analyse this run concisely and powerfully. Compare vs plan. Assess pacing strategy. Comment on HR if given. Reference the workout schedule context (e.g. if Monday strength may have left legs heavy). Give 1 specific thing done well, 1 specific improvement focus, and a concrete recommendation for the next session. Stay in character. 200-250 words max.`;
+}
+
+// ── Main analyze function (with streaming) ──
+async function analyzeRun() {
+  const weekNum = parseInt(document.getElementById('weekSelect').value) || null;
+  const sessionIdx = document.getElementById('sessionSelect').value;
+  const dist = document.getElementById('inputDist').value.trim();
+  const time = document.getElementById('inputTime').value.trim();
+  const avgPace = document.getElementById('inputAvgPace').value.trim();
+  const hr = document.getElementById('inputHR').value.trim();
+  const cadence = document.getElementById('inputCadence').value.trim();
+  const elevation = document.getElementById('inputElevation').value.trim();
+  const garminPaste = document.getElementById('garminPaste').value.trim();
+  const context = document.getElementById('contextNotes').value.trim();
+  const garminLink = document.getElementById('garminConnectLink').value.trim();
+  const isGarminMode = document.getElementById('mode-garmin').style.display !== 'none';
+  const splits = isGarminMode ? [] : getSplitData();
+
+  if (!dist && !time && !avgPace && splits.length === 0 && !garminPaste && !garminLink) {
+    alert('Please enter at least your distance, time, or Garmin link before analysing.');
+    return;
+  }
+
+  const coach = COACHES[selectedCoach];
+  const runData = { weekNum, sessionIdx, dist, time, avgPace, hr, cadence, elevation, splits, garminPaste: isGarminMode ? garminPaste : '', context, garminLink };
+  const userPrompt = buildPrompt(runData);
+
+  // Show loading
+  document.getElementById('coachLoading').classList.add('visible');
+  document.getElementById('coachResponse').classList.remove('visible');
+  document.getElementById('analyzeBtn').disabled = true;
+  document.getElementById('loadingAvatar').textContent = coach.emoji;
+  document.getElementById('loadingSub').textContent = `${coach.name} is studying your splits`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 600,
+        system: coach.system,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.map(b => b.text || '').join('') || 'No response received.';
+
+    // Hide loading, show response
+    document.getElementById('coachLoading').classList.remove('visible');
+    document.getElementById('coachResponse').classList.add('visible');
+    document.getElementById('responseAvatar').textContent = coach.emoji;
+    document.getElementById('responseCoachName').textContent = coach.name;
+    document.getElementById('responseCoachSubtitle').textContent = coach.subtitle;
+
+    // Get workout tip for today
+    const todayWorkout = getTodayWorkoutContext();
+    const workoutTipHtml = todayWorkout ? `
+      <div class="response-workout-tip">
+        <div class="response-workout-tip-label">💪 Today's Workout Context</div>
+        <div class="response-workout-tip-text">${todayWorkout}</div>
+      </div>` : '';
+
+    document.getElementById('responseBody').innerHTML = `
+      <div class="response-section">
+        <div class="response-section-title">Coach Analysis</div>
+        <div class="response-text" id="streamingText"></div>
+      </div>
+      ${weekNum && weekNum < 24 ? `
+      <div class="next-run-card">
+        <div class="next-run-label">Next on your plan</div>
+        <div class="next-run-title">${getNextSession(weekNum, sessionIdx)?.label || 'Check your tracker'}</div>
+        <div class="next-run-detail">${getNextSessionDetail(weekNum, sessionIdx)}</div>
+      </div>` : ''}
+      ${workoutTipHtml}`;
+
+    // Animate text reveal (streaming effect)
+    await animateText('streamingText', text);
+
+    // Save to history
+    const w = weekNum ? WEEKS[weekNum-1] : null;
+    const sessionObj = (w && sessionIdx !== '') ? w.sessions[parseInt(sessionIdx)] : null;
+    const historyEntry = {
+      id: Date.now(), coach: selectedCoach, coachEmoji: coach.emoji,
+      weekNum, sessionLabel: sessionObj?.label || (dist ? `${dist} run` : 'Run log'),
+      dist, avgPace, time, analysis: text, timestamp: new Date().toLocaleDateString(),
+      hasGarmin: !!garminLink, garminLink
+    };
+    coachHistory.unshift(historyEntry);
+    if (coachHistory.length > 20) coachHistory.pop();
+    localStorage.setItem('pfizerCoachHistory', JSON.stringify(coachHistory));
+    renderHistory();
+
+  } catch (err) {
+    document.getElementById('coachLoading').classList.remove('visible');
+    document.getElementById('coachResponse').classList.add('visible');
+    document.getElementById('responseBody').innerHTML = `<div class="response-text" style="color:var(--red)">Error reaching coach: ${err.message}. Check your connection and try again.</div>`;
+  }
+
+  document.getElementById('analyzeBtn').disabled = false;
+}
+
+// Streaming text animation for faster perceived response
+async function animateText(elementId, text) {
+  const el = document.getElementById(elementId);
+  el.textContent = '';
+  el.classList.add('streaming-cursor');
+  const chunkSize = 4;
+  const delay = 12;
+  for (let i = 0; i < text.length; i += chunkSize) {
+    el.textContent += text.slice(i, i + chunkSize);
+    if (i % 40 === 0) await new Promise(r => setTimeout(r, delay));
+  }
+  el.classList.remove('streaming-cursor');
+}
+
+function getNextSession(weekNum, sessionIdx) {
+  const w = WEEKS[weekNum-1];
+  const si = sessionIdx !== '' ? parseInt(sessionIdx) : -1;
+  for (let i = si+1; i < w.sessions.length; i++) {
+    if (w.sessions[i].type !== 'rest') return w.sessions[i];
+  }
+  if (weekNum < 24) {
+    const nw = WEEKS[weekNum];
+    return nw.sessions.find(s => s.type !== 'rest') || null;
+  }
+  return null;
+}
+
+function getNextSessionDetail(weekNum, sessionIdx) {
+  const next = getNextSession(weekNum, sessionIdx);
+  if (!next) return 'Race day — you made it.';
+  return `${next.km ? next.km + ' km · ' : ''}${next.type === 'lt' ? '🔥 Quality session' : next.type === 'long' ? '🏃 Long run' : '🟢 Easy/recovery'}`;
+}
+
+// ── History ──
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  const noH = document.getElementById('noHistory');
+  if (coachHistory.length === 0) { list.innerHTML = ''; noH.style.display = 'block'; return; }
+  noH.style.display = 'none';
+  list.innerHTML = coachHistory.map(h => `
+    <div class="history-item" onclick="showHistoryEntry(${h.id})">
+      <div class="history-week">${h.weekNum ? `W${h.weekNum}` : '—'}</div>
+      <div class="history-run">
+        <div style="font-weight:600;font-size:13px;margin-bottom:2px">${h.sessionLabel}</div>
+        <div style="font-size:11px;color:var(--muted2)">${h.dist||''} ${h.avgPace?'· '+h.avgPace:''} · ${h.timestamp}</div>
+      </div>
+      ${h.hasGarmin ? '<span class="garmin-badge">Garmin</span>' : ''}
+      <div class="history-coach-badge">${h.coachEmoji} ${COACHES[h.coach]?.name.split(' ')[0] || ''}</div>
+    </div>`).join('');
+}
+
+function showHistoryEntry(id) {
+  const entry = coachHistory.find(h => h.id === id);
+  if (!entry) return;
+  const coach = COACHES[entry.coach];
+  document.getElementById('responseAvatar').textContent = entry.coachEmoji;
+  document.getElementById('responseCoachName').textContent = coach?.name || entry.coach;
+  document.getElementById('responseCoachSubtitle').textContent = `${coach?.subtitle || ''} · ${entry.timestamp}`;
+  document.getElementById('responseBody').innerHTML = `
+    <div class="response-section">
+      <div class="response-section-title">Analysis — ${entry.sessionLabel}</div>
+      ${entry.garminLink ? `<div style="font-family:'JetBrains Mono';font-size:10px;color:var(--green);margin-bottom:10px;word-break:break-all;">🔗 ${entry.garminLink}</div>` : ''}
+      <div class="response-text">${entry.analysis.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+    </div>`;
+  document.getElementById('coachResponse').classList.add('visible');
+  document.getElementById('coachResponse').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ══════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'analytics') renderAnalytics();
+}
+
+function refreshAll() {
+  renderDashboard();
+  renderTracker();
+  if (document.getElementById('page-analytics').classList.contains('active')) renderAnalytics();
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+renderDashboard();
+renderTracker();
+renderRace();
+renderWorkouts();
+populateWeekSelect();
+generateSplitRows(7);
+renderHistory();
+</script>
+</body>
+</html>
