@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,27 +27,24 @@
   --text: #c8d0dc;
   --coach-gold: #c9a84c;
   --coach-gold-dim: rgba(201,168,76,0.12);
-  --purple: #9b72cf;
-  --purple-dim: rgba(155,114,207,0.12);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-serif; min-height: 100vh; overflow-x: hidden; }
-
+ 
 /* ─── TOP NAV ─── */
 .topnav { position: sticky; top: 0; z-index: 100; background: rgba(8,10,13,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; }
 .nav-brand { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; color: var(--green); }
-.nav-tabs { display: flex; gap: 2px; flex-wrap: wrap; }
-.nav-tab { padding: 6px 14px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 6px; cursor: pointer; color: var(--muted2); transition: all 0.2s; border: none; background: none; }
+.nav-tabs { display: flex; gap: 2px; }
+.nav-tab { padding: 6px 16px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 6px; cursor: pointer; color: var(--muted2); transition: all 0.2s; border: none; background: none; }
 .nav-tab.active, .nav-tab:hover { background: var(--s2); color: var(--white); }
 .nav-tab.active { color: var(--green); }
 .nav-tab.coach-tab.active { color: var(--coach-gold); }
-.nav-tab.workout-tab.active { color: var(--purple); }
-
+ 
 /* ─── PAGES ─── */
 .page { display: none; padding: 32px; }
 .page.active { display: block; }
-
+ 
 /* ─── STAT CARDS ─── */
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
 .stat-card { background: var(--s1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 18px; position: relative; overflow: hidden; transition: border-color 0.2s; }
@@ -60,7 +58,7 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
 .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1; color: var(--white); }
 .stat-val span { font-size: 16px; color: var(--muted2); }
 .stat-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
-
+ 
 /* ─── RING ─── */
 .ring-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
 .ring-container { background: var(--s1); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
@@ -76,7 +74,7 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
 .phase-row-detail { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted2); width: 80px; text-align: right; }
 .mini-bar-bg { width: 100px; height: 4px; background: var(--s3); border-radius: 2px; overflow: hidden; }
 .mini-bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
-
+ 
 /* ─── TRACKER ─── */
 .tracker-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
 .tracker-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; }
@@ -122,7 +120,7 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
 .notes-input:focus { border-color: rgba(29,219,122,0.3); }
 .notes-input::placeholder { color: var(--muted); }
 .notes-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
-
+ 
 /* ─── ANALYTICS ─── */
 .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
 .chart-card { background: var(--s1); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
@@ -140,7 +138,7 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
 .pace-bar-bg { flex: 1; height: 8px; background: var(--s3); border-radius: 4px; overflow: hidden; }
 .pace-bar-fill { height: 100%; border-radius: 4px; }
 .pace-val { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--yellow); width: 60px; text-align: right; }
-
+ 
 /* ─── RACE PAGE ─── */
 .race-hero { background: var(--s1); border: 1px solid rgba(29,219,122,0.2); border-radius: 16px; padding: 32px; margin-bottom: 20px; position: relative; overflow: hidden; }
 .race-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(29,219,122,0.06) 0%, transparent 70%); pointer-events: none; }
@@ -154,102 +152,42 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
 .km-zone-cue { font-size: 11px; color: var(--text); margin-top: 6px; line-height: 1.4; }
 .km-zone-badge { font-size: 9px; margin-top: 6px; padding: 2px 6px; border-radius: 3px; display: inline-block; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
 .splits-viz { background: var(--s1); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-top: 16px; }
-
+ 
 /* ─── GENERAL ─── */
 .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 16px; color: var(--muted2); }
 .section-title span { color: var(--white); }
 .divider { height: 1px; background: var(--border); margin: 28px 0; }
-
-/* ══════════════════════════════════════════════
-   WORKOUT PAGE STYLES
-══════════════════════════════════════════════ */
-.workout-hero {
-  background: var(--s1); border: 1px solid rgba(155,114,207,0.25);
-  border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; position: relative; overflow: hidden;
-}
-.workout-hero::before {
-  content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(155,114,207,0.06) 0%, transparent 65%);
-  pointer-events: none;
-}
-.workout-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
-.workout-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; line-height: 1; margin-bottom: 8px; }
-.workout-hero-sub { font-size: 13px; color: var(--muted2); line-height: 1.6; max-width: 600px; }
-
-.workout-week-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 28px; }
-.workout-day-card {
-  background: var(--s1); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.workout-day-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-.workout-day-header {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 18px; border-bottom: 1px solid var(--border);
-}
-.workout-day-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; flex: 1; }
-.workout-day-icon { font-size: 20px; }
-.workout-day-body { padding: 14px 18px; }
-.workout-description { font-size: 13px; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
-.workout-links { display: flex; flex-direction: column; gap: 6px; }
-.workout-link {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--s2); border: 1px solid var(--border);
-  border-radius: 8px; padding: 8px 12px; text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
-}
-.workout-link:hover { border-color: var(--purple); background: var(--purple-dim); }
-.workout-link-icon { font-size: 14px; flex-shrink: 0; }
-.workout-link-text { font-size: 11px; font-weight: 600; color: var(--purple); flex: 1; }
-.workout-link-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); }
-.workout-focus-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px;
-  text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 700;
-  display: inline-block; margin-bottom: 10px;
-}
-.wf-strength { background: rgba(240,192,64,0.12); color: var(--yellow); }
-.wf-recovery { background: rgba(29,219,122,0.12); color: var(--green); }
-.wf-quality { background: rgba(232,64,64,0.12); color: var(--red); }
-.wf-easy { background: rgba(61,142,240,0.12); color: var(--blue); }
-.wf-race { background: var(--purple-dim); color: var(--purple); }
-
-/* Workout + running insight section */
-.insight-section { margin-top: 8px; }
-.insight-card {
-  background: var(--s1); border: 1px solid var(--border); border-radius: 14px;
-  padding: 20px 22px; margin-bottom: 12px;
-}
-.insight-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.insight-icon { font-size: 22px; }
-.insight-title { font-size: 14px; font-weight: 700; }
-.insight-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); letter-spacing: 1px; text-transform: uppercase; }
-.insight-body { font-size: 12px; color: var(--text); line-height: 1.7; }
-.insight-tips { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
-.insight-tip {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 8px 10px; background: var(--s2); border-radius: 6px; border-left: 2px solid var(--purple);
-}
-.insight-tip-icon { font-size: 12px; margin-top: 1px; flex-shrink: 0; }
-.insight-tip-text { font-size: 12px; color: var(--text); line-height: 1.5; }
-
+ 
 /* ══════════════════════════════════════════════
    COACH PAGE STYLES
 ══════════════════════════════════════════════ */
+ 
+/* Hero banner */
 .coach-hero {
-  background: var(--s1); border: 1px solid rgba(201,168,76,0.25);
-  border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; position: relative; overflow: hidden;
+  background: var(--s1);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 16px; padding: 28px 32px;
+  margin-bottom: 24px; position: relative; overflow: hidden;
 }
 .coach-hero::before {
-  content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px;
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 400px; height: 400px;
   background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 65%);
   pointer-events: none;
 }
 .coach-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--coach-gold); margin-bottom: 10px; }
 .coach-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; line-height: 1; margin-bottom: 8px; }
 .coach-hero-sub { font-size: 13px; color: var(--muted2); line-height: 1.6; max-width: 600px; }
-
+ 
 /* Coach selector */
 .coach-selector { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-.coach-card { flex: 1; min-width: 160px; background: var(--s1); border: 2px solid var(--border); border-radius: 14px; padding: 18px 16px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+.coach-card {
+  flex: 1; min-width: 160px;
+  background: var(--s1); border: 2px solid var(--border);
+  border-radius: 14px; padding: 18px 16px;
+  cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+}
 .coach-card:hover { border-color: var(--border2); transform: translateY(-2px); }
 .coach-card.selected { border-color: var(--coach-gold); background: rgba(201,168,76,0.05); }
 .coach-card.selected::after { content: '✓'; position: absolute; top: 10px; right: 12px; color: var(--coach-gold); font-size: 12px; font-weight: 700; }
@@ -257,189 +195,244 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
 .coach-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 4px; }
 .coach-role { font-size: 11px; color: var(--muted2); line-height: 1.4; }
 .coach-trait { margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 3px 7px; border-radius: 4px; display: inline-block; }
-
+ 
 /* Input area */
-.run-input-area { background: var(--s1); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+.run-input-area {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px; margin-bottom: 20px;
+}
 .input-section-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 16px; color: var(--muted2); }
 .input-section-title span { color: var(--white); }
-
-/* ═══ GARMIN CONNECT LINK SECTION ═══ */
-.garmin-connect-section {
-  background: var(--s2); border: 1px solid rgba(29,219,122,0.2);
-  border-radius: 12px; padding: 18px; margin-bottom: 20px;
-}
-.garmin-connect-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.garmin-connect-logo { width: 28px; height: 28px; background: linear-gradient(135deg, #0cb08c, #1ddb7a); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #000; flex-shrink: 0; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0; }
-.garmin-connect-title { font-size: 14px; font-weight: 700; }
-.garmin-connect-sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); letter-spacing: 1px; text-transform: uppercase; }
-.garmin-link-input-row { display: flex; gap: 10px; align-items: flex-start; }
-.garmin-link-input {
-  flex: 1; background: var(--s1); border: 1px solid var(--border);
-  border-radius: 8px; padding: 10px 14px; color: var(--white);
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  outline: none; transition: border-color 0.2s;
-}
-.garmin-link-input:focus { border-color: var(--green); }
-.garmin-link-input::placeholder { color: var(--muted); }
-.garmin-fetch-btn {
-  background: var(--green); color: #000;
-  border: none; border-radius: 8px; padding: 10px 18px;
-  font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px;
-  cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
-}
-.garmin-fetch-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-.garmin-fetch-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-.garmin-hint-text { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
-
-/* Garmin stats display */
-.garmin-stats-display {
-  display: none; margin-top: 16px;
-  background: var(--s1); border: 1px solid rgba(29,219,122,0.2);
-  border-radius: 10px; padding: 16px; position: relative;
-}
-.garmin-stats-display.visible { display: block; }
-.garmin-stats-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.garmin-stats-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); }
-.garmin-activity-name { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.garmin-activity-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted2); }
-.garmin-stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-bottom: 14px; }
-.garmin-stat { background: var(--s2); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border); }
-.garmin-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 4px; }
-.garmin-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 22px; line-height: 1; color: var(--white); }
-.garmin-stat-val span { font-size: 11px; color: var(--muted2); font-family: 'Syne'; font-weight: 400; }
-.garmin-splits-section { margin-top: 10px; }
-.garmin-splits-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
-.garmin-splits-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-.garmin-split-pill {
-  background: var(--s2); border: 1px solid var(--border);
-  border-radius: 6px; padding: 5px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  display: flex; align-items: center; gap: 6px;
-}
-.garmin-split-km { color: var(--muted2); font-size: 9px; }
-.garmin-split-pace { color: var(--white); font-weight: 700; }
-.garmin-split-hr { color: var(--yellow); font-size: 9px; }
-.garmin-edit-btn {
-  background: none; border: 1px solid var(--border); border-radius: 6px;
-  padding: 5px 12px; color: var(--muted2); font-size: 11px; font-family: 'Syne', sans-serif;
-  cursor: pointer; transition: all 0.2s;
-}
-.garmin-edit-btn:hover { border-color: var(--coach-gold); color: var(--coach-gold); }
-
+ 
 /* Week + session selectors */
 .run-selects { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-.run-select { flex: 1; min-width: 140px; background: var(--s2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 13px; outline: none; cursor: pointer; transition: border-color 0.2s; appearance: none; }
+.run-select {
+  flex: 1; min-width: 140px;
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+  color: var(--white); font-family: 'Syne', sans-serif; font-size: 13px;
+  outline: none; cursor: pointer; transition: border-color 0.2s;
+  appearance: none;
+}
 .run-select:focus { border-color: var(--coach-gold); }
 .run-select option { background: var(--s2); }
 .select-wrap { position: relative; flex: 1; min-width: 140px; }
 .select-wrap::after { content: '▾'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted2); pointer-events: none; font-size: 12px; }
-
-/* Tab switch */
+ 
+/* Tab switch: manual / garmin */
 .input-mode-tabs { display: flex; gap: 4px; margin-bottom: 16px; background: var(--s2); border-radius: 8px; padding: 4px; width: fit-content; }
 .input-mode-tab { padding: 6px 16px; border-radius: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; color: var(--muted2); border: none; background: none; transition: all 0.2s; }
 .input-mode-tab.active { background: var(--s3); color: var(--white); }
-
-/* Splits table */
+ 
+/* Splits table input */
 .splits-input-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
 .splits-input-table th { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); text-align: left; padding: 0 8px 10px 0; border-bottom: 1px solid var(--border); }
 .splits-input-table td { padding: 6px 8px 6px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
-.split-input { background: var(--s2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 12px; width: 90px; outline: none; transition: border-color 0.2s; }
+.split-input {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 6px 10px;
+  color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  width: 90px; outline: none; transition: border-color 0.2s;
+}
 .split-input:focus { border-color: var(--coach-gold); }
 .split-input::placeholder { color: var(--muted); }
 .km-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted2); }
-
+ 
 /* Garmin paste */
-.garmin-paste-area { background: var(--s2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text); width: 100%; min-height: 120px; resize: vertical; outline: none; transition: border-color 0.2s; margin-bottom: 12px; }
+.garmin-paste-area {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--text); width: 100%; min-height: 120px; resize: vertical;
+  outline: none; transition: border-color 0.2s; margin-bottom: 12px;
+}
 .garmin-paste-area:focus { border-color: var(--coach-gold); }
 .garmin-paste-area::placeholder { color: var(--muted); }
 .garmin-hint { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
 .garmin-hint strong { color: var(--muted2); }
-
-/* Quick stats */
+ 
+/* GPX / FIT upload */
+.upload-zone {
+  border: 2px dashed rgba(201,168,76,0.3);
+  border-radius: 14px; padding: 36px 24px;
+  text-align: center; cursor: pointer;
+  transition: all 0.2s; margin-bottom: 16px;
+  background: rgba(201,168,76,0.02);
+  position: relative;
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--coach-gold);
+  background: rgba(201,168,76,0.06);
+}
+.upload-zone input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.upload-icon { font-size: 36px; margin-bottom: 10px; }
+.upload-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--white); margin-bottom: 6px; }
+.upload-sub { font-size: 12px; color: var(--muted2); line-height: 1.5; }
+.upload-types { display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+.upload-type-pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border2); color: var(--muted2); }
+.upload-status {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 14px; display: none;
+}
+.upload-status.visible { display: block; }
+.upload-status-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.upload-status-icon { font-size: 18px; }
+.upload-status-name { font-weight: 600; font-size: 13px; }
+.upload-status-meta { font-size: 11px; color: var(--muted2); }
+.upload-parsed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 10px; }
+.upload-parsed-stat { background: var(--s3); border-radius: 8px; padding: 8px 10px; }
+.upload-parsed-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted2); margin-bottom: 3px; }
+.upload-parsed-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--green); font-weight: 700; }
+.upload-splits-preview { margin-top: 12px; }
+.upload-splits-scroll { max-height: 160px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; }
+.upload-splits-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+.upload-splits-table th { padding: 6px 10px; text-align: left; color: var(--muted2); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--s2); }
+.upload-splits-table td { padding: 5px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text); }
+.upload-splits-table tr:last-child td { border-bottom: none; }
+.upload-apply-btn { background: rgba(29,219,122,0.12); border: 1px solid rgba(29,219,122,0.3); color: var(--green); border-radius: 8px; padding: 8px 18px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; margin-top: 12px; width: 100%; }
+.upload-apply-btn:hover { background: rgba(29,219,122,0.2); }
+.garmin-export-guide { background: var(--s2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+.guide-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--coach-gold); margin-bottom: 10px; }
+.guide-steps { display: flex; flex-direction: column; gap: 6px; }
+.guide-step { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--muted2); line-height: 1.4; }
+.guide-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--coach-gold); flex-shrink: 0; width: 16px; }
+ 
+/* Quick stats inputs */
 .quick-stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.quick-stat-input { }
 .quick-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
-.quick-input { background: var(--s2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 13px; width: 100%; outline: none; transition: border-color 0.2s; }
+.quick-input {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px;
+  color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  width: 100%; outline: none; transition: border-color 0.2s;
+}
 .quick-input:focus { border-color: var(--coach-gold); }
 .quick-input::placeholder { color: var(--muted); }
-
+ 
 /* Context notes */
 .context-area { margin-bottom: 16px; }
-.context-textarea { width: 100%; padding: 10px 14px; background: var(--s2); border: 1px solid var(--border); border-radius: 8px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 12px; resize: vertical; min-height: 70px; outline: none; transition: border-color 0.2s; }
+.context-textarea {
+  width: 100%; padding: 10px 14px;
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--white); font-family: 'Syne', sans-serif;
+  font-size: 12px; resize: vertical; min-height: 70px;
+  outline: none; transition: border-color 0.2s;
+}
 .context-textarea:focus { border-color: rgba(201,168,76,0.4); }
 .context-textarea::placeholder { color: var(--muted); }
-
+ 
 /* Submit */
-.analyze-btn { background: var(--coach-gold); color: #080a0d; border: none; border-radius: 10px; padding: 14px 28px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; cursor: pointer; transition: all 0.2s; width: 100%; }
+.analyze-btn {
+  background: var(--coach-gold); color: #080a0d;
+  border: none; border-radius: 10px;
+  padding: 14px 28px; font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 2px; cursor: pointer;
+  transition: all 0.2s; width: 100%;
+}
 .analyze-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 .analyze-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
+ 
 /* Loading */
-.coach-loading { display: none; text-align: center; padding: 48px 24px; }
+.coach-loading {
+  display: none; text-align: center; padding: 48px 24px;
+}
 .coach-loading.visible { display: block; }
 .loading-avatar { font-size: 48px; animation: breathe 2s ease-in-out infinite; margin-bottom: 16px; }
 @keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
 .loading-text { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--coach-gold); margin-bottom: 8px; }
 .loading-sub { font-size: 12px; color: var(--muted2); }
-.loading-dots::after { content: '…'; animation: dots 1.4s steps(4, end) infinite; }
-@keyframes dots { 0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'…'} }
-
+.loading-dots::after { content: '...'; animation: dots 1.4s steps(4, end) infinite; }
+@keyframes dots { 0%,20%{content:'.'}40%,60%{content:'..'}80%,100%{content:'...'} }
+ 
 /* Coach response */
-.coach-response { display: none; background: var(--s1); border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; overflow: hidden; margin-top: 4px; }
+.coach-response {
+  display: none;
+  background: var(--s1); border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 16px; overflow: hidden; margin-top: 4px;
+}
 .coach-response.visible { display: block; }
-.response-header { background: rgba(201,168,76,0.06); border-bottom: 1px solid rgba(201,168,76,0.15); padding: 18px 24px; display: flex; align-items: center; gap: 14px; }
+.response-header {
+  background: rgba(201,168,76,0.06);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 18px 24px; display: flex; align-items: center; gap: 14px;
+}
 .response-avatar { font-size: 36px; }
 .response-coach-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--coach-gold); }
 .response-coach-subtitle { font-size: 11px; color: var(--muted2); }
 .response-body { padding: 24px; }
+ 
+/* Verdict bar */
+.verdict-bar {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--s2); border-radius: 10px; padding: 14px 18px;
+  margin-bottom: 20px; border-left: 3px solid var(--green);
+}
+.verdict-bar.warn { border-left-color: var(--yellow); }
+.verdict-bar.miss { border-left-color: var(--red); }
+.verdict-icon { font-size: 22px; }
+.verdict-text { font-size: 13px; font-weight: 600; }
+.verdict-sub { font-size: 11px; color: var(--muted2); margin-top: 2px; }
+ 
+/* Section blocks in response */
 .response-section { margin-bottom: 20px; }
 .response-section-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--coach-gold); margin-bottom: 10px; }
 .response-text { font-size: 13px; line-height: 1.8; color: var(--text); white-space: pre-wrap; }
-.next-run-card { background: var(--s2); border: 1px solid rgba(29,219,122,0.15); border-radius: 12px; padding: 16px 18px; margin-top: 16px; }
+ 
+/* Split comparison table in response */
+.split-compare { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+.split-compare th { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 12px 8px 0; border-bottom: 1px solid var(--border); }
+.split-compare td { padding: 7px 12px 7px 0; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.03); font-family: 'JetBrains Mono', monospace; }
+.split-compare tr:last-child td { border-bottom: none; }
+.pace-hit { color: var(--green); }
+.pace-close { color: var(--yellow); }
+.pace-miss { color: var(--red); }
+ 
+/* Next run preview */
+.next-run-card {
+  background: var(--s2); border: 1px solid rgba(29,219,122,0.15);
+  border-radius: 12px; padding: 16px 18px; margin-top: 16px;
+}
 .next-run-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
 .next-run-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
 .next-run-detail { font-size: 12px; color: var(--muted2); line-height: 1.5; }
-
-/* Workout link in response */
-.response-workout-tip {
-  background: var(--s2); border: 1px solid var(--purple-dim);
-  border-radius: 10px; padding: 14px 16px; margin-top: 14px;
-}
-.response-workout-tip-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; }
-.response-workout-tip-text { font-size: 12px; color: var(--text); line-height: 1.6; }
-
+ 
 /* History */
 .coach-history { margin-top: 32px; }
 .history-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--muted2); margin-bottom: 14px; }
 .history-title span { color: var(--white); }
 .history-list { display: flex; flex-direction: column; gap: 8px; }
-.history-item { background: var(--s1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: border-color 0.2s; }
+.history-item {
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 14px; cursor: pointer;
+  transition: border-color 0.2s;
+}
 .history-item:hover { border-color: rgba(201,168,76,0.25); }
 .history-week { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--muted2); width: 60px; }
 .history-run { flex: 1; font-size: 12px; color: var(--text); }
 .history-coach-badge { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 4px; background: var(--coach-gold-dim); color: var(--coach-gold); }
-.garmin-badge { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; border-radius: 4px; background: var(--green-dim); color: var(--green); margin-left: 4px; }
-
-/* Streaming text */
-.streaming-cursor::after { content: '▋'; animation: blink 0.7s step-end infinite; color: var(--coach-gold); font-size: 13px; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
+.history-verdict { font-size: 14px; }
+ 
+/* ─── GENERAL ─── */
 @media (max-width: 700px) {
   .page { padding: 16px; }
   .analytics-grid { grid-template-columns: 1fr; }
   .ring-grid { grid-template-columns: 1fr; }
-  .topnav { padding: 0 12px; height: auto; padding: 8px 12px; }
-  .nav-tabs { gap: 1px; }
-  .nav-tab { padding: 4px 8px; font-size: 10px; }
+  .topnav { padding: 0 12px; }
+  .nav-tab { padding: 5px 8px; font-size: 10px; }
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .km-zones { grid-template-columns: 1fr 1fr; }
   .coach-selector { flex-direction: column; }
   .run-selects { flex-direction: column; }
-  .workout-week-grid { grid-template-columns: 1fr; }
-  .garmin-link-input-row { flex-direction: column; }
 }
 </style>
 </head>
 <body>
-
+ 
 <div class="topnav">
   <div class="nav-brand">PFIZER HM · 2026</div>
   <div class="nav-tabs">
@@ -447,12 +440,13 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
     <button class="nav-tab" onclick="showPage('tracker',this)">Tracker</button>
     <button class="nav-tab" onclick="showPage('analytics',this)">Analytics</button>
     <button class="nav-tab" onclick="showPage('race',this)">Race Plan</button>
-    <button class="nav-tab workout-tab" onclick="showPage('workout',this)">💪 Workouts</button>
     <button class="nav-tab coach-tab" onclick="showPage('coach',this)">⚡ Coach</button>
   </div>
 </div>
-
-<!-- ══════════ PAGE: DASHBOARD ══════════ -->
+ 
+<!-- ══════════════════════════════════════════════
+     PAGE: DASHBOARD
+══════════════════════════════════════════════ -->
 <div class="page active" id="page-dashboard">
   <div class="stat-grid" id="statGrid"></div>
   <div class="ring-grid">
@@ -483,8 +477,10 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
     </div>
   </div>
 </div>
-
-<!-- ══════════ PAGE: TRACKER ══════════ -->
+ 
+<!-- ══════════════════════════════════════════════
+     PAGE: TRACKER
+══════════════════════════════════════════════ -->
 <div class="page" id="page-tracker">
   <div class="tracker-header">
     <div class="tracker-title">WEEK TRACKER</div>
@@ -499,8 +495,10 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
   </div>
   <div class="weeks-list" id="weeksList"></div>
 </div>
-
-<!-- ══════════ PAGE: ANALYTICS ══════════ -->
+ 
+<!-- ══════════════════════════════════════════════
+     PAGE: ANALYTICS
+══════════════════════════════════════════════ -->
 <div class="page" id="page-analytics">
   <div class="analytics-grid">
     <div class="chart-card full">
@@ -529,8 +527,10 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
     </div>
   </div>
 </div>
-
-<!-- ══════════ PAGE: RACE PLAN ══════════ -->
+ 
+<!-- ══════════════════════════════════════════════
+     PAGE: RACE PLAN
+══════════════════════════════════════════════ -->
 <div class="page" id="page-race">
   <div class="race-hero">
     <div style="font-family:'JetBrains Mono';font-size:10px;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:8px">Target</div>
@@ -552,120 +552,18 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
     <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px"><div style="font-size:20px;margin-bottom:8px">🎯</div><div style="font-weight:700;font-size:13px;margin-bottom:6px">One Rule</div><div style="font-size:12px;color:var(--muted2);line-height:1.5">Start slower than goal pace, finish faster. Disciplined start → 1:44–1:45. Fast start → 1:47+.</div></div>
   </div>
 </div>
-
-<!-- ══════════ PAGE: WORKOUTS ══════════ -->
-<div class="page" id="page-workout">
-  <div class="workout-hero">
-    <div class="workout-eyebrow">Weekly Schedule · Strength, Recovery & Mobility</div>
-    <div class="workout-hero-title">YOUR TRAINING<br>FRAMEWORK</div>
-    <div class="workout-hero-sub">Each workout in this schedule supports your running — building strength, improving mobility, aiding recovery, and sharpening performance for race day. Follow the links to your curated video sessions.</div>
-  </div>
-
-  <div class="workout-week-grid" id="workoutGrid"></div>
-
-  <div class="divider"></div>
-
-  <div class="section-title"><span>How Your Workouts</span> Serve Your Running</div>
-
-  <div class="insight-section">
-    <div class="insight-card">
-      <div class="insight-header">
-        <div class="insight-icon">🏋️</div>
-        <div>
-          <div class="insight-title">Monday Upper Body + Core + Plyometrics</div>
-          <div class="insight-subtitle">Running benefit: power, posture, arm drive</div>
-        </div>
-      </div>
-      <div class="insight-body">
-        Upper body and core strength directly improves your running economy. A strong core stabilises your pelvis mid-race, reducing energy leakage and preventing the lateral sway that creeps in after kilometre 14. Plyometrics on Monday (fresh legs, furthest from your Thursday LT session) builds reactive strength and improves your foot-ground contact time — a key factor in 4:58/km pace efficiency.
-        <div class="insight-tips">
-          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Do plyos at the start when CNS is fresh — box jumps, broad jumps, single-leg hops before the core work</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Foot rollers post-workout helps plantar fascia health — essential for half marathon mileage</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🔗</div><div class="insight-tip-text">Mobility work on Monday prepares your hips and ankles for Tuesday's easy run with strides</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="insight-card">
-      <div class="insight-header">
-        <div class="insight-icon">🦵</div>
-        <div>
-          <div class="insight-title">Wednesday Lower Body / Single-Leg Focus</div>
-          <div class="insight-subtitle">Running benefit: hip stability, glute activation, injury prevention</div>
-        </div>
-      </div>
-      <div class="insight-body">
-        Single-leg strength work is one of the highest-value investments a runner can make. Running is entirely single-leg — every stride is a single-leg squat and landing. Strengthening glutes medius (hip abductors), hip extensors, and calf complex reduces injury risk and improves propulsion. Scheduled on Wednesday (between Tuesday easy and Thursday LT), it ensures your legs are recovered for quality work.
-        <div class="insight-tips">
-          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Prioritise: Bulgarian split squats, single-leg RDLs, lateral band walks, step-ups with knee drive</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Keep weight moderate — you want muscle fatigue, not the DOMS that ruins your Thursday session</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🔗</div><div class="insight-tip-text">Calf raises (single-leg) directly reduce Achilles load during your high mileage weeks</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="insight-card">
-      <div class="insight-header">
-        <div class="insight-icon">🔥</div>
-        <div>
-          <div class="insight-title">Thursday LT / Tempo Session</div>
-          <div class="insight-subtitle">Running benefit: raise lactate threshold → sustain 4:58/km</div>
-        </div>
-      </div>
-      <div class="insight-body">
-        This is the engine of your plan. Every Thursday LT session trains your body to clear lactate faster at race pace. Over 24 weeks, you're progressively running longer at harder paces (6:20/km → 5:00/km) — shifting your threshold upward. On race day, what once felt like a 7/10 effort at 5:00/km becomes a 6/10. That is the entire game.
-        <div class="insight-tips">
-          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Effort should feel "comfortably hard" — you can speak short sentences but not hold full conversation</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Nail the warm-up km. Never start cold on LT work — 2 km easy, dynamic drills, then threshold</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🔗</div><div class="insight-tip-text">Log every LT session on Garmin and share with Coach for trend analysis across the 24 weeks</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="insight-card">
-      <div class="insight-header">
-        <div class="insight-icon">💆</div>
-        <div>
-          <div class="insight-title">Friday Recovery + Resistance Bands + Massage Gun</div>
-          <div class="insight-subtitle">Running benefit: flush Thursday's LT stress, prep for the weekend</div>
-        </div>
-      </div>
-      <div class="insight-body">
-        Friday is a strategic reset. After Thursday's LT stress, your muscles need blood flow and parasympathetic nervous system activation — not more load. Light resistance bands (glute activation, hip external rotation) maintain neuromuscular patterns without fatiguing. The massage gun targets calves, quads, and IT band — the areas under most stress during tempo running.
-        <div class="insight-tips">
-          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Elliptical option: 20–25 min easy (RPE 4–5) maintains aerobic stimulus without impact stress</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">Massage gun order: calves → hamstrings → quads → glutes → 2 min each</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="insight-card">
-      <div class="insight-header">
-        <div class="insight-icon">🧘</div>
-        <div>
-          <div class="insight-title">Saturday Pilates + Easy / Parkrun</div>
-          <div class="insight-subtitle">Running benefit: deep core stability, hip flexor length, posture</div>
-        </div>
-      </div>
-      <div class="insight-body">
-        Pilates provides the core and postural work that traditional strength training doesn't reach — specifically the deep stabilisers (transverse abdominis, multifidus) that hold your running form together in the final kilometres. Paired with an easy parkrun or short run, Saturday builds aerobic base while the Pilates keeps you aligned and injury-resilient.
-        <div class="insight-tips">
-          <div class="insight-tip"><div class="insight-tip-icon">⚡</div><div class="insight-tip-text">Pilates before or after parkrun? After — run first while legs are fresh, then Pilates as active recovery</div></div>
-          <div class="insight-tip"><div class="insight-tip-icon">🎯</div><div class="insight-tip-text">In peak weeks (15–21), treat Parkrun as a controlled fitness test at 5:10–5:20/km, not all-out</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ PAGE: COACH ══════════ -->
+ 
+<!-- ══════════════════════════════════════════════
+     PAGE: COACH
+══════════════════════════════════════════════ -->
 <div class="page" id="page-coach">
+ 
   <div class="coach-hero">
     <div class="coach-eyebrow">AI Run Coach · Post-Session Analysis</div>
     <div class="coach-hero-title">LOG YOUR RUN.<br>HEAR FROM THE BEST.</div>
-    <div class="coach-hero-sub">Paste your Garmin Connect activity link for instant stats display, or enter manually. Choose your coach. Get an expert read on your run — analysed against your plan, your training phase, and your race target.</div>
+    <div class="coach-hero-sub">Enter your splits from Garmin or manually. Choose your coach. Get an honest, expert read on your run — analysed against your plan, your training phase, and your race target.</div>
   </div>
-
+ 
   <!-- COACH SELECTOR -->
   <div class="coach-selector">
     <div class="coach-card selected" onclick="selectCoach('kipchoge',this)" id="coach-kipchoge">
@@ -687,51 +585,11 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
       <div class="coach-trait" style="background:rgba(240,192,64,0.1);color:var(--yellow)">Work ethic above all</div>
     </div>
   </div>
-
+ 
   <!-- RUN INPUT AREA -->
   <div class="run-input-area">
     <div class="input-section-title"><span>Log Your</span> Run</div>
-
-    <!-- ═══ GARMIN CONNECT LINK ═══ -->
-    <div class="garmin-connect-section">
-      <div class="garmin-connect-header">
-        <div class="garmin-connect-logo">G</div>
-        <div>
-          <div class="garmin-connect-title">Garmin Connect Activity Link</div>
-          <div class="garmin-connect-sub">Paste link → stats auto-populate · Coaches can review & revise</div>
-        </div>
-      </div>
-      <div class="garmin-link-input-row">
-        <input class="garmin-link-input" id="garminConnectLink" type="url"
-          placeholder="https://connect.garmin.com/modern/activity/12345678…">
-        <button class="garmin-fetch-btn" onclick="fetchGarminActivity()" id="garminFetchBtn">LOAD ACTIVITY</button>
-      </div>
-      <div class="garmin-hint-text">
-        Garmin Connect → open any activity → copy the URL from your browser → paste above.<br>
-        Stats will auto-populate below for coach review. You can edit any field before analysing.
-      </div>
-
-      <!-- Stats display panel -->
-      <div class="garmin-stats-display" id="garminStatsDisplay">
-        <div class="garmin-stats-header">
-          <div>
-            <div class="garmin-stats-title">Activity Loaded ✓</div>
-            <div class="garmin-activity-name" id="garminActivityName">Morning Run</div>
-            <div class="garmin-activity-date" id="garminActivityDate"></div>
-          </div>
-          <button class="garmin-edit-btn" onclick="clearGarminStats()">✕ Clear</button>
-        </div>
-        <div class="garmin-stats-grid" id="garminStatsGrid"></div>
-        <div class="garmin-splits-section">
-          <div class="garmin-splits-title">KM Splits</div>
-          <div class="garmin-splits-grid" id="garminSplitsGrid"></div>
-        </div>
-        <div style="margin-top:12px;padding:10px 12px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);border-radius:8px;font-size:11px;color:var(--muted2);">
-          ✏️ Stats have been auto-populated in the fields below. Edit any values before sending to coach.
-        </div>
-      </div>
-    </div>
-
+ 
     <!-- Week + Session selector -->
     <div class="run-selects">
       <div class="select-wrap">
@@ -745,7 +603,7 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
         </select>
       </div>
     </div>
-
+ 
     <!-- Quick overall stats -->
     <div class="quick-stats-grid">
       <div class="quick-stat-input">
@@ -773,13 +631,14 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
         <input class="quick-input" id="inputElevation" type="text" placeholder="e.g. +42">
       </div>
     </div>
-
+ 
     <!-- Input mode -->
     <div class="input-mode-tabs">
       <button class="input-mode-tab active" onclick="setInputMode('splits',this)">KM Splits</button>
-      <button class="input-mode-tab" onclick="setInputMode('garmin',this)">Paste Data</button>
+      <button class="input-mode-tab" onclick="setInputMode('garmin',this)">Paste Text</button>
+      <button class="input-mode-tab" onclick="setInputMode('file',this)">📁 GPX / FIT File</button>
     </div>
-
+ 
     <!-- SPLITS MODE -->
     <div id="mode-splits">
       <table class="splits-input-table" id="splitsTable">
@@ -790,38 +649,85 @@ body { background: var(--bg); color: var(--white); font-family: 'Syne', sans-ser
       </table>
       <button onclick="addSplitRow()" style="background:none;border:1px dashed var(--border);border-radius:6px;padding:6px 14px;color:var(--muted2);font-size:11px;cursor:pointer;margin-bottom:16px">+ Add KM</button>
     </div>
-
+ 
     <!-- GARMIN PASTE MODE -->
     <div id="mode-garmin" style="display:none">
       <div class="garmin-hint">
-        <strong>Option A:</strong> Garmin Connect → open activity → copy splits table text → paste below.<br>
-        <strong>Option B:</strong> Free text: "km1 5:42, km2 5:38…" — the coach will parse it.
+        <strong>Option A — Garmin Connect web/app:</strong> Open your activity → scroll to the splits table → copy & paste the text below.<br>
+        <strong>Option B — Free text:</strong> Type or paste your splits in any format (e.g. "km1 5:42, km2 5:38…"). The coach will parse it.
       </div>
-      <textarea class="garmin-paste-area" id="garminPaste" placeholder="Paste your Garmin splits or activity summary here...
-
+      <textarea class="garmin-paste-area" id="garminPaste" placeholder="Paste your Garmin splits, activity summary, or any run data here...
+ 
 Examples:
-1  5:42  HR 142
+1  5:42  HR 144  
 2  5:38  HR 147
 3  5:35  HR 151
-Or: 'Km1: 5:42 | Km2: 5:39 | Km3: 5:36 | Avg HR 148'"></textarea>
+ 
+Or: 'Km1: 5:42 | Km2: 5:39 | Km3: 5:36 | Avg HR 148 | Cadence 173'
+ 
+Or just paste the raw Garmin Connect splits table text."></textarea>
     </div>
-
+ 
+    <!-- FILE UPLOAD MODE -->
+    <div id="mode-file" style="display:none">
+ 
+      <!-- How to export guide -->
+      <div class="garmin-export-guide">
+        <div class="guide-title">How to export from Garmin Connect</div>
+        <div class="guide-steps">
+          <div class="guide-step"><div class="guide-step-num">1</div><div>Open <strong style="color:var(--white)">Garmin Connect</strong> app or connect.garmin.com</div></div>
+          <div class="guide-step"><div class="guide-step-num">2</div><div>Find your activity → tap the <strong style="color:var(--white)">three-dot menu</strong> (⋯) or gear icon</div></div>
+          <div class="guide-step"><div class="guide-step-num">3</div><div>Select <strong style="color:var(--white)">"Export to GPX"</strong> (or FIT on desktop via Export Original)</div></div>
+          <div class="guide-step"><div class="guide-step-num">4</div><div>Save the file, then <strong style="color:var(--white)">drag & drop or browse</strong> it below</div></div>
+        </div>
+      </div>
+ 
+      <!-- Drop zone -->
+      <div class="upload-zone" id="uploadZone"
+           ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+        <input type="file" id="fileInput" accept=".gpx,.fit,.tcx" onchange="handleFileSelect(event)">
+        <div class="upload-icon">📂</div>
+        <div class="upload-title">Drop your GPX or FIT file here</div>
+        <div class="upload-sub">or click to browse · GPX and FIT supported<br>Your file never leaves your device — parsed entirely in-browser</div>
+        <div class="upload-types">
+          <span class="upload-type-pill">.gpx</span>
+          <span class="upload-type-pill">.fit</span>
+          <span class="upload-type-pill">.tcx</span>
+        </div>
+      </div>
+ 
+      <!-- Parsed result display -->
+      <div class="upload-status" id="uploadStatus">
+        <div class="upload-status-header">
+          <div class="upload-status-icon" id="uploadStatusIcon">✅</div>
+          <div>
+            <div class="upload-status-name" id="uploadStatusName">activity.gpx</div>
+            <div class="upload-status-meta" id="uploadStatusMeta">Parsed successfully</div>
+          </div>
+        </div>
+        <div class="upload-parsed-grid" id="uploadParsedGrid"></div>
+        <div class="upload-splits-preview" id="uploadSplitsPreview"></div>
+        <button class="upload-apply-btn" onclick="applyParsedData()">✓ Apply to fields &amp; coach form</button>
+      </div>
+ 
+    </div>
+ 
     <!-- Context notes -->
     <div class="context-area">
       <div class="notes-label">Context for the Coach (optional)</div>
       <textarea class="context-textarea" id="contextNotes" placeholder="e.g. Legs felt heavy from Monday strength session. Humid and 22°C. Had to stop at traffic lights km 4. Felt strong last 2 km. Slight left calf tightness..."></textarea>
     </div>
-
+ 
     <button class="analyze-btn" id="analyzeBtn" onclick="analyzeRun()">⚡ ANALYSE WITH COACH</button>
   </div>
-
+ 
   <!-- LOADING -->
   <div class="coach-loading" id="coachLoading">
     <div class="loading-avatar" id="loadingAvatar">🇰🇪</div>
     <div class="loading-text">Coach is reviewing your run<span class="loading-dots"></span></div>
     <div class="loading-sub" id="loadingSub">Eliud Kipchoge is studying your splits</div>
   </div>
-
+ 
   <!-- RESPONSE -->
   <div class="coach-response" id="coachResponse">
     <div class="response-header">
@@ -833,15 +739,16 @@ Or: 'Km1: 5:42 | Km2: 5:39 | Km3: 5:36 | Avg HR 148'"></textarea>
     </div>
     <div class="response-body" id="responseBody"></div>
   </div>
-
+ 
   <!-- HISTORY -->
   <div class="coach-history">
     <div class="history-title"><span>Analysis</span> History</div>
     <div class="history-list" id="historyList"></div>
     <div id="noHistory" style="color:var(--muted);font-size:13px;padding:16px 0">No analyses yet — log your first run above.</div>
   </div>
+ 
 </div>
-
+ 
 <script>
 // ══════════════════════════════════════════════
 // PLAN DATA
@@ -872,162 +779,110 @@ const WEEKS = [
   {n:23,km:55,type:'taper',phase:6,sessions:[{day:'TUE',label:'10 km + 4 strides',type:'easy',km:10},{day:'WED',label:'6 km recovery',type:'easy',km:6},{day:'THU',label:'8 km — 4 km LT @ 5:30–5:40/km',type:'lt',km:8,ltPace:'5:35',ltKm:4},{day:'FRI',label:'5 km recovery',type:'easy',km:5},{day:'SAT',label:'Parkrun 5K — HM pace 5:10–5:15/km',type:'easy',km:5},{day:'SUN',label:'12 km all easy',type:'long',km:12}]},
   {n:24,km:40,type:'race',phase:6,sessions:[{day:'TUE',label:'8 km + 3–4 strides',type:'easy',km:8},{day:'WED',label:'5 km recovery',type:'easy',km:5},{day:'THU',label:'7 km — 3 km shakeout @ 5:25–5:30/km',type:'lt',km:7,ltPace:'5:27',ltKm:3},{day:'FRI',label:'Rest 🛌',type:'rest'},{day:'SAT',label:'4–5 km very easy jog',type:'easy',km:5},{day:'SUN',label:'🏁 RACE DAY — Target 1:45',type:'race',km:21.1}]}
 ];
-
+ 
 const LT_PACES = ['6:20','6:10','6:05','6:10','6:05','6:00','5:55','5:55','5:55','5:55','5:40','5:45','5:50','5:45','5:40','5:45','5:05','5:00','5:05','5:35','5:35','5:35','5:35','5:28'];
-
-// Workout schedule
-const WORKOUT_DAYS = [
-  {
-    day: 'Monday', icon: '💪', focusClass: 'wf-strength',
-    focusLabel: 'Strength + Power',
-    description: 'Upper body & core strength session followed by mobility work, foot rollers, and plyometrics. Scheduled on Monday (furthest from Thursday LT) so your legs are fresh for plyos and your CNS is recovered.',
-    links: [
-      { url: 'https://youtu.be/N_gu3D0GoFo', label: 'Upper Body + Core', icon: '🏋️' },
-      { url: 'https://youtu.be/md7g6D3RTqA', label: 'Mobility Flow', icon: '🧘' },
-      { url: 'https://youtu.be/Go2vqMYufKs', label: 'Plyometrics', icon: '⚡' }
-    ]
-  },
-  {
-    day: 'Tuesday', icon: '🏃', focusClass: 'wf-easy',
-    focusLabel: 'Easy Run + Strides',
-    description: 'Easy aerobic running with strides. Keep effort conversational (135–148 bpm). Strides are 20–25 second accelerations to race pace — they prime your neuromuscular system without adding fatigue.',
-    links: []
-  },
-  {
-    day: 'Wednesday', icon: '🦵', focusClass: 'wf-strength',
-    focusLabel: 'Recovery Run + Lower Body Strength',
-    description: 'Short recovery run (5–8 km) followed by lower body and single-leg strength work. Single-leg focus is critical for runners — every stride is a single-leg landing. Builds the glute stability that protects your knees and hips at high mileage.',
-    links: [
-      { url: 'https://youtu.be/elhPvUIAKPg', label: 'Lower Body Strength', icon: '🦵' }
-    ]
-  },
-  {
-    day: 'Thursday', icon: '🔥', focusClass: 'wf-quality',
-    focusLabel: 'LT / Tempo Session',
-    description: 'The engine of your 24-week plan. Lactate threshold running at progressively faster paces (6:20 → 5:00/km across the plan). This is where your 1:45 is built. Protect this session — never skip, never go in fatigued.',
-    links: []
-  },
-  {
-    day: 'Friday', icon: '💆', focusClass: 'wf-recovery',
-    focusLabel: 'Recovery + Optional Resistance',
-    description: 'Active recovery day. Optional light core work or resistance band exercises (glute activation, hip work). Massage gun session targeting calves, quads, and IT band. Or 20–25 min easy elliptical to flush Thursday\'s lactate.',
-    links: []
-  },
-  {
-    day: 'Saturday', icon: '🧘', focusClass: 'wf-race',
-    focusLabel: 'Easy / Parkrun + Pilates',
-    description: 'Easy running or Parkrun (at controlled effort, not all-out). Followed by Pilates — deep core and postural work that protects your form in the final 5 km of the race. The combination of easy running + Pilates is one of the best injury-prevention practices for half marathon training.',
-    links: [
-      { url: 'https://youtu.be/bYU3BxLuvYA', label: 'Pilates Session', icon: '🧘' }
-    ]
-  },
-  {
-    day: 'Sunday', icon: '🏔️', focusClass: 'wf-easy',
-    focusLabel: 'Long Run',
-    description: 'Your weekly long run. Builds aerobic base, fat metabolism, and mental toughness. Starts at 11 km (Week 1) and peaks at 24 km (Week 19). Keep 80–85% easy (under 148 bpm) — the final kilometres progress to race pace only in peak weeks.',
-    links: []
-  }
-];
-
+ 
 // ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
 let state = JSON.parse(localStorage.getItem('pfizerState') || '{}');
 function saveState() { localStorage.setItem('pfizerState', JSON.stringify(state)); }
-function sessionKey(wn, si) { return `w${wn}_s${si}`; }
+function sessionKey(wn,si) { return `w${wn}_s${si}`; }
 function noteKey(wn) { return `w${wn}_note`; }
-function isSessionDone(wn, si) { return !!state[sessionKey(wn, si)]; }
-function toggleSession(wn, si) { state[sessionKey(wn, si)] = !state[sessionKey(wn, si)]; saveState(); refreshAll(); }
-
+function isSessionDone(wn,si) { return !!state[sessionKey(wn,si)]; }
+function toggleSession(wn,si) { state[sessionKey(wn,si)] = !state[sessionKey(wn,si)]; saveState(); refreshAll(); }
+ 
 function getWeekCompletion(w) {
-  const nr = w.sessions.filter(s => s.type !== 'rest');
-  if (!nr.length) return 0;
-  return nr.filter(s => isSessionDone(w.n, w.sessions.indexOf(s))).length / nr.length;
+  const nr = w.sessions.filter(s=>s.type!=='rest');
+  if(!nr.length) return 0;
+  return nr.filter(s=>isSessionDone(w.n,w.sessions.indexOf(s))).length / nr.length;
 }
-
+ 
 function getTotalStats() {
-  let ts = 0, ds = 0, dk = 0, wc = 0, wp = 0;
-  WEEKS.forEach(w => {
-    w.sessions.forEach((s, i) => { if (s.type === 'rest') return; ts++; if (isSessionDone(w.n, i)) { ds++; if (s.km) dk += s.km; } });
-    const c = getWeekCompletion(w); if (c === 1) wc++; else if (c > 0) wp++;
+  let ts=0,ds=0,dk=0,wc=0,wp=0;
+  WEEKS.forEach(w=>{
+    w.sessions.forEach((s,i)=>{if(s.type==='rest')return;ts++;if(isSessionDone(w.n,i)){ds++;if(s.km)dk+=s.km;}});
+    const c=getWeekCompletion(w);if(c===1)wc++;else if(c>0)wp++;
   });
-  return { totalSessions: ts, doneSessions: ds, doneKm: dk, weeksCompleted: wc, weeksPartial: wp };
+  return{totalSessions:ts,doneSessions:ds,doneKm:dk,weeksCompleted:wc,weeksPartial:wp};
 }
-
+ 
 // ══════════════════════════════════════════════
 // DASHBOARD
 // ══════════════════════════════════════════════
 function renderDashboard() {
-  const s = getTotalStats();
-  const pct = Math.round(s.doneSessions / s.totalSessions * 100);
-  document.getElementById('statGrid').innerHTML = `
+  const s=getTotalStats();
+  const pct=Math.round(s.doneSessions/s.totalSessions*100);
+  document.getElementById('statGrid').innerHTML=`
     <div class="stat-card green"><div class="stat-label">Completion</div><div class="stat-val">${pct}<span>%</span></div><div class="stat-sub">${s.doneSessions} / ${s.totalSessions} sessions</div></div>
-    <div class="stat-card blue"><div class="stat-label">KM Logged</div><div class="stat-val">${Math.round(s.doneKm)}<span>km</span></div><div class="stat-sub">of ${WEEKS.reduce((a, w) => a + w.km, 0)} planned</div></div>
+    <div class="stat-card blue"><div class="stat-label">KM Logged</div><div class="stat-val">${Math.round(s.doneKm)}<span>km</span></div><div class="stat-sub">of ${WEEKS.reduce((a,w)=>a+w.km,0)} planned</div></div>
     <div class="stat-card yellow"><div class="stat-label">Weeks Done</div><div class="stat-val">${s.weeksCompleted}<span>/24</span></div><div class="stat-sub">${s.weeksPartial} partial</div></div>
-    <div class="stat-card red"><div class="stat-label">Weeks Left</div><div class="stat-val">${24 - s.weeksCompleted - s.weeksPartial}</div><div class="stat-sub">until race day</div></div>`;
-  const circ = 427, offset = circ - (pct / 100 * circ);
-  document.getElementById('mainRing').style.strokeDashoffset = offset;
-  document.getElementById('mainRingPct').textContent = pct + '%';
-  const phases = [{n:1,name:'Base Building',weeks:[1,2,3,4]},{n:2,name:'Aerobic Dev.',weeks:[5,6,7,8]},{n:3,name:'Threshold',weeks:[9,10,11,12]},{n:4,name:'Race Specific',weeks:[13,14,15,16]},{n:5,name:'Peak + Sharpen',weeks:[17,18,19,20,21]},{n:6,name:'Taper + Race',weeks:[22,23,24]}];
-  const c6 = ['#3d8ef0','#1ddb7a','#f0c040','#e84040','#e84040','#1ddb7a'];
-  let html = `<div class="section-title" style="margin-bottom:12px"><span>Phase</span> Progress</div>`;
-  phases.forEach((ph, i) => {
-    let d = 0, t = 0;
-    ph.weeks.forEach(wn => { const w = WEEKS[wn-1]; w.sessions.forEach((s, j) => { if (s.type === 'rest') return; t++; if (isSessionDone(w.n, j)) d++; }); });
-    const p = t ? Math.round(d / t * 100) : 0;
-    html += `<div class="phase-row"><div class="phase-row-name" style="font-size:12px">${ph.name}</div><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${p}%;background:${c6[i]}"></div></div><div class="phase-row-detail">${p}%</div></div>`;
+    <div class="stat-card red"><div class="stat-label">Weeks Left</div><div class="stat-val">${24-s.weeksCompleted-s.weeksPartial}</div><div class="stat-sub">until race day</div></div>`;
+  const circ=427, offset=circ-(pct/100*circ);
+  document.getElementById('mainRing').style.strokeDashoffset=offset;
+  document.getElementById('mainRingPct').textContent=pct+'%';
+ 
+  const phases=[{n:1,name:'Base Building',weeks:[1,2,3,4]},{n:2,name:'Aerobic Dev.',weeks:[5,6,7,8]},{n:3,name:'Threshold',weeks:[9,10,11,12]},{n:4,name:'Race Specific',weeks:[13,14,15,16]},{n:5,name:'Peak + Sharpen',weeks:[17,18,19,20,21]},{n:6,name:'Taper + Race',weeks:[22,23,24]}];
+  const c6=['#3d8ef0','#1ddb7a','#f0c040','#e84040','#e84040','#1ddb7a'];
+  let html=`<div class="section-title" style="margin-bottom:12px"><span>Phase</span> Progress</div>`;
+  phases.forEach((ph,i)=>{
+    let d=0,t=0;
+    ph.weeks.forEach(wn=>{const w=WEEKS[wn-1];w.sessions.forEach((s,j)=>{if(s.type==='rest')return;t++;if(isSessionDone(w.n,j))d++;});});
+    const p=t?Math.round(d/t*100):0;
+    html+=`<div class="phase-row"><div class="phase-row-name" style="font-size:12px">${ph.name}</div><div class="mini-bar-bg"><div class="mini-bar-fill" style="width:${p}%;background:${c6[i]}"></div></div><div class="phase-row-detail">${p}%</div></div>`;
   });
-  document.getElementById('phaseBreakdown').innerHTML = html;
-  const maxKm = Math.max(...WEEKS.map(w => w.km));
-  const vc = document.getElementById('volumeChart');
-  vc.innerHTML = '';
-  const tc = {build:'#1ddb7a',cutback:'#3d8ef0',peak:'#e84040',taper:'#f0c040',race:'#1ddb7a'};
-  WEEKS.forEach(w => {
-    const comp = getWeekCompletion(w);
-    const h = Math.max(3, (w.km / maxKm) * 110);
-    const fh = Math.round(h * comp);
-    const d = document.createElement('div');
-    d.className = 'bar-col';
-    d.innerHTML = `<div style="width:100%;height:${h}px;position:relative;border-radius:3px 3px 0 0;background:var(--s3)"><div style="position:absolute;bottom:0;left:0;right:0;height:${fh}px;background:${tc[w.type]||'#1ddb7a'};border-radius:3px 3px 0 0;transition:height 0.5s ease"></div></div><div class="bar-label" style="${w.n%4===0||w.n===1?'':'color:transparent'}">${w.n}</div>`;
-    d.title = `Week ${w.n}: ${w.km} km (${Math.round(comp*100)}% done)`;
+  document.getElementById('phaseBreakdown').innerHTML=html;
+ 
+  const maxKm=Math.max(...WEEKS.map(w=>w.km));
+  const vc=document.getElementById('volumeChart');
+  vc.innerHTML='';
+  const tc={build:'#1ddb7a',cutback:'#3d8ef0',peak:'#e84040',taper:'#f0c040',race:'#1ddb7a'};
+  WEEKS.forEach(w=>{
+    const comp=getWeekCompletion(w);
+    const h=Math.max(3,(w.km/maxKm)*110);
+    const fh=Math.round(h*comp);
+    const d=document.createElement('div');
+    d.className='bar-col';
+    d.innerHTML=`<div style="width:100%;height:${h}px;position:relative;border-radius:3px 3px 0 0;background:var(--s3)"><div style="position:absolute;bottom:0;left:0;right:0;height:${fh}px;background:${tc[w.type]||'#1ddb7a'};border-radius:3px 3px 0 0;transition:height 0.5s ease"></div></div><div class="bar-label" style="${w.n%4===0||w.n===1?'':'color:transparent'}">${w.n}</div>`;
+    d.title=`Week ${w.n}: ${w.km} km (${Math.round(comp*100)}% done)`;
     vc.appendChild(d);
   });
 }
-
+ 
 // ══════════════════════════════════════════════
 // TRACKER
 // ══════════════════════════════════════════════
-let currentFilter = 'all', openWeeks = new Set();
-
-function filterWeeks(f, btn) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+let currentFilter='all', openWeeks=new Set();
+ 
+function filterWeeks(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderTracker();
 }
-
-function renderTracker() {
-  const container = document.getElementById('weeksList');
-  container.innerHTML = '';
-  const tcc = {build:'tp-build',cutback:'tp-cutback',peak:'tp-peak',taper:'tp-taper',race:'tp-race'};
-  const tl = {build:'Build',cutback:'Cutback',peak:'Peak 🔥',taper:'Taper',race:'Race 🏁'};
-  const pn = {1:'Base',2:'Aerobic Dev.',3:'Threshold',4:'Race Specific',5:'Peak/Sharpen',6:'Taper'};
-  WEEKS.forEach(w => {
-    const comp = getWeekCompletion(w);
-    const nr = w.sessions.filter(s => s.type !== 'rest');
-    const dc = nr.filter(s => isSessionDone(w.n, w.sessions.indexOf(s))).length;
-    if (currentFilter === 'build' && w.type !== 'build') return;
-    if (currentFilter === 'cutback' && w.type !== 'cutback') return;
-    if (currentFilter === 'peak' && w.type !== 'peak') return;
-    if (currentFilter === 'taper' && w.type !== 'taper' && w.type !== 'race') return;
-    if (currentFilter === 'incomplete' && comp === 1) return;
-    const isOpen = openWeeks.has(w.n);
-    const ic = comp === 1 ? 'completed' : comp > 0 ? 'partial' : '';
-    const cc = comp === 1 ? 'done' : comp > 0 ? 'partial-done' : '';
-    const div = document.createElement('div');
-    div.className = `week-item ${ic}`;
-    div.id = `week-item-${w.n}`;
-    div.innerHTML = `
+ 
+function renderTracker(){
+  const container=document.getElementById('weeksList');
+  container.innerHTML='';
+  const tcc={build:'tp-build',cutback:'tp-cutback',peak:'tp-peak',taper:'tp-taper',race:'tp-race'};
+  const tl={build:'Build',cutback:'Cutback',peak:'Peak 🔥',taper:'Taper',race:'Race 🏁'};
+  const pn={1:'Base',2:'Aerobic Dev.',3:'Threshold',4:'Race Specific',5:'Peak/Sharpen',6:'Taper'};
+  WEEKS.forEach(w=>{
+    const comp=getWeekCompletion(w);
+    const nr=w.sessions.filter(s=>s.type!=='rest');
+    const dc=nr.filter(s=>isSessionDone(w.n,w.sessions.indexOf(s))).length;
+    if(currentFilter==='build'&&w.type!=='build')return;
+    if(currentFilter==='cutback'&&w.type!=='cutback')return;
+    if(currentFilter==='peak'&&w.type!=='peak')return;
+    if(currentFilter==='taper'&&w.type!=='taper'&&w.type!=='race')return;
+    if(currentFilter==='incomplete'&&comp===1)return;
+    const isOpen=openWeeks.has(w.n);
+    const ic=comp===1?'completed':comp>0?'partial':'';
+    const cc=comp===1?'done':comp>0?'partial-done':'';
+    const div=document.createElement('div');
+    div.className=`week-item ${ic}`;
+    div.id=`week-item-${w.n}`;
+    div.innerHTML=`
       <div class="week-progress-bar"><div class="week-progress-fill" style="width:${comp*100}%;background:${comp===1?'var(--green)':'var(--yellow)'}"></div></div>
       <div class="week-header-row" onclick="toggleWeekOpen(${w.n})">
         <div class="week-check ${cc}" onclick="event.stopPropagation();markWeekAll(${w.n})">${comp===1?'✓':comp>0?'~':''}</div>
@@ -1038,245 +893,106 @@ function renderTracker() {
       </div>
       <div class="week-sessions ${isOpen?'open':''}" id="sessions-${w.n}">
         <div class="sessions-grid">
-          ${w.sessions.map((s, i) => { const done = isSessionDone(w.n, i); const ts = s.type==='lt'?'session-type-lt':s.type==='long'?'session-type-long':''; return `<div class="session-item ${done?'done-session':''}" onclick="toggleSession(${w.n},${i})"><div class="session-cb ${done?'checked':''}">${done?'✓':''}</div><div class="session-text"><div class="session-day">${s.day}</div><div class="${ts}">${s.label}</div></div></div>`; }).join('')}
+          ${w.sessions.map((s,i)=>{const done=isSessionDone(w.n,i);const ts=s.type==='lt'?'session-type-lt':s.type==='long'?'session-type-long':'';return`<div class="session-item ${done?'done-session':''}" onclick="toggleSession(${w.n},${i})"><div class="session-cb ${done?'checked':''}">${done?'✓':''}</div><div class="session-text"><div class="session-day">${s.day}</div><div class="${ts}">${s.label}</div></div></div>`;}).join('')}
         </div>
         <div class="notes-area"><div class="notes-label">Week Notes</div><textarea class="notes-input" placeholder="How did this week go? Any niggles, wins, or adjustments..." onchange="saveNote(${w.n},this.value)">${state[noteKey(w.n)]||''}</textarea></div>
       </div>`;
     container.appendChild(div);
   });
 }
-
-function toggleWeekOpen(n) { if (openWeeks.has(n)) openWeeks.delete(n); else openWeeks.add(n); renderTracker(); }
-function markWeekAll(n) {
-  const w = WEEKS[n-1];
-  const allDone = w.sessions.filter(s => s.type !== 'rest').every(s => isSessionDone(w.n, w.sessions.indexOf(s)));
-  w.sessions.forEach((s, i) => { if (s.type === 'rest') return; state[sessionKey(w.n, i)] = !allDone; });
-  saveState(); refreshAll();
+ 
+function toggleWeekOpen(n){if(openWeeks.has(n))openWeeks.delete(n);else openWeeks.add(n);renderTracker();}
+function markWeekAll(n){
+  const w=WEEKS[n-1];
+  const allDone=w.sessions.filter(s=>s.type!=='rest').every(s=>isSessionDone(w.n,w.sessions.indexOf(s)));
+  w.sessions.forEach((s,i)=>{if(s.type==='rest')return;state[sessionKey(w.n,i)]=!allDone;});
+  saveState();refreshAll();
 }
-function saveNote(n, v) { state[noteKey(n)] = v; saveState(); }
-
-// ══════════════════════════════════════════════
-// WORKOUTS
-// ══════════════════════════════════════════════
-function renderWorkouts() {
-  const grid = document.getElementById('workoutGrid');
-  if (!grid) return;
-  grid.innerHTML = WORKOUT_DAYS.map(d => `
-    <div class="workout-day-card">
-      <div class="workout-day-header">
-        <div class="workout-day-icon">${d.icon}</div>
-        <div class="workout-day-name">${d.day.toUpperCase()}</div>
-        <div class="workout-focus-badge ${d.focusClass}">${d.focusLabel}</div>
-      </div>
-      <div class="workout-day-body">
-        <div class="workout-description">${d.description}</div>
-        ${d.links.length > 0 ? `
-        <div class="workout-links">
-          ${d.links.map(l => `
-            <a href="${l.url}" target="_blank" rel="noopener" class="workout-link">
-              <span class="workout-link-icon">${l.icon}</span>
-              <span class="workout-link-text">${l.label}</span>
-              <span class="workout-link-label">▶ YouTube</span>
-            </a>
-          `).join('')}
-        </div>` : ''}
-      </div>
-    </div>
-  `).join('');
-}
-
+function saveNote(n,v){state[noteKey(n)]=v;saveState();}
+ 
 // ══════════════════════════════════════════════
 // ANALYTICS
 // ══════════════════════════════════════════════
-function renderAnalytics() {
-  const canvas = document.getElementById('cumulativeChart');
-  const ctx = canvas.getContext('2d');
-  canvas.width = canvas.parentElement.offsetWidth - 44;
-  canvas.height = 140;
-  const W = canvas.width, H = canvas.height;
-  let planned = 0, done = 0;
-  const pp = [], dp = [];
-  const totalPlan = WEEKS.reduce((a, w) => a + w.km, 0);
-  WEEKS.forEach(w => { planned += w.km; const comp = getWeekCompletion(w); done += Math.round(w.km * comp); pp.push(planned); dp.push(done); });
-  ctx.clearRect(0, 0, W, H);
-  const pad = 20, xStep = (W - pad * 2) / 23;
-  function pt(i, val) { return { x: pad + i * xStep, y: H - pad - (val / totalPlan) * (H - pad * 2) }; }
-  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1;
-  for (let i = 0; i <= 4; i++) { const y = pad + (i / 4) * (H - pad * 2); ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke(); }
-  ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
-  ctx.beginPath(); pp.forEach((v, i) => { const p = pt(i, v); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); }); ctx.stroke(); ctx.setLineDash([]);
-  const ldi = dp.reduce((li, v, i) => v > 0 ? i : li, -1);
-  if (ldi >= 0) {
-    const grad = ctx.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, 'rgba(29,219,122,0.2)'); grad.addColorStop(1, 'rgba(29,219,122,0)');
-    ctx.beginPath(); const s0 = pt(0, dp[0]); ctx.moveTo(s0.x, H - pad); ctx.lineTo(s0.x, s0.y);
-    for (let i = 1; i <= ldi; i++) { const p = pt(i, dp[i]); ctx.lineTo(p.x, p.y); }
-    const ep = pt(ldi, dp[ldi]); ctx.lineTo(ep.x, H - pad); ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
-    ctx.strokeStyle = 'var(--green)'; ctx.lineWidth = 2; ctx.beginPath();
-    for (let i = 0; i <= ldi; i++) { const p = pt(i, dp[i]); i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); } ctx.stroke();
+function renderAnalytics(){
+  const canvas=document.getElementById('cumulativeChart');
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.parentElement.offsetWidth-44;
+  canvas.height=140;
+  const W=canvas.width,H=canvas.height;
+  let planned=0,done=0;
+  const pp=[],dp=[];
+  const totalPlan=WEEKS.reduce((a,w)=>a+w.km,0);
+  WEEKS.forEach(w=>{planned+=w.km;const comp=getWeekCompletion(w);done+=Math.round(w.km*comp);pp.push(planned);dp.push(done);});
+  ctx.clearRect(0,0,W,H);
+  const pad=20,xStep=(W-pad*2)/23;
+  function pt(i,val){return{x:pad+i*xStep,y:H-pad-(val/totalPlan)*(H-pad*2)};}
+  ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){const y=pad+(i/4)*(H-pad*2);ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(W-pad,y);ctx.stroke();}
+  ctx.strokeStyle='rgba(255,255,255,0.15)';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);
+  ctx.beginPath();pp.forEach((v,i)=>{const p=pt(i,v);i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);});ctx.stroke();ctx.setLineDash([]);
+  const ldi=dp.reduce((li,v,i)=>v>0?i:li,-1);
+  if(ldi>=0){
+    const grad=ctx.createLinearGradient(0,0,0,H);grad.addColorStop(0,'rgba(29,219,122,0.2)');grad.addColorStop(1,'rgba(29,219,122,0)');
+    ctx.beginPath();const s0=pt(0,dp[0]);ctx.moveTo(s0.x,H-pad);ctx.lineTo(s0.x,s0.y);
+    for(let i=1;i<=ldi;i++){const p=pt(i,dp[i]);ctx.lineTo(p.x,p.y);}
+    const ep=pt(ldi,dp[ldi]);ctx.lineTo(ep.x,H-pad);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+    ctx.strokeStyle='var(--green)';ctx.lineWidth=2;ctx.beginPath();
+    for(let i=0;i<=ldi;i++){const p=pt(i,dp[i]);i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);}ctx.stroke();
   }
-  const days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
-  const dd = {}, dt = {}; days.forEach(d => { dd[d] = 0; dt[d] = 0; });
-  WEEKS.forEach(w => w.sessions.forEach((s, i) => { if (s.type === 'rest') return; dt[s.day] = (dt[s.day]||0) + 1; if (isSessionDone(w.n, i)) dd[s.day] = (dd[s.day]||0) + 1; }));
-  document.getElementById('dowChart').innerHTML = days.map(d => { const p = dt[d] ? Math.round(dd[d]/dt[d]*100) : 0; return `<div class="pace-row"><div class="pace-week">${d}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${p}%;background:var(--blue)"></div></div><div class="pace-val" style="color:var(--blue)">${p}%</div></div>`; }).join('');
-  const types = {easy:0,lt:0,long:0}, typesDone = {easy:0,lt:0,long:0};
-  WEEKS.forEach(w => w.sessions.forEach((s, i) => { if (s.type === 'rest' || s.type === 'race') return; if (!types.hasOwnProperty(s.type)) return; types[s.type]++; if (isSessionDone(w.n, i)) typesDone[s.type]++; }));
-  const tcm = {easy:'var(--green)',lt:'var(--yellow)',long:'var(--blue)'};
-  const tnm = {easy:'Easy / Recovery',lt:'LT / Intervals',long:'Long Run'};
-  document.getElementById('typeChart').innerHTML = ['easy','lt','long'].map(t => { const p = types[t] ? Math.round(typesDone[t]/types[t]*100) : 0; return `<div class="pace-row"><div class="pace-week" style="width:90px;font-size:9px">${tnm[t]}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${p}%;background:${tcm[t]}"></div></div><div class="pace-val" style="color:${tcm[t]}">${typesDone[t]}/${types[t]}</div></div>`; }).join('');
-  function paceToNum(s) { const [m, sec] = s.split(':').map(Number); return m + sec/60; }
-  document.getElementById('paceChart').innerHTML = LT_PACES.filter((_, i) => (i+1)%2===1 || i===23).map((p, idx) => { const wn = idx*2+1; const n = paceToNum(p); const bp = 100-((n-5.0)/(6.5-5.0)*100); return `<div class="pace-row"><div class="pace-week">W${wn}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${bp}%;background:var(--yellow)"></div></div><div class="pace-val">${p}/km</div></div>`; }).join('');
-  const hm = document.getElementById('heatmap'); hm.innerHTML = '';
-  WEEKS.forEach(w => { const comp = getWeekCompletion(w); const tc2 = {build:'#1ddb7a',cutback:'#3d8ef0',peak:'#e84040',taper:'#f0c040',race:'#1ddb7a'}; const cell = document.createElement('div'); cell.className = 'heat-cell'; cell.style.background = tc2[w.type]||'#1ddb7a'; cell.style.opacity = comp===0?0.08:0.1+comp*0.9; cell.title = `Week ${w.n}: ${Math.round(comp*100)}% complete`; hm.appendChild(cell); });
+  const days=['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  const dd={},dt={};days.forEach(d=>{dd[d]=0;dt[d]=0;});
+  WEEKS.forEach(w=>w.sessions.forEach((s,i)=>{if(s.type==='rest')return;dt[s.day]=(dt[s.day]||0)+1;if(isSessionDone(w.n,i))dd[s.day]=(dd[s.day]||0)+1;}));
+  document.getElementById('dowChart').innerHTML=days.map(d=>{const p=dt[d]?Math.round(dd[d]/dt[d]*100):0;return`<div class="pace-row"><div class="pace-week">${d}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${p}%;background:var(--blue)"></div></div><div class="pace-val" style="color:var(--blue)">${p}%</div></div>`;}).join('');
+  const types={easy:0,lt:0,long:0},typesDone={easy:0,lt:0,long:0};
+  WEEKS.forEach(w=>w.sessions.forEach((s,i)=>{if(!types[s.type]&&s.type!=='rest'&&s.type!=='race')return;if(s.type==='rest'||s.type==='race')return;types[s.type]=(types[s.type]||0)+1;if(isSessionDone(w.n,i))typesDone[s.type]=(typesDone[s.type]||0)+1;}));
+  const tcm={easy:'var(--green)',lt:'var(--yellow)',long:'var(--blue)'};
+  const tnm={easy:'Easy / Recovery',lt:'LT / Intervals',long:'Long Run'};
+  document.getElementById('typeChart').innerHTML=['easy','lt','long'].map(t=>{const p=types[t]?Math.round(typesDone[t]/types[t]*100):0;return`<div class="pace-row"><div class="pace-week" style="width:90px;font-size:9px">${tnm[t]}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${p}%;background:${tcm[t]}"></div></div><div class="pace-val" style="color:${tcm[t]}">${typesDone[t]}/${types[t]}</div></div>`;}).join('');
+  function paceToNum(s){const[m,sec]=s.split(':').map(Number);return m+sec/60;}
+  document.getElementById('paceChart').innerHTML=LT_PACES.filter((_,i)=>(i+1)%2===1||i===23).map((p,idx)=>{const wn=idx*2+1;const n=paceToNum(p);const bp=100-((n-5.0)/(6.5-5.0)*100);return`<div class="pace-row"><div class="pace-week">W${wn}</div><div class="pace-bar-bg"><div class="pace-bar-fill" style="width:${bp}%;background:var(--yellow)"></div></div><div class="pace-val">${p}/km</div></div>`;}).join('');
+  const hm=document.getElementById('heatmap');hm.innerHTML='';
+  WEEKS.forEach(w=>{const comp=getWeekCompletion(w);const tc2={build:'#1ddb7a',cutback:'#3d8ef0',peak:'#e84040',taper:'#f0c040',race:'#1ddb7a'};const cell=document.createElement('div');cell.className='heat-cell';cell.style.background=tc2[w.type]||'#1ddb7a';cell.style.opacity=comp===0?0.08:0.1+comp*0.9;cell.title=`Week ${w.n}: ${Math.round(comp*100)}% complete`;hm.appendChild(cell);});
 }
-
+ 
 // ══════════════════════════════════════════════
 // RACE
 // ══════════════════════════════════════════════
-function renderRace() {
-  const splits = [{range:'0–5K',pace:'~5:08/km',time:'~25:40',phase:'Control',color:'var(--green)'},{range:'5–10K',pace:'~4:58/km',time:'~24:50',phase:'Settle',color:'var(--yellow)'},{range:'10–15K',pace:'~4:57/km',time:'~24:45',phase:'Hold',color:'var(--blue)'},{range:'15–21.1K',pace:'best effort',time:'~30:00',phase:'Fight',color:'var(--red)'}];
-  const heights = [40,65,70,80];
-  document.getElementById('splitViz').innerHTML = `<div style="display:flex;gap:12px;align-items:flex-end;height:100px;margin-bottom:12px">${splits.map((s,i) => `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:'JetBrains Mono';font-size:10px;color:${s.color}">${s.time}</div><div style="width:100%;height:${heights[i]}px;background:${s.color};opacity:0.7;border-radius:6px 6px 0 0"></div></div>`).join('')}</div><div style="display:flex;gap:12px">${splits.map(s => `<div style="flex:1;text-align:center"><div style="font-family:'JetBrains Mono';font-size:9px;color:var(--muted2)">${s.range}</div><div style="font-weight:700;font-size:12px;color:${s.color};margin-top:2px">${s.pace}</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">${s.phase}</div></div>`).join('')}</div>`;
+function renderRace(){
+  const splits=[{range:'0–5K',pace:'~5:08/km',time:'~25:40',phase:'Control',color:'var(--green)'},{range:'5–10K',pace:'~4:58/km',time:'~24:50',phase:'Settle',color:'var(--yellow)'},{range:'10–15K',pace:'~4:57/km',time:'~24:45',phase:'Hold',color:'var(--blue)'},{range:'15–21.1K',pace:'best effort',time:'~30:00',phase:'Fight',color:'var(--red)'}];
+  const heights=[40,65,70,80];
+  document.getElementById('splitViz').innerHTML=`
+    <div style="display:flex;gap:12px;align-items:flex-end;height:100px;margin-bottom:12px">${splits.map((s,i)=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-family:'JetBrains Mono';font-size:10px;color:${s.color}">${s.time}</div><div style="width:100%;height:${heights[i]}px;background:${s.color};opacity:0.7;border-radius:6px 6px 0 0"></div></div>`).join('')}</div>
+    <div style="display:flex;gap:12px">${splits.map(s=>`<div style="flex:1;text-align:center"><div style="font-family:'JetBrains Mono';font-size:9px;color:var(--muted2)">${s.range}</div><div style="font-weight:700;font-size:12px;color:${s.color};margin-top:2px">${s.pace}</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">${s.phase}</div></div>`).join('')}</div>`;
 }
-
-// ══════════════════════════════════════════════
-// COACH — Garmin Connect Link
-// ══════════════════════════════════════════════
-let garminActivityData = null;
-
-async function fetchGarminActivity() {
-  const link = document.getElementById('garminConnectLink').value.trim();
-  if (!link) { alert('Please paste a Garmin Connect activity link.'); return; }
-
-  // Extract activity ID from URL
-  const idMatch = link.match(/activity[\/=](\d+)/i);
-  const activityId = idMatch ? idMatch[1] : null;
-
-  const btn = document.getElementById('garminFetchBtn');
-  btn.disabled = true;
-  btn.textContent = 'LOADING…';
-
-  // Since Garmin Connect requires auth (can't fetch directly),
-  // we use Claude AI to parse the link and simulate realistic stats,
-  // or we accept manual input. We'll show a prompt for the user to paste
-  // their activity data, OR we use the AI to generate a placeholder display.
-
-  // Smart approach: show the activity link, let user paste stats, 
-  // and pre-populate with what we can infer from the URL
-  try {
-    // Show the stats display with the link info
-    const activityName = `Garmin Activity${activityId ? ' #' + activityId : ''}`;
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-
-    // Display the panel — pre-fill from any existing manual input
-    displayGarminStats({
-      name: activityName,
-      date: dateStr,
-      link: link,
-      id: activityId,
-      dist: document.getElementById('inputDist').value || '',
-      time: document.getElementById('inputTime').value || '',
-      pace: document.getElementById('inputAvgPace').value || '',
-      hr: document.getElementById('inputHR').value || '',
-      cadence: document.getElementById('inputCadence').value || '',
-      elevation: document.getElementById('inputElevation').value || '',
-      splits: []
-    });
-
-    // Now use Claude AI to parse the Garmin URL and extract any info
-    await parseGarminLinkWithAI(link, activityId);
-
-  } catch (e) {
-    console.error(e);
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'LOAD ACTIVITY';
-}
-
-async function parseGarminLinkWithAI(link, activityId) {
-  // Ask AI to acknowledge the activity link and prompt for data
-  // Since we can't fetch Garmin auth pages, we display helpful guidance
-  const display = document.getElementById('garminStatsDisplay');
-  display.classList.add('visible');
-  
-  document.getElementById('garminActivityName').textContent = activityId 
-    ? `Activity #${activityId} — Link Captured` 
-    : 'Activity Link Captured';
-  document.getElementById('garminActivityDate').textContent = `Garmin Connect: ${link.substring(0,60)}${link.length>60?'…':''}`;
-
-  // Show instruction to fill in stats
-  document.getElementById('garminStatsGrid').innerHTML = `
-    <div style="grid-column:1/-1;padding:12px;background:rgba(29,219,122,0.06);border:1px solid rgba(29,219,122,0.15);border-radius:8px;font-size:12px;color:var(--text);line-height:1.6;">
-      ✅ <strong style="color:var(--green)">Link saved.</strong> Garmin Connect requires login so stats can't be fetched automatically.<br>
-      👉 Fill in your stats in the fields above, then click <strong style="color:var(--coach-gold)">⚡ Analyse With Coach</strong> — the coach will analyse alongside your Garmin link.
-    </div>`;
-
-  // Store the link for coach context
-  garminActivityData = { link, activityId };
-}
-
-function displayGarminStats(data) {
-  const display = document.getElementById('garminStatsDisplay');
-  display.classList.add('visible');
-  document.getElementById('garminActivityName').textContent = data.name;
-  document.getElementById('garminActivityDate').textContent = data.date;
-  garminActivityData = data;
-}
-
-function clearGarminStats() {
-  document.getElementById('garminStatsDisplay').classList.remove('visible');
-  document.getElementById('garminConnectLink').value = '';
-  garminActivityData = null;
-}
-
-function populateStatsFromGarmin(stats) {
-  if (stats.dist) document.getElementById('inputDist').value = stats.dist;
-  if (stats.time) document.getElementById('inputTime').value = stats.time;
-  if (stats.pace) document.getElementById('inputAvgPace').value = stats.pace;
-  if (stats.hr) document.getElementById('inputHR').value = stats.hr;
-  if (stats.cadence) document.getElementById('inputCadence').value = stats.cadence;
-  if (stats.elevation) document.getElementById('inputElevation').value = stats.elevation;
-  if (stats.splits && stats.splits.length > 0) {
-    document.getElementById('splitsBody').innerHTML = '';
-    stats.splits.forEach((s, i) => {
-      addSplitRow(i + 1);
-      const rows = document.querySelectorAll('#splitsBody tr');
-      const row = rows[rows.length - 1];
-      if (s.pace) row.querySelector('[data-field="pace"]').value = s.pace;
-      if (s.hr) row.querySelector('[data-field="hr"]').value = s.hr;
-    });
-  }
-}
-
+ 
 // ══════════════════════════════════════════════
 // COACH — State
 // ══════════════════════════════════════════════
 let selectedCoach = 'kipchoge';
 let splitRows = 0;
 let coachHistory = JSON.parse(localStorage.getItem('pfizerCoachHistory') || '[]');
-
+ 
 const COACHES = {
   kipchoge: {
     emoji: '🇰🇪',
     name: 'Eliud Kipchoge',
     subtitle: 'Marathon GOAT · Philosopher of running',
-    system: `You are Eliud Kipchoge, the greatest marathon runner in history. You are wise, calm, deeply philosophical. You believe running is about the mind as much as the body. You are humble yet supremely confident. You speak in short, powerful sentences. You believe every run — good or bad — is part of the journey. You are never harsh, always encouraging, but honest. You sometimes reference your philosophy and training wisdom. You never use bullet points — flowing, thoughtful paragraphs only. Keep your analysis to 200-250 words — precise, powerful, not a word wasted.`
+    system: `You are Eliud Kipchoge, the greatest marathon runner in history. You hold the world record and ran the first sub-2-hour marathon. You are wise, calm, deeply philosophical, and speak with serene conviction. You believe running is about the mind as much as the body. You are humble yet supremely confident. You speak in short, powerful sentences. You often reference discipline, consistency, joy, and the team/community around a runner. You believe every run — good or bad — is part of the journey. You are never harsh, always encouraging, but honest. When a runner has done well you celebrate with them quietly. When they have struggled you remind them of the bigger picture. You use occasional Swahili words naturally. You sometimes quote yourself or reference your training philosophy. You never use bullet points — you speak in flowing, thoughtful paragraphs. You are the coach the runner deserves.`
   },
   fitzgerald: {
     emoji: '📊',
     name: 'Pete Fitzgerald',
     subtitle: 'Elite coach · Periodisation & LT expert',
-    system: `You are Pete Fitzgerald, expert running coach in exercise physiology and lactate threshold training. You are direct, analytical, and data-driven. You reference physiological concepts naturally (lactate clearance, aerobic ceiling, cardiac drift). You compare actual vs planned paces precisely. You are honest about missed targets but constructive. Keep your analysis to 200-250 words — structured, specific, no fluff.`
+    system: `You are Pete Fitzgerald, one of the world's foremost running coaches, expert in exercise physiology, lactate threshold training, and marathon periodisation. You are direct, analytical, and deeply data-driven. You speak with clinical precision but genuine care for the athlete. You reference physiological concepts naturally (lactate clearance, aerobic ceiling, neuromuscular fatigue, cardiac drift). You love numbers — you compare actual vs planned paces precisely. You identify patterns across sessions and weeks. You are honest about missed targets but always constructive. You think in terms of training stress, adaptation, and the bigger 24-week picture. You use structured feedback: what went well, what to improve, what to adjust. You may use occasional formatting like "KM 1–3:" headers in your analysis but keep it readable. You are thorough but not verbose — every word earns its place.`
   },
   kawauchi: {
     emoji: '🇯🇵',
     name: 'Yuki Kawauchi',
     subtitle: 'Self-coached · 100+ marathons · Gritty realist',
-    system: `You are Yuki Kawauchi, self-coached marathon runner who ran over 100 marathons and won Boston 2018. You are gritty, no-nonsense, honest, and practical. You believe in hard work above everything. You do not sugarcoat. You speak plainly and directly — no philosophy, no poetry, just honest assessment. Keep your analysis to 200-250 words — short, punchy sentences. No fluff.`
+    system: `You are Yuki Kawauchi, the extraordinary Japanese marathon runner who worked as a civil servant, self-coached, and ran over 100 marathons — winning Boston 2018 in brutal conditions. You are gritty, no-nonsense, honest, and deeply practical. You believe in hard work above everything. You are not harsh but you do not sugarcoat. You respect the grind. You speak plainly and directly — no philosophy, no poetry, just honest assessment of the work. You love consistency and volume. You distrust shortcuts. When a runner nails a session you say so simply. When they miss you tell them why and what to do about it. You relate to the athlete as a fellow worker, not a guru. You occasionally reference your own experience balancing work, life, and running. You sometimes speak with a slight Japanese sensibility — respect for the process, humility in success. You use short, punchy sentences. No fluff.`
   }
 };
-
+ 
 function selectCoach(id, el) {
   selectedCoach = id;
   document.querySelectorAll('.coach-card').forEach(c => c.classList.remove('selected'));
@@ -1284,7 +1000,7 @@ function selectCoach(id, el) {
   document.getElementById('loadingAvatar').textContent = COACHES[id].emoji;
   document.getElementById('loadingSub').textContent = `${COACHES[id].name} is studying your splits`;
 }
-
+ 
 // ── Week/session dropdowns ──
 function populateWeekSelect() {
   const sel = document.getElementById('weekSelect');
@@ -1295,11 +1011,11 @@ function populateWeekSelect() {
     sel.appendChild(opt);
   });
 }
-
+ 
 function updateSessionSelect() {
   const wn = parseInt(document.getElementById('weekSelect').value);
   const sel = document.getElementById('sessionSelect');
-  sel.innerHTML = '<option value="">Select Session…</option>';
+  sel.innerHTML = '<option value="">Select Session...</option>';
   if (!wn) return;
   const w = WEEKS[wn-1];
   w.sessions.forEach((s, i) => {
@@ -1309,18 +1025,436 @@ function updateSessionSelect() {
     opt.textContent = `${s.day} — ${s.label}`;
     sel.appendChild(opt);
   });
+  // Pre-fill split rows based on session km
   const firstRunSession = w.sessions.find(s => s.type !== 'rest' && s.km);
   if (firstRunSession) generateSplitRows(Math.round(firstRunSession.km));
 }
-
+ 
 // ── Input mode ──
 function setInputMode(mode, btn) {
   document.querySelectorAll('.input-mode-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('mode-splits').style.display = mode === 'splits' ? 'block' : 'none';
   document.getElementById('mode-garmin').style.display = mode === 'garmin' ? 'block' : 'none';
+  document.getElementById('mode-file').style.display   = mode === 'file'   ? 'block' : 'none';
 }
-
+ 
+// ══════════════════════════════════════════════
+// GPX / FIT / TCX FILE PARSER
+// ══════════════════════════════════════════════
+ 
+let parsedActivityData = null; // holds the last successfully parsed result
+ 
+// ── Drag & Drop ──
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.add('drag-over');
+}
+function handleDragLeave(e) {
+  document.getElementById('uploadZone').classList.remove('drag-over');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+}
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) processFile(file);
+}
+ 
+function processFile(file) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  const reader = new FileReader();
+ 
+  if (ext === 'fit') {
+    reader.onload = (e) => parseFIT(e.target.result, file.name);
+    reader.readAsArrayBuffer(file);
+  } else if (ext === 'gpx' || ext === 'tcx') {
+    reader.onload = (e) => {
+      ext === 'gpx' ? parseGPX(e.target.result, file.name) : parseTCX(e.target.result, file.name);
+    };
+    reader.readAsText(file);
+  } else {
+    showUploadError(file.name, 'Unsupported file type. Please use .gpx, .fit, or .tcx');
+  }
+}
+ 
+// ── GPX Parser ──
+function parseGPX(text, filename) {
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'application/xml');
+ 
+    const trkpts = Array.from(doc.querySelectorAll('trkpt'));
+    if (!trkpts.length) { showUploadError(filename, 'No track points found in GPX file.'); return; }
+ 
+    const points = trkpts.map(pt => {
+      const lat = parseFloat(pt.getAttribute('lat'));
+      const lon = parseFloat(pt.getAttribute('lon'));
+      const ele = parseFloat(pt.querySelector('ele')?.textContent || 0);
+      const timeStr = pt.querySelector('time')?.textContent;
+      const hr = parseInt(pt.querySelector('hr, heartrate, HeartRateBpm value')?.textContent || 0);
+      const cad = parseInt(pt.querySelector('cad, cadence')?.textContent || 0);
+      return { lat, lon, ele, time: timeStr ? new Date(timeStr) : null, hr, cad };
+    });
+ 
+    const result = computeActivityFromPoints(points, filename);
+    showParsedResult(result, filename);
+  } catch(err) {
+    showUploadError(filename, 'Could not parse GPX: ' + err.message);
+  }
+}
+ 
+// ── TCX Parser ──
+function parseTCX(text, filename) {
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'application/xml');
+    const tps = Array.from(doc.querySelectorAll('Trackpoint'));
+    if (!tps.length) { showUploadError(filename, 'No trackpoints found in TCX file.'); return; }
+ 
+    const points = tps.map(tp => {
+      const lat = parseFloat(tp.querySelector('LatitudeDegrees')?.textContent || 0);
+      const lon = parseFloat(tp.querySelector('LongitudeDegrees')?.textContent || 0);
+      const ele = parseFloat(tp.querySelector('AltitudeMeters')?.textContent || 0);
+      const timeStr = tp.querySelector('Time')?.textContent;
+      const hr = parseInt(tp.querySelector('HeartRateBpm Value, HeartRateBpm > Value')?.textContent || 0);
+      const cad = parseInt(tp.querySelector('RunCadence, Cadence')?.textContent || 0);
+      return { lat, lon, ele, time: timeStr ? new Date(timeStr) : null, hr, cad };
+    });
+ 
+    const result = computeActivityFromPoints(points, filename);
+    showParsedResult(result, filename);
+  } catch(err) {
+    showUploadError(filename, 'Could not parse TCX: ' + err.message);
+  }
+}
+ 
+// ── FIT Binary Parser (Protocol 1.0 – covers all Garmin watches) ──
+function parseFIT(buffer, filename) {
+  try {
+    const bytes = new Uint8Array(buffer);
+ 
+    // Validate FIT header
+    const headerSize = bytes[0];
+    const magic = String.fromCharCode(bytes[8], bytes[9], bytes[10], bytes[11]);
+    if (magic !== '.FIT') { showUploadError(filename, 'Not a valid FIT file (magic bytes missing).'); return; }
+ 
+    // We'll do a lightweight extraction: scan for known FIT record message fields
+    // that contain timestamp, lat, lon, altitude, heart_rate, cadence, speed
+    // This covers the standard activity profile used by all Garmin running watches.
+ 
+    const dataView = new DataView(buffer);
+    const points = [];
+    let i = headerSize;
+    const dataLen = dataView.getUint32(4, true);
+    const end = headerSize + dataLen;
+ 
+    // Local message definitions map: localMsgNum → field defs
+    const localDefs = {};
+ 
+    // FIT field numbers for the "record" message (global msg 20)
+    const FIELD_TIMESTAMP   = 253; // uint32, seconds since 1989-12-31T00:00:00
+    const FIELD_LAT         = 0;   // sint32, semicircles
+    const FIELD_LON         = 1;   // sint32, semicircles
+    const FIELD_ALTITUDE    = 2;   // uint16, 5*m + 500
+    const FIELD_HR          = 3;   // uint8, bpm
+    const FIELD_CADENCE     = 4;   // uint8, rpm (multiply by 2 for running spm)
+    const FIELD_SPEED       = 6;   // uint16, 1000*m/s
+    const FIELD_DISTANCE    = 5;   // uint32, 100*m
+ 
+    const SC_TO_DEG = 180 / Math.pow(2, 31);
+    const FIT_EPOCH = new Date('1989-12-31T00:00:00Z').getTime() / 1000;
+ 
+    while (i < end - 1) {
+      const recordHeader = bytes[i];
+      i++;
+ 
+      if (recordHeader & 0x40) {
+        // Definition message
+        const localNum = recordHeader & 0x0F;
+        i++; // reserved
+        const isBigEndian = bytes[i++] === 1;
+        const globalMsgNum = isBigEndian
+          ? (bytes[i] << 8 | bytes[i+1]) : (bytes[i+1] << 8 | bytes[i]);
+        i += 2;
+        const numFields = bytes[i++];
+        const fields = [];
+        for (let f = 0; f < numFields; f++) {
+          const fieldNum = bytes[i++];
+          const fieldSize = bytes[i++];
+          const baseType = bytes[i++];
+          fields.push({ fieldNum, fieldSize, baseType });
+        }
+        localDefs[localNum] = { globalMsgNum, isBigEndian, fields };
+      } else if (!(recordHeader & 0x80)) {
+        // Data message
+        const localNum = recordHeader & 0x0F;
+        const def = localDefs[localNum];
+        if (!def) { i++; continue; }
+ 
+        const msgStart = i;
+        const record = {};
+ 
+        for (const field of def.fields) {
+          if (i + field.fieldSize > end) { i += field.fieldSize; continue; }
+          if (def.globalMsgNum === 20) { // record message
+            let val;
+            if (field.fieldSize === 1) val = bytes[i];
+            else if (field.fieldSize === 2) val = def.isBigEndian ? dataView.getInt16(i) : dataView.getInt16(i, true);
+            else if (field.fieldSize === 4) val = def.isBigEndian ? dataView.getInt32(i) : dataView.getInt32(i, true);
+            else val = null;
+            record[field.fieldNum] = val;
+          }
+          i += field.fieldSize;
+        }
+ 
+        if (def.globalMsgNum === 20 && Object.keys(record).length) {
+          const lat  = record[FIELD_LAT]  != null ? record[FIELD_LAT]  * SC_TO_DEG : null;
+          const lon  = record[FIELD_LON]  != null ? record[FIELD_LON]  * SC_TO_DEG : null;
+          const ts   = record[FIELD_TIMESTAMP] != null ? new Date((record[FIELD_TIMESTAMP] + FIT_EPOCH) * 1000) : null;
+          const alt  = record[FIELD_ALTITUDE]  != null ? (record[FIELD_ALTITUDE] / 5) - 500 : null;
+          const hr   = record[FIELD_HR] || 0;
+          const cad  = (record[FIELD_CADENCE] || 0) * 2; // running cadence = rpm * 2
+          const spd  = record[FIELD_SPEED] != null ? record[FIELD_SPEED] / 1000 : null; // m/s
+          if (lat && lon) points.push({ lat, lon, ele: alt || 0, time: ts, hr, cad, speed: spd });
+        }
+      } else {
+        // Compressed timestamp or unknown — skip 1 byte safely
+        i++;
+      }
+    }
+ 
+    if (points.length === 0) {
+      // FIT parsed but no GPS points — try to extract summary data
+      showUploadError(filename, 'FIT file parsed but no GPS records found. Try exporting as GPX from Garmin Connect instead.');
+      return;
+    }
+ 
+    const result = computeActivityFromPoints(points, filename);
+    showParsedResult(result, filename);
+  } catch(err) {
+    showUploadError(filename, 'FIT parse error: ' + err.message + '. Try exporting as GPX instead.');
+  }
+}
+ 
+// ── Haversine distance (metres) ──
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180;
+  const Δφ = (lat2-lat1) * Math.PI/180, Δλ = (lon2-lon1) * Math.PI/180;
+  const a = Math.sin(Δφ/2)**2 + Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+ 
+// ── Compute splits and stats from track points ──
+function computeActivityFromPoints(points, filename) {
+  // Filter out invalid points
+  const valid = points.filter(p => p.lat && p.lon && !isNaN(p.lat) && !isNaN(p.lon));
+  if (valid.length < 2) return { error: 'Too few valid GPS points to compute splits.' };
+ 
+  let totalDist = 0;
+  let totalTime = 0;
+  let hrSum = 0, hrCount = 0;
+  let cadSum = 0, cadCount = 0;
+  let elevGain = 0;
+  const kmSplits = [];
+ 
+  let kmDist = 0, kmStartTime = valid[0].time, kmHrSum = 0, kmHrCount = 0;
+  let prevEle = valid[0].ele;
+ 
+  for (let i = 1; i < valid.length; i++) {
+    const prev = valid[i-1], curr = valid[i];
+    const d = haversine(prev.lat, prev.lon, curr.lat, curr.lon);
+    totalDist += d;
+    kmDist += d;
+ 
+    // Time delta
+    if (prev.time && curr.time) {
+      const dt = (curr.time - prev.time) / 1000;
+      if (dt > 0 && dt < 600) totalTime += dt;
+    }
+ 
+    // Elevation
+    if (curr.ele && prev.ele) {
+      const eleDiff = curr.ele - prev.ele;
+      if (eleDiff > 0) elevGain += eleDiff;
+    }
+ 
+    // HR / cadence accumulators
+    if (curr.hr > 0) { hrSum += curr.hr; hrCount++; kmHrSum += curr.hr; kmHrCount++; }
+    if (curr.cad > 0) { cadSum += curr.cad; cadCount++; }
+ 
+    // Completed a km?
+    if (kmDist >= 1000) {
+      const overshot = kmDist - 1000;
+      const kmNum = kmSplits.length + 1;
+      // Interpolate time for exact 1km
+      let kmTime = 0;
+      if (kmStartTime && curr.time) {
+        kmTime = (curr.time - kmStartTime) / 1000;
+        // adjust for overshoot fraction
+        if (curr.time && prev.time) {
+          const segTime = (curr.time - prev.time) / 1000;
+          const segDist = d;
+          kmTime -= segTime * (overshot / segDist);
+        }
+      }
+ 
+      const kmPace = kmTime > 0 ? formatPace(kmTime) : '—';
+      const kmHR   = kmHrCount > 0 ? Math.round(kmHrSum / kmHrCount) : 0;
+      kmSplits.push({ km: kmNum, pace: kmPace, hr: kmHR, time: kmTime });
+ 
+      // Reset for next km
+      kmDist = overshot;
+      kmStartTime = curr.time;
+      kmHrSum = 0; kmHrCount = 0;
+    }
+  }
+ 
+  // Partial last km
+  if (kmDist > 50) {
+    let lastTime = 0;
+    if (kmStartTime && valid[valid.length-1].time) {
+      lastTime = (valid[valid.length-1].time - kmStartTime) / 1000;
+    }
+    kmSplits.push({
+      km: kmSplits.length + 1,
+      pace: lastTime > 0 && kmDist > 0 ? formatPace(lastTime * 1000/kmDist) : '—',
+      hr: kmHrCount > 0 ? Math.round(kmHrSum/kmHrCount) : 0,
+      time: lastTime,
+      partial: Math.round(kmDist)
+    });
+  }
+ 
+  const distKm = (totalDist / 1000).toFixed(2);
+  const avgPace = totalTime > 0 && totalDist > 0 ? formatPace(totalTime / (totalDist/1000)) : '—';
+  const avgHR   = hrCount > 0 ? Math.round(hrSum/hrCount) : 0;
+  const avgCad  = cadCount > 0 ? Math.round(cadSum/cadCount) : 0;
+  const totalTimeStr = formatDuration(totalTime);
+  const elevStr = elevGain > 0 ? '+' + Math.round(elevGain) + 'm' : '—';
+ 
+  return { distKm, avgPace, avgHR, avgCad, totalTime: totalTimeStr, elevStr, kmSplits, filename, totalPoints: valid.length };
+}
+ 
+function formatPace(secsPerKm) {
+  const mins = Math.floor(secsPerKm / 60);
+  const secs = Math.round(secsPerKm % 60);
+  return `${mins}:${secs.toString().padStart(2,'0')}`;
+}
+ 
+function formatDuration(secs) {
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  const s = Math.round(secs % 60);
+  if (h > 0) return `${h}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+  return `${m}:${s.toString().padStart(2,'0')}`;
+}
+ 
+// ── Display parsed result ──
+function showParsedResult(result, filename) {
+  if (result.error) { showUploadError(filename, result.error); return; }
+ 
+  parsedActivityData = result;
+ 
+  document.getElementById('uploadStatusIcon').textContent = '✅';
+  document.getElementById('uploadStatusName').textContent = filename;
+  document.getElementById('uploadStatusMeta').textContent =
+    `${result.totalPoints.toLocaleString()} GPS points parsed · ${result.kmSplits.length} km splits extracted`;
+ 
+  const grid = document.getElementById('uploadParsedGrid');
+  grid.innerHTML = [
+    { label: 'Distance',  val: result.distKm + ' km' },
+    { label: 'Total Time', val: result.totalTime },
+    { label: 'Avg Pace',  val: result.avgPace + '/km' },
+    { label: 'Avg HR',    val: result.avgHR ? result.avgHR + ' bpm' : '—' },
+    { label: 'Cadence',   val: result.avgCad ? result.avgCad + ' spm' : '—' },
+    { label: 'Elevation', val: result.elevStr },
+  ].map(s => `
+    <div class="upload-parsed-stat">
+      <div class="upload-parsed-label">${s.label}</div>
+      <div class="upload-parsed-val">${s.val}</div>
+    </div>`).join('');
+ 
+  // Splits preview table
+  const preview = document.getElementById('uploadSplitsPreview');
+  if (result.kmSplits.length > 0) {
+    preview.innerHTML = `
+      <div class="upload-splits-scroll">
+        <table class="upload-splits-table">
+          <thead><tr><th>KM</th><th>Pace</th><th>HR</th><th></th></tr></thead>
+          <tbody>
+            ${result.kmSplits.map(s => `
+              <tr>
+                <td>${s.km}${s.partial ? ` <span style="color:var(--muted);font-size:9px">(${s.partial}m)</span>` : ''}</td>
+                <td style="color:var(--green)">${s.pace}</td>
+                <td style="color:var(--muted2)">${s.hr || '—'}</td>
+                <td></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  } else {
+    preview.innerHTML = '';
+  }
+ 
+  document.getElementById('uploadStatus').classList.add('visible');
+}
+ 
+function showUploadError(filename, msg) {
+  parsedActivityData = null;
+  document.getElementById('uploadStatusIcon').textContent = '⚠️';
+  document.getElementById('uploadStatusName').textContent = filename;
+  document.getElementById('uploadStatusMeta').textContent = msg;
+  document.getElementById('uploadParsedGrid').innerHTML = '';
+  document.getElementById('uploadSplitsPreview').innerHTML = '';
+  document.getElementById('uploadStatus').classList.add('visible');
+}
+ 
+// ── Apply parsed data to the coach form fields ──
+function applyParsedData() {
+  if (!parsedActivityData) return;
+  const d = parsedActivityData;
+ 
+  // Fill quick stats
+  document.getElementById('inputDist').value    = d.distKm + ' km';
+  document.getElementById('inputTime').value    = d.totalTime;
+  document.getElementById('inputAvgPace').value = d.avgPace + '/km';
+  if (d.avgHR)  document.getElementById('inputHR').value       = d.avgHR;
+  if (d.avgCad) document.getElementById('inputCadence').value  = d.avgCad;
+  if (d.elevStr !== '—') document.getElementById('inputElevation').value = d.elevStr;
+ 
+  // Switch to KM Splits tab and populate rows
+  const splitsTab = document.querySelector('.input-mode-tab');
+  setInputMode('splits', splitsTab);
+  splitsTab.classList.add('active');
+ 
+  const tbody = document.getElementById('splitsBody');
+  tbody.innerHTML = '';
+  splitRows = 0;
+ 
+  d.kmSplits.forEach((s, idx) => {
+    splitRows++;
+    const tr = document.createElement('tr');
+    const label = s.partial ? `KM ${s.km} <span style="color:var(--muted);font-size:9px">(${s.partial}m)</span>` : `KM ${s.km}`;
+    tr.innerHTML = `
+      <td class="km-label">${label}</td>
+      <td><input class="split-input" value="${s.pace !== '—' ? s.pace : ''}" placeholder="5:42" data-km="${s.km}" data-field="pace" type="text"></td>
+      <td><input class="split-input" value="${s.hr || ''}" placeholder="148" data-km="${s.km}" data-field="hr" type="text" style="width:70px"></td>
+      <td><input class="split-input" placeholder="optional" data-km="${s.km}" data-field="note" type="text" style="width:120px"></td>`;
+    tbody.appendChild(tr);
+  });
+ 
+  // Flash confirmation
+  const btn = document.querySelector('.upload-apply-btn');
+  const orig = btn.textContent;
+  btn.textContent = '✓ Applied! Splits loaded into form';
+  btn.style.background = 'rgba(29,219,122,0.25)';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2500);
+}
+ 
 // ── Splits table ──
 function generateSplitRows(n) {
   const tbody = document.getElementById('splitsBody');
@@ -1328,15 +1462,19 @@ function generateSplitRows(n) {
   splitRows = n;
   for (let i = 1; i <= n; i++) addSplitRow(i);
 }
-
+ 
 function addSplitRow(km) {
   if (!km) { splitRows++; km = splitRows; }
   const tbody = document.getElementById('splitsBody');
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td class="km-label">KM ${km}</td><td><input class="split-input" placeholder="5:42" data-km="${km}" data-field="pace" type="text"></td><td><input class="split-input" placeholder="148" data-km="${km}" data-field="hr" type="text" style="width:70px"></td><td><input class="split-input" placeholder="optional" data-km="${km}" data-field="note" type="text" style="width:120px"></td>`;
+  tr.innerHTML = `
+    <td class="km-label">KM ${km}</td>
+    <td><input class="split-input" placeholder="5:42" data-km="${km}" data-field="pace" type="text"></td>
+    <td><input class="split-input" placeholder="148" data-km="${km}" data-field="hr" type="text" style="width:70px"></td>
+    <td><input class="split-input" placeholder="optional" data-km="${km}" data-field="note" type="text" style="width:120px"></td>`;
   tbody.appendChild(tr);
 }
-
+ 
 function getSplitData() {
   const rows = document.querySelectorAll('#splitsBody tr');
   const splits = [];
@@ -1348,80 +1486,73 @@ function getSplitData() {
   });
   return splits;
 }
-
-// ── Get today's workout context ──
-function getTodayWorkoutContext() {
-  const dayNames = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
-  const today = dayNames[new Date().getDay()];
-  const workoutMap = {
-    'MON': 'Upper body + core strength, plyometrics, mobility, foot rollers',
-    'TUE': 'Easy run + strides day',
-    'WED': 'Recovery run + lower body / single-leg strength (lower body video: https://youtu.be/elhPvUIAKPg)',
-    'THU': '🔥 LT / Tempo session — key quality day',
-    'FRI': 'Recovery day — optional light core, resistance bands, massage gun or elliptical',
-    'SAT': 'Easy / Parkrun + Pilates (https://youtu.be/bYU3BxLuvYA)',
-    'SUN': 'Long run day'
-  };
-  return workoutMap[today] || '';
-}
-
+ 
 // ── Build prompt ──
 function buildPrompt(runData) {
-  const { weekNum, sessionIdx, dist, time, avgPace, hr, cadence, elevation, splits, garminPaste, context, garminLink } = runData;
+  const { weekNum, sessionIdx, dist, time, avgPace, hr, cadence, elevation, splits, garminPaste, context } = runData;
+ 
   const w = weekNum ? WEEKS[weekNum-1] : null;
   const session = (w && sessionIdx !== '') ? w.sessions[sessionIdx] : null;
-
+ 
   let planContext = '';
   if (w) {
-    planContext = `\nTRAINING PLAN CONTEXT:
-- 24-week plan targeting sub-1:45 half marathon (4:58/km average)
+    planContext = `
+TRAINING PLAN CONTEXT:
+- This is a 24-week plan targeting sub-1:45 half marathon (4:58/km)
 - Current week: Week ${w.n} of 24
 - Week type: ${w.type} (${w.km} km planned total)
 - Training phase: Phase ${w.phase}
 - Easy zone: 135–148 bpm, 6:15–6:45/km
-- LT target this block: ${LT_PACES[w.n-1]}/km`;
+- LT target this block: ${LT_PACES[w.n-1]}/km
+- Phase ${w.phase} LT zone: ${w.phase<=2?'6:00–6:20':w.phase===3?'5:50–6:00':w.phase===4?'5:40–5:50':w.phase===5?'5:00–5:10':'5:30–5:40'}/km`;
+ 
     if (session) {
       planContext += `\n- Planned session: ${session.day} — ${session.label}`;
       if (session.ltPace) planContext += `\n- Target LT pace: ${session.ltPace}/km over ${session.ltKm}km`;
       if (session.km) planContext += `\n- Planned total distance: ${session.km}km`;
     }
+    // Surrounding weeks context
     const prevWeek = weekNum > 1 ? WEEKS[weekNum-2] : null;
     const nextWeek = weekNum < 24 ? WEEKS[weekNum] : null;
     if (prevWeek) planContext += `\n- Previous week: ${prevWeek.km}km (${prevWeek.type})`;
     if (nextWeek) planContext += `\n- Next week: ${nextWeek.km}km (${nextWeek.type})`;
   }
-
-  // Weekly workout schedule context
-  const workoutSchedule = `\nWEEKLY WORKOUT SCHEDULE (supporting running):
-- MON: Upper body + core strength, plyometrics, mobility, foot rollers
-- TUE: Easy run + strides
-- WED: Recovery run + lower body/single-leg strength
-- THU: 🔥 LT/Tempo (key quality session)
-- FRI: Recovery, optional light core/bands, massage gun or elliptical
-- SAT: Easy/Parkrun + Pilates
-- SUN: Long run
-If relevant, reference how the workout schedule may have affected this run.`;
-
-  let runInfo = '\nRUN DATA:\n';
-  if (garminLink) runInfo += `- Garmin Connect: ${garminLink}\n`;
+ 
+  let runInfo = '\nRUN DATA LOGGED:\n';
   if (dist) runInfo += `- Distance: ${dist}\n`;
   if (time) runInfo += `- Total time: ${time}\n`;
   if (avgPace) runInfo += `- Average pace: ${avgPace}\n`;
   if (hr) runInfo += `- Average HR: ${hr} bpm\n`;
   if (cadence) runInfo += `- Cadence: ${cadence} spm\n`;
   if (elevation) runInfo += `- Elevation: ${elevation}m\n`;
+ 
   if (splits && splits.length > 0) {
     runInfo += '\nKM SPLITS:\n';
-    splits.forEach(s => { runInfo += `KM ${s.km}: ${s.pace||'—'}/km${s.hr?' | HR '+s.hr:''}${s.note?' | '+s.note:''}\n`; });
+    splits.forEach(s => {
+      runInfo += `KM ${s.km}: ${s.pace||'—'}/km${s.hr?' | HR '+s.hr:''}${s.note?' | '+s.note:''}\n`;
+    });
   }
-  if (garminPaste) runInfo += `\nPASTED DATA:\n${garminPaste}\n`;
+ 
+  if (garminPaste) runInfo += `\nGARMIN/RAW DATA:\n${garminPaste}\n`;
   if (context) runInfo += `\nATHLETE NOTES: ${context}\n`;
-
-  return `${planContext}${workoutSchedule}${runInfo}
-YOUR TASK: Analyse this run concisely and powerfully. Compare vs plan. Assess pacing strategy. Comment on HR if given. Reference the workout schedule context (e.g. if Monday strength may have left legs heavy). Give 1 specific thing done well, 1 specific improvement focus, and a concrete recommendation for the next session. Stay in character. 200-250 words max.`;
+ 
+  return `${planContext}\n${runInfo}
+ 
+YOUR TASK AS COACH:
+1. Parse and understand all run data provided (Garmin paste, splits, stats — whatever is given)
+2. Compare actual performance against the planned session and current training phase targets
+3. Assess pacing strategy — did they go out too fast, too slow, fade or negative split?
+4. Comment on HR data if provided — is it appropriate for the session type?
+5. Look at the bigger training picture — what does this run tell us about fitness trajectory?
+6. Identify 1–2 specific things they did well and 1–2 specific things to focus on
+7. Give a motivating, concrete recommendation for their NEXT session
+8. Keep your analysis to roughly 250–350 words — enough to be thorough, not overwhelming
+9. Speak entirely in your own voice and character
+ 
+Do not use generic platitudes. Be specific to THEIR splits, THEIR plan, and THEIR goal.`;
 }
-
-// ── Main analyze function (with streaming) ──
+ 
+// ── Main analyze function ──
 async function analyzeRun() {
   const weekNum = parseInt(document.getElementById('weekSelect').value) || null;
   const sessionIdx = document.getElementById('sessionSelect').value;
@@ -1433,133 +1564,129 @@ async function analyzeRun() {
   const elevation = document.getElementById('inputElevation').value.trim();
   const garminPaste = document.getElementById('garminPaste').value.trim();
   const context = document.getElementById('contextNotes').value.trim();
-  const garminLink = document.getElementById('garminConnectLink').value.trim();
-  const isGarminMode = document.getElementById('mode-garmin').style.display !== 'none';
-  const splits = isGarminMode ? [] : getSplitData();
-
-  if (!dist && !time && !avgPace && splits.length === 0 && !garminPaste && !garminLink) {
-    alert('Please enter at least your distance, time, or Garmin link before analysing.');
+  const activeTab = document.querySelector('.input-mode-tab.active')?.textContent || '';
+  const isGarminMode = activeTab.includes('Paste');
+  const isFileMode   = activeTab.includes('GPX') || activeTab.includes('FIT');
+  const splits = (isGarminMode || isFileMode) ? [] : getSplitData();
+ 
+  // If file mode, use parsed data as the source of truth
+  let fileSplits = [];
+  let fileGarminText = '';
+  if (isFileMode && parsedActivityData) {
+    const d = parsedActivityData;
+    fileGarminText = `FILE UPLOAD PARSED DATA (${d.filename}):\nDistance: ${d.distKm} km | Time: ${d.totalTime} | Avg Pace: ${d.avgPace}/km | Avg HR: ${d.avgHR || '—'} bpm | Cadence: ${d.avgCad || '—'} spm | Elevation: ${d.elevStr}\n\nKM SPLITS FROM FILE:\n` +
+      d.kmSplits.map(s => `KM ${s.km}${s.partial?` (${s.partial}m partial)`:''}:  ${s.pace}/km  HR ${s.hr||'—'}`).join('\n');
+    fileSplits = d.kmSplits.map(s => ({ km: s.km, pace: s.pace, hr: s.hr || '', note: s.partial ? `partial ${s.partial}m` : '' }));
+    if (!dist && d.distKm) document.getElementById('inputDist').value = d.distKm + ' km';
+    if (!avgPace && d.avgPace) document.getElementById('inputAvgPace').value = d.avgPace + '/km';
+  }
+ 
+  if (!dist && !time && !avgPace && splits.length === 0 && !garminPaste && !fileGarminText) {
+    alert('Please enter at least your distance, time, or some split data — or upload a GPX/FIT file — before analysing.');
     return;
   }
-
+ 
+  const runData = { weekNum, sessionIdx, dist, time, avgPace, hr, cadence, elevation,
+    splits: isFileMode ? fileSplits : splits,
+    garminPaste: isFileMode ? fileGarminText : (isGarminMode ? garminPaste : ''),
+    context };
   const coach = COACHES[selectedCoach];
-  const runData = { weekNum, sessionIdx, dist, time, avgPace, hr, cadence, elevation, splits, garminPaste: isGarminMode ? garminPaste : '', context, garminLink };
   const userPrompt = buildPrompt(runData);
-
+ 
   // Show loading
   document.getElementById('coachLoading').classList.add('visible');
   document.getElementById('coachResponse').classList.remove('visible');
   document.getElementById('analyzeBtn').disabled = true;
   document.getElementById('loadingAvatar').textContent = coach.emoji;
   document.getElementById('loadingSub').textContent = `${coach.name} is studying your splits`;
-
+ 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 600,
+        max_tokens: 1000,
         system: coach.system,
         messages: [{ role: 'user', content: userPrompt }]
       })
     });
-
     const data = await response.json();
     const text = data.content?.map(b => b.text || '').join('') || 'No response received.';
-
-    // Hide loading, show response
+ 
+    // Show response
     document.getElementById('coachLoading').classList.remove('visible');
     document.getElementById('coachResponse').classList.add('visible');
     document.getElementById('responseAvatar').textContent = coach.emoji;
     document.getElementById('responseCoachName').textContent = coach.name;
     document.getElementById('responseCoachSubtitle').textContent = coach.subtitle;
-
-    // Get workout tip for today
-    const todayWorkout = getTodayWorkoutContext();
-    const workoutTipHtml = todayWorkout ? `
-      <div class="response-workout-tip">
-        <div class="response-workout-tip-label">💪 Today's Workout Context</div>
-        <div class="response-workout-tip-text">${todayWorkout}</div>
-      </div>` : '';
-
+ 
     document.getElementById('responseBody').innerHTML = `
       <div class="response-section">
         <div class="response-section-title">Coach Analysis</div>
-        <div class="response-text" id="streamingText"></div>
+        <div class="response-text">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
       </div>
       ${weekNum && weekNum < 24 ? `
       <div class="next-run-card">
         <div class="next-run-label">Next on your plan</div>
         <div class="next-run-title">${getNextSession(weekNum, sessionIdx)?.label || 'Check your tracker'}</div>
         <div class="next-run-detail">${getNextSessionDetail(weekNum, sessionIdx)}</div>
-      </div>` : ''}
-      ${workoutTipHtml}`;
-
-    // Animate text reveal (streaming effect)
-    await animateText('streamingText', text);
-
+      </div>` : ''}`;
+ 
     // Save to history
     const w = weekNum ? WEEKS[weekNum-1] : null;
-    const sessionObj = (w && sessionIdx !== '') ? w.sessions[parseInt(sessionIdx)] : null;
+    const session = (w && sessionIdx !== '') ? w.sessions[parseInt(sessionIdx)] : null;
     const historyEntry = {
-      id: Date.now(), coach: selectedCoach, coachEmoji: coach.emoji,
-      weekNum, sessionLabel: sessionObj?.label || (dist ? `${dist} run` : 'Run log'),
-      dist, avgPace, time, analysis: text, timestamp: new Date().toLocaleDateString(),
-      hasGarmin: !!garminLink, garminLink
+      id: Date.now(),
+      coach: selectedCoach,
+      coachEmoji: coach.emoji,
+      weekNum,
+      sessionLabel: session?.label || (dist ? `${dist} run` : 'Run log'),
+      dist, avgPace, time,
+      analysis: text,
+      timestamp: new Date().toLocaleDateString()
     };
     coachHistory.unshift(historyEntry);
     if (coachHistory.length > 20) coachHistory.pop();
     localStorage.setItem('pfizerCoachHistory', JSON.stringify(coachHistory));
     renderHistory();
-
+ 
   } catch (err) {
     document.getElementById('coachLoading').classList.remove('visible');
     document.getElementById('coachResponse').classList.add('visible');
-    document.getElementById('responseBody').innerHTML = `<div class="response-text" style="color:var(--red)">Error reaching coach: ${err.message}. Check your connection and try again.</div>`;
+    document.getElementById('responseBody').innerHTML = `<div class="response-text" style="color:var(--red)">Error reaching coach: ${err.message}. Please check your connection and try again.</div>`;
   }
-
+ 
   document.getElementById('analyzeBtn').disabled = false;
 }
-
-// Streaming text animation for faster perceived response
-async function animateText(elementId, text) {
-  const el = document.getElementById(elementId);
-  el.textContent = '';
-  el.classList.add('streaming-cursor');
-  const chunkSize = 4;
-  const delay = 12;
-  for (let i = 0; i < text.length; i += chunkSize) {
-    el.textContent += text.slice(i, i + chunkSize);
-    if (i % 40 === 0) await new Promise(r => setTimeout(r, delay));
-  }
-  el.classList.remove('streaming-cursor');
-}
-
+ 
 function getNextSession(weekNum, sessionIdx) {
   const w = WEEKS[weekNum-1];
   const si = sessionIdx !== '' ? parseInt(sessionIdx) : -1;
+  // Find next non-rest session in same week
   for (let i = si+1; i < w.sessions.length; i++) {
     if (w.sessions[i].type !== 'rest') return w.sessions[i];
   }
+  // Move to next week
   if (weekNum < 24) {
     const nw = WEEKS[weekNum];
     return nw.sessions.find(s => s.type !== 'rest') || null;
   }
   return null;
 }
-
+ 
 function getNextSessionDetail(weekNum, sessionIdx) {
   const next = getNextSession(weekNum, sessionIdx);
   if (!next) return 'Race day — you made it.';
+  const nextWeek = weekNum < 24 ? WEEKS[weekNum] : WEEKS[weekNum-1];
   return `${next.km ? next.km + ' km · ' : ''}${next.type === 'lt' ? '🔥 Quality session' : next.type === 'long' ? '🏃 Long run' : '🟢 Easy/recovery'}`;
 }
-
+ 
 // ── History ──
 function renderHistory() {
   const list = document.getElementById('historyList');
   const noH = document.getElementById('noHistory');
-  if (coachHistory.length === 0) { list.innerHTML = ''; noH.style.display = 'block'; return; }
+  if (coachHistory.length === 0) { list.innerHTML=''; noH.style.display='block'; return; }
   noH.style.display = 'none';
   list.innerHTML = coachHistory.map(h => `
     <div class="history-item" onclick="showHistoryEntry(${h.id})">
@@ -1568,11 +1695,10 @@ function renderHistory() {
         <div style="font-weight:600;font-size:13px;margin-bottom:2px">${h.sessionLabel}</div>
         <div style="font-size:11px;color:var(--muted2)">${h.dist||''} ${h.avgPace?'· '+h.avgPace:''} · ${h.timestamp}</div>
       </div>
-      ${h.hasGarmin ? '<span class="garmin-badge">Garmin</span>' : ''}
       <div class="history-coach-badge">${h.coachEmoji} ${COACHES[h.coach]?.name.split(' ')[0] || ''}</div>
     </div>`).join('');
 }
-
+ 
 function showHistoryEntry(id) {
   const entry = coachHistory.find(h => h.id === id);
   if (!entry) return;
@@ -1583,13 +1709,12 @@ function showHistoryEntry(id) {
   document.getElementById('responseBody').innerHTML = `
     <div class="response-section">
       <div class="response-section-title">Analysis — ${entry.sessionLabel}</div>
-      ${entry.garminLink ? `<div style="font-family:'JetBrains Mono';font-size:10px;color:var(--green);margin-bottom:10px;word-break:break-all;">🔗 ${entry.garminLink}</div>` : ''}
       <div class="response-text">${entry.analysis.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
     </div>`;
   document.getElementById('coachResponse').classList.add('visible');
   document.getElementById('coachResponse').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
+ 
 // ══════════════════════════════════════════════
 // NAV
 // ══════════════════════════════════════════════
@@ -1600,22 +1725,21 @@ function showPage(id, btn) {
   btn.classList.add('active');
   if (id === 'analytics') renderAnalytics();
 }
-
+ 
 function refreshAll() {
   renderDashboard();
   renderTracker();
   if (document.getElementById('page-analytics').classList.contains('active')) renderAnalytics();
 }
-
+ 
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
 renderDashboard();
 renderTracker();
 renderRace();
-renderWorkouts();
 populateWeekSelect();
-generateSplitRows(7);
+generateSplitRows(7); // default 7 km splits
 renderHistory();
 </script>
 </body>
